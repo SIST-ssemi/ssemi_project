@@ -10,15 +10,13 @@ public class DbConnect {
 
         try {
             conn = DriverManager.getConnection(URL, "ssemi", "ssemi1226");
-            // System.out.println("오라클 dragon 계정 연결 성공\n");
 
         } catch (SQLException e) {
-            System.out.println("오라클 dragon 계정 연결 실패 : " + e.getMessage());
+            System.out.println("mysql 계정 연결 실패 : " + e.getMessage());
         }
         return conn;
     }
-
-    // close 총 4 개의 오버로딩 메소드 .. conn, stmt(pre), rs
+    
     public void dbClose(ResultSet rs, Statement stmt, Connection conn) {
         try {
             if(rs != null)
@@ -28,7 +26,6 @@ public class DbConnect {
             if(conn != null)
                 conn.close();
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -42,7 +39,6 @@ public class DbConnect {
             if(conn != null)
                 conn.close();
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -54,7 +50,6 @@ public class DbConnect {
             if(conn != null)
                 conn.close();
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
@@ -66,7 +61,6 @@ public class DbConnect {
             if(conn != null)
                 conn.close();
         } catch (SQLException e) {
-            // TODO Auto-generated catch block
             e.printStackTrace();
         }
     }
