@@ -8,5 +8,7 @@ public class UserTest {
         UserDao ud = new UserDao();
 
         ud.managementUser();
+//        ud.findById("u2323");
+
     }
 }

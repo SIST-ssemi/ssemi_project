@@ -11,4 +11,14 @@ public class UserService {
 
     }
 
+    //마이페이지
+    public void myPage(){
+
+    }
+
+    //회원관리
+    public void management(){
+
+    }
+
 }
