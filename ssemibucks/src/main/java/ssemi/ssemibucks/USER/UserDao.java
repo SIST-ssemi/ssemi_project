@@ -13,20 +13,25 @@ public class UserDao {
     Scanner sc = new Scanner(System.in);
 
     //아이디 검색
-    public int findById(String findId) {
+    public User findByUser(String findId) {
         Connection conn = db.getConnection();
         PreparedStatement pstmt = null;
         ResultSet rs = null;
 
-        String sql = "select uId from USER where uId=?";
+        User user = null;
+
+        String sql = "select * from USER where uId=?";
         try {
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, findId);
 
             pstmt.execute();
             rs = pstmt.executeQuery();
-            if (rs.next()) return 1;
-            else return 0;
+
+            while(rs.next()){
+                user = new User(rs.getString("uId"), rs.getString("pw"));
+            }
+            return user;
 
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -38,7 +43,7 @@ public class UserDao {
 
     //아이디 중복체크
     public int idDuplication(String uId) {
-        if (findById(uId) == 1) {
+        if (findByUser(uId).getuId() == uId) {
             System.out.println("아이디 중복");
             return 1;
         }
@@ -94,7 +99,7 @@ public class UserDao {
         while (true) {
             System.out.print("아이디를 입력하세요 >> ");
             String uId = sc.nextLine();
-            if (findById(uId) == 0) {
+            if (findByUser(uId).getuId() == null) {
                 System.out.println("재입력하세요");
             } else {
 
@@ -179,7 +184,7 @@ public class UserDao {
         while (true) {
             System.out.print("삭제하고싶은 계정의 아이디 입력 >> ");
             String uId = sc.nextLine();
-            if (findById(uId) == 0) {
+            if (findByUser(uId).getuId() == null) {
                 System.out.println("재입력하세요");
             } else {
 
@@ -205,7 +210,7 @@ public class UserDao {
         while (true) {
             System.out.print("수정하고싶은 계정의 아이디 입력 >> ");
             String uId = sc.nextLine();
-            if (findById(uId) == 0) {
+            if (findByUser(uId).getuId() == null) {
                 System.out.println("재입력하세요");
             } else {
                 System.out.println("1. 비밀번호 수정\t2. 주소 수정\t0.취소");

@@ -15,6 +15,12 @@ public class User {
         this.addr = addr;
     }
 
+    //로그인 용
+    User(String uId, String pw) {
+        this.uId = uId;
+        this.pw = pw;
+    }
+
     public String getuId() {
         return uId;
     }
