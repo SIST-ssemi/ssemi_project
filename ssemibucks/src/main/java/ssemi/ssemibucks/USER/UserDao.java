@@ -108,7 +108,7 @@ public class UserDao {
                     pstmt.execute();
 
                     rs = pstmt.executeQuery();
-                    System.out.println("\n[마이페이지]");
+                    System.out.println("**내 정보**");
                     System.out.println("아이디\t이름\t\t비밀번호\t전화번호\t\t\t주소");
                     System.out.println("==================================================");
                     while (rs.next()) {
@@ -165,7 +165,7 @@ public class UserDao {
             pstmt.setString(5, addr);
 
             int n = pstmt.executeUpdate();
-            if (n == 1) System.out.println("**가입 완료**\n");
+            if (n == 1) System.out.println(uId + "님 가입을 환영합니다.\n");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
@@ -194,7 +194,7 @@ public class UserDao {
                     pstmt.setString(1, uId);
 
                     int n = pstmt.executeUpdate();
-                    if (n == 1) System.out.println("**삭제 완료**\n");
+                    if (n == 1) System.out.println("**회원 삭제 완료**\n");
                     break;
                 } catch (SQLException e) {
                     throw new RuntimeException(e);
@@ -214,7 +214,7 @@ public class UserDao {
             if (user == null) {
                 System.out.println("재입력하세요");
             } else {
-                System.out.println("1. 비밀번호 수정\t2. 주소 수정\t0.취소");
+                System.out.println("1. 비밀번호 수정\t2. 주소 수정\t0. 돌아가기");
                 System.out.print("입력 >> ");
                 int num = Integer.parseInt(sc.nextLine());
 

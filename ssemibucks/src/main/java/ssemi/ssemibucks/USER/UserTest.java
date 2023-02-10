@@ -5,10 +5,12 @@ import java.sql.SQLException;
 public class UserTest {
 
     public static void main(String[] args) throws SQLException {
-        UserDao ud = new UserDao();
-        UserService us = new UserService();
+        UserDao userDao = new UserDao();
+        UserService userService = new UserService();
 
-         ud.managementUser();
+
+        userService.management();
+
 
     }
 }
