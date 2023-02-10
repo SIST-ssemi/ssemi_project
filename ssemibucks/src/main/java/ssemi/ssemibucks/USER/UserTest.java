@@ -6,9 +6,9 @@ public class UserTest {
 
     public static void main(String[] args) throws SQLException {
         UserDao ud = new UserDao();
+        UserService us = new UserService();
 
-        ud.managementUser();
-//        ud.findById("u2323");
+         ud.managementUser();
 
     }
 }
