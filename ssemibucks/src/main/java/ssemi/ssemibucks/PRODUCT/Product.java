@@ -21,9 +21,11 @@ public class Product {
         this.pImage = pImage;
     }
 
-    public Product(String pId, String pName) {
+    public Product(String pId, String pName, String pOption, int price) {
         this.pId = pId;
         this.pName = pName;
+        this.pOption = pOption;
+        this.price = price;
     }
 
     public String getpId() {

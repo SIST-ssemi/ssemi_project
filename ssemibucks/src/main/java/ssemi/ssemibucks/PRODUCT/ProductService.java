@@ -25,6 +25,11 @@ public class ProductService {
         String pId = sc.nextLine();
         System.out.println();
 
+        // 상품 아이디 존재 여부 확인
+        if (productDao.findBypId(pId) == null) {
+            System.out.println("해당 상품 정보 없음\n\n");
+            return;
+        }
         productDao.selectProduct(pId);
     }
 
@@ -90,19 +95,89 @@ public class ProductService {
         String pId = sc.nextLine();
         System.out.println();
 
-        productDao.deleteProduct(pId);
+        // 상품 아이디 존재 여부 확인
+        Product product = productDao.findBypId(pId);
+        if (product == null) {
+            System.out.println("해당 상품 정보 없음\n\n");
+            return;
+        }
+
+        String pName = product.getpName();
+
+        System.out.println("[" + pName + "] 삭제하시겠습니까?  1:yes  2:no");
+        System.out.print("번호 입력 : ");
+        int num = Integer.parseInt(sc.nextLine());
+        System.out.println();
+        if (num == 1) {
+            productDao.deleteProduct(pId, pName);
+        } else if (num == 2) {
+            System.out.println("삭제 취소\n\n");
+            return;
+        } else {
+            System.out.println("해당 번호 없음\n\n");
+            return;
+        }
+
     }
 
     // 상품 수정
     public void modifyProduct() {
         System.out.println("상품 수정\n");
 
+        int num1, num2, input;
+        String sql;
+
         // 상품 아이디 입력받아서 조회 -> "수정하시겠습니까?" -> 수정(수량, 가격만?)
         System.out.print("수정할 상품 아이디 입력 : ");
         String pId = sc.nextLine();
         System.out.println();
 
-        productDao.updateProduct(pId);
+        Product product = productDao.findBypId(pId);
+
+        // 상품 아이디 존재 여부 확인
+        if (product == null) {
+            System.out.println("해당 상품 정보 없음\n\n");
+            return;
+        }
+
+        String pName = product.getpName();
+
+        System.out.println("[" + pName + "] 수정하시겠습니까?  1:yes  2:no");
+        System.out.print("번호 입력 : ");
+        num1 = Integer.parseInt(sc.nextLine());
+        System.out.println();
+
+        if (num1 == 1) {
+            System.out.println("[" + pName + "] 수정 - 1:가격  2:수량");
+            System.out.print("번호 입력 : ");
+            num2 = Integer.parseInt(sc.nextLine());
+            System.out.println();
+
+            if (num2 == 1) {
+                sql = "update PRODUCT set price = ? where pId = ?";
+
+                System.out.print("[" + pName + "] 수정할 가격 입력 : ");
+                input = Integer.parseInt(sc.nextLine());
+                System.out.println();
+            } else if (num2 == 2) {
+                sql = "update PRODUCT set pStock = ? where pId = ?";
+
+                System.out.print("[" + pName + "] 수정할 수량 입력 : ");
+                input = Integer.parseInt(sc.nextLine());
+                System.out.println();
+            } else {
+                System.out.println("해당 번호 없음\n\n");
+                return;
+            }
+        } else if (num1 == 2) {
+            System.out.println("[" + pName + "] 수정 취소\n\n");
+            return;
+        } else {
+            System.out.println("해당 번호 없음\n\n");
+            return;
+        }
+
+        productDao.updateProduct(pId, pName, sql, input);
     }
 
     // 상품 아이디 무조건 p + 숫자 4자리

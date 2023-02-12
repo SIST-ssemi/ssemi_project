@@ -15,8 +15,6 @@ public class ProductDao {
     PreparedStatement pstmt = null;
     ResultSet rs = null;
     String sql = "";
-    Connection conn = db.getConnection();
-
 
     // 전체 상품 목록
     public void selectAllProduct() {
@@ -43,6 +41,8 @@ public class ProductDao {
                             + rs.getString("pDetail") + "\t"
                             + rs.getString("pImage") + "\t");
                 } while (rs.next());
+
+                System.out.println("\n상품 목록 조회 완료\n\n");
             } else {
                 System.out.println("상품 목록 없음\n\n");
             }
@@ -59,12 +59,6 @@ public class ProductDao {
         Connection conn = db.getConnection();
 
         sql = "select * from PRODUCT where pId = ?";
-
-        // 상품 아이디 존재 여부 확인
-        if (findBypId(pId) == null) {
-            System.out.println("해당 상품 정보 없음\n\n");
-            return;
-        }
 
         try {
             pstmt = conn.prepareStatement(sql);
@@ -122,42 +116,17 @@ public class ProductDao {
     }
 
     // 상품 삭제
-    public void deleteProduct(String pId) {
+    public void deleteProduct(String pId, String pName) {
         Connection conn = db.getConnection();
-        Product product = findBypId(pId);
-        int num;
 
         sql = "delete from PRODUCT where pId = ?";
-
-        // 상품 아이디 존재 여부 확인
-        if (product == null) {
-            System.out.println("해당 상품 정보 없음\n\n");
-            return;
-        }
-
-        String pName = product.getpName();
 
         try {
             pstmt = conn.prepareStatement(sql);
             pstmt.setString(1, pId);
 
-            System.out.println("[" + pName + "] 삭제하시겠습니까?  1:yes  2:no");
-            System.out.print("번호 입력 : ");
-            num = Integer.parseInt(sc.nextLine());
-            System.out.println();
-
-            if (num == 1) {
-                int n = pstmt.executeUpdate();
-
-                if (n == 1)
-                    System.out.println("[" + pName + "] 삭제 완료\n\n");
-            } else if (num == 2) {
-                System.out.println("삭제 취소\n\n");
-                return;
-            } else {
-                System.out.println("해당 번호 없음\n\n");
-                return;
-            }
+            pstmt.execute();
+            System.out.println("[" + pName + "] 삭제 완료\n\n");
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -168,73 +137,24 @@ public class ProductDao {
     }
 
     // 상품 수정
-    public void updateProduct(String pId) {
-        Product product = findBypId(pId);
-        int num1, num2, input;
+    public void updateProduct(String pId, String pName, String sql, int input) {
 
         Connection conn = db.getConnection();
 
-        // 가격
-        String SqlPrice = "update PRODUCT set price = ? where pId = ?";
-
-        // 수량
-        String sqlStock = "update PRODUCT set pStock = ? where pId = ?";
-
-        // 상품 아이디 존재 여부 확인
-        if (product == null) {
-            System.out.println("해당 상품 정보 없음\n\n");
-            return;
-        }
-
-        String pName = product.getpName();
-
-        System.out.println("[" + pName + "] 수정하시겠습니까?  1:yes  2:no");
-        System.out.print("번호 입력 : ");
-        num1 = Integer.parseInt(sc.nextLine());
-        System.out.println();
-
-        if (num1 == 1) {
-            System.out.println("[" + pName + "] 수정 - 1:가격  2:수량");
-            System.out.print("번호 입력 : ");
-            num2 = Integer.parseInt(sc.nextLine());
-            System.out.println();
-
-            if (num2 == 1) {
-                sql = SqlPrice;
-
-                System.out.print("[" + pName + "] 수정할 가격 입력 : ");
-                input = Integer.parseInt(sc.nextLine());
-                System.out.println();
-            } else if (num2 == 2) {
-                sql = sqlStock;
-
-                System.out.print("[" + pName + "] 수정할 수량 입력 : ");
-                input = Integer.parseInt(sc.nextLine());
-                System.out.println();
-            } else {
-                System.out.println("해당 번호 없음\n\n");
-                return;
-            }
-        } else if (num1 == 2) {
-            System.out.println("[" + pName + "] 수정 취소\n\n");
-            return;
-        } else {
-            System.out.println("해당 번호 없음\n\n");
-            return;
-        }
         try {
             pstmt = conn.prepareStatement(sql);
+
+            // pstmt.setString(1, str);
             pstmt.setInt(1, input);
             pstmt.setString(2, pId);
-
-            int n = pstmt.executeUpdate();
-            if (n == 1)
-                System.out.println("[" + pName + "] 수정 완료\n\n");
+            
+            pstmt.execute();
+            System.out.println("[" + pName + "] 수정 완료\n\n");
 
         } catch (SQLException ex) {
             ex.printStackTrace();
         } finally {
-            db.dbClose(rs, pstmt, conn);
+            db.dbClose(pstmt, conn);
         }
 
     }
@@ -253,7 +173,7 @@ public class ProductDao {
             rs = pstmt.executeQuery();
 
             while (rs.next()) {
-                product = new Product(rs.getString("pId"), rs.getString("pName"));
+                product = new Product(rs.getString("pId"), rs.getString("pName"), rs.getString("pOption"), rs.getInt("price"));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -263,5 +183,4 @@ public class ProductDao {
 
         return product;
     }
-
 }
