@@ -5,14 +5,20 @@ public class Cart {
     private String pName;
     private String pOption;
     private int price;
-    private int cQTY;
+    private int cQty;
 
-    public Cart(String pId, String pName, String pOption, int price, int cQTY) {
+    public Cart(String pId, String pName, String pOption, int price, int cQty) {
         this.pId = pId;
         this.pName = pName;
         this.pOption = pOption;
         this.price = price;
-        this.cQTY = cQTY;
+        this.cQty = cQty;
+    }
+
+    public Cart(String pId, String pName, int cQty) {
+        this.pId = pId;
+        this.pName = pName;
+        this.cQty = cQty;
     }
 
     public String getpId() {
@@ -47,11 +53,11 @@ public class Cart {
         this.price = price;
     }
 
-    public int getcQTY() {
-        return cQTY;
+    public int getcQty() {
+        return cQty;
     }
 
-    public void setcQTY(int cQTY) {
-        this.cQTY = cQTY;
+    public void setcQty(int cQty) {
+        this.cQty = cQty;
     }
 }
