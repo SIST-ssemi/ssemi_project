@@ -22,7 +22,7 @@ public class CartTest {
             if (num == 1)
                 service.registerCart();
             else if (num == 2)
-                System.out.println("장바구니 조회\n\n");
+                service.allCart();
             else if (num == 3)
                 service.removeCart();
             else if (num == 4)

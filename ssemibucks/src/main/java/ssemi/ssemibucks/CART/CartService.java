@@ -16,6 +16,12 @@ public class CartService {
         this.productDao = productDao;
     }
     
+    //장바구니 목록 조회
+    public void allCart() {
+        System.out.println("장바구니 목록 조회\n");
+        cartDao.selectCart();
+    }
+    
     // 장바구니 등록
     public void registerCart() {
         System.out.println("장바구니 등록\n");

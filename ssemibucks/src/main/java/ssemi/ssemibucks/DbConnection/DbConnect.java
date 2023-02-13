@@ -16,7 +16,7 @@ public class DbConnect {
         }
         return conn;
     }
-    
+
     public void dbClose(ResultSet rs, Statement stmt, Connection conn) {
         try {
             if(rs != null)
