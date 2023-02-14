@@ -83,7 +83,7 @@
 
 .navbar-light .navbar-nav .nav-link:hover,
 .navbar-light .navbar-nav .nav-link.active {
-  color: var(--primary);
+  color: rgb(167, 193, 55);
 }
 
 @media (max-width: 991.98px) {
