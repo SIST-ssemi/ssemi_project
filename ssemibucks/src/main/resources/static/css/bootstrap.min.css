@@ -18,7 +18,7 @@
   --bs-white: #fff;
   --bs-gray: #6c757d;
   --bs-gray-dark: #343a40;
-  --bs-primary: #ab7442;
+  --bs-primary: rgb(167, 193, 55);
   --bs-secondary: #6c757d;
   --bs-success: #198754;
   --bs-info: #0dcaf0;
@@ -2549,19 +2549,19 @@ fieldset:disabled .btn {
 }
 .btn-primary {
   color: #000;
-  background-color: #ab7442;
-  border-color: #ab7442;
+  background-color: rgb(186, 215, 57);
+  border-color: rgb(186, 215, 57);
 }
 .btn-primary:hover {
   color: #000;
-  background-color: #b8895e;
-  border-color: #b38255;
+  background-color: rgb(167, 193, 55);
+  border-color: rgb(167, 193, 55);
 }
 .btn-check:focus + .btn-primary,
 .btn-primary:focus {
   color: #000;
-  background-color: #b8895e;
-  border-color: #b38255;
+  background-color: rgb(167, 193, 55);
+  border-color: rgb(167, 193, 55);
   box-shadow: 0 0 0 0.25rem rgba(145, 99, 56, 0.5);
 }
 .btn-check:checked + .btn-primary,
@@ -2570,8 +2570,8 @@ fieldset:disabled .btn {
 .btn-primary.active,
 .show > .btn-primary.dropdown-toggle {
   color: #000;
-  background-color: #bc9068;
-  border-color: #b38255;
+  background-color: rgb(167, 193, 55);
+  border-color: rgb(167, 193, 55);
 }
 .btn-check:checked + .btn-primary:focus,
 .btn-check:active + .btn-primary:focus,
@@ -2583,8 +2583,8 @@ fieldset:disabled .btn {
 .btn-primary:disabled,
 .btn-primary.disabled {
   color: #000;
-  background-color: #ab7442;
-  border-color: #ab7442;
+  background-color: rgb(167, 193, 55);
+  border-color: rgb(167, 193, 55);
 }
 .btn-secondary {
   color: #fff;
@@ -3133,11 +3133,11 @@ fieldset:disabled .btn {
 }
 .btn-link {
   font-weight: 400;
-  color: #ab7442;
+  color: rgb(167, 193, 55);
   text-decoration: none;
 }
 .btn-link:hover {
-  color: #895d35;
+  color: rgb(167, 193, 55);
 }
 .btn-link:disabled,
 .btn-link.disabled {
@@ -3574,7 +3574,7 @@ fieldset:disabled .btn {
 .nav-link {
   display: block;
   padding: 0.5rem 1rem;
-  color: #ab7442;
+  color: rgb(167, 193, 55);
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
     border-color 0.15s ease-in-out;
 }
@@ -6783,7 +6783,7 @@ fieldset:disabled .btn {
   word-break: break-word !important;
 }
 .text-primary {
-  color: #ab7442 !important;
+  color: rgb(186, 215, 57) !important;
 }
 .text-secondary {
   color: #6c757d !important;
