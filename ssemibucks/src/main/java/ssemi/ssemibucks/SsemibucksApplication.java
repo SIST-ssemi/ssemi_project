@@ -8,6 +8,7 @@ public class SsemibucksApplication {
 
 	public static void main(String[] args) {
 		SpringApplication.run(SsemibucksApplication.class, args);
+
 	}
 
 }
