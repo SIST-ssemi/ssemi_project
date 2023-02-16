@@ -12,6 +12,16 @@
     />
     <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
     <style>
+      .header,
+      h4,
+      .close {
+        background-color: rgb(167, 193, 55);
+      ;
+        color: white !important;
+        text-align: center;
+        font-size: 30px;
+      }
+
       body {
         padding: 0;
         margin: 0;
@@ -78,7 +88,10 @@
     </script> -->
   </head>
   <body>
-    <div class="title"><h1>Sign Up</h1></div>
+  <div class="content">
+    <div class="header" style="padding: 35px 50px">
+      <h4></span>Sign up</h4>
+    </div>
     <table class="table table-stripped" align="center">
       <tr>
         <div class="uId">
@@ -136,5 +149,6 @@
         </td>
       </tr>
     </table>
+  </div>
   </body>
 </html>
