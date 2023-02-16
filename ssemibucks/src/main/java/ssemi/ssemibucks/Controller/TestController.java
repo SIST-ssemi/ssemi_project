@@ -27,4 +27,19 @@ public class TestController {
         return "adminpage";
     }
 
+    @RequestMapping("/product_list.html")
+    public String pList() {
+        return "product_list";
+    }
+
+    @RequestMapping("/product_detail.html")
+    public String pDetail() {
+        return "product_detail";
+    }
+
+    @RequestMapping("/navbar.html")
+    public String navbar() {
+        return "navbar";
+    }
+
 }
