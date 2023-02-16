@@ -8,11 +8,18 @@
     />
     <meta name="description" content="" />
     <meta name="author" content="" />
-    <title>Ssemibucks_MyPage</title>
-
+    <title>Ssemibucks_AdminPage</title>
+    <!-- Favicon-->
+    <link rel="icon" type="image/x-icon" href="assets/favicon.ico" />
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="/css/styles_mypage.css" rel="stylesheet" />
   </head>
+  <style>
+    .btnmodify {
+      width: 600px;
+      height: 100px;
+    }
+  </style>
   <body>
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0">
@@ -75,68 +82,49 @@
           height="120px"
         />
         <i class="fas fa-user"></i>
-        <h1 class="text-white fs-3 fw-bolder">uName님</h1>
-        <p class="text-white-50 mb-0">환영합니다</p>
+        <h1 class="text-white fs-3 fw-bolder">ADMIN</h1>
+        <p class="text-white-50 mb-0">관리자 계정입니다</p>
       </div>
     </header>
     <!-- Content section-->
     <div class="container my-5">
-      <!-- <div class="row justify-content-center"> -->
-      <div class="col-lg-6">
-        <h1>My Information</h1>
-        <hr />
+      <div class="row justify-content-center">
         <table class="table table-stripped" align="center">
-          <tr>
-            <div class="uId">
-              <th style="vertical-align: middle">아이디</th>
-              <td style="vertical-align: middle">uId</td>
-            </div>
-          </tr>
-          <tr>
-            <div class="pw">
-              <th style="vertical-align: middle">비밀번호</th>
-              <td style="vertical-align: middle">pw</td>
-            </div>
-          </tr>
-          <tr>
-            <div class="uName">
-              <th style="vertical-align: middle">이름</th>
-              <td style="vertical-align: middle">uName</td>
-            </div>
-          </tr>
-          <tr>
-            <div class="hp">
-              <th style="vertical-align: middle">전화번호</th>
-              <td style="vertical-align: middle">hp</td>
-            </div>
-          </tr>
-          <tr>
-            <div class="addr">
-              <th style="vertical-align: middle">주소</th>
-              <td style="vertical-align: middle">addr</td>
-            </div>
-          </tr>
-          <tr>
-            <td colspan="2" align="center">
+          <tr align="center">
+            <td style="vertical-align: middle">
               <button
                 type="button"
                 class="btn mybtn btnmodify"
-                onclick="location.href='usermodify.html'"
+                onclick="location.href='#'"
               >
-                정보수정
+                회원목록조회
               </button>
+            </td>
+          </tr>
+          <tr align="center">
+            <td style="vertical-align: middle">
               <button
                 type="button"
-                class="btn mybtn btndropout"
-                onclick="confirm('정말 탈퇴하시겠습니까?')"
+                class="btn mybtn btnmodify"
+                onclick="location.href='#'"
               >
-                회원탈퇴
+                회원강제탈퇴
+              </button>
+            </td>
+          </tr>
+          <tr align="center">
+            <td style="vertical-align: middle">
+              <button
+                type="button"
+                class="btn mybtn btnmodify"
+                onclick="location.href='#'"
+              >
+                재고관리
               </button>
             </td>
           </tr>
         </table>
       </div>
-      <!-- </div> -->
     </div>
 
     <!-- Bootstrap core JS-->

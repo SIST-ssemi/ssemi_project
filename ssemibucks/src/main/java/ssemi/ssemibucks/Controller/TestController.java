@@ -17,4 +17,14 @@ public class TestController {
         return "register";
     }
 
+    @RequestMapping("/mypage.html")
+    public String mypage(){
+        return "mypage";
+    }
+
+    @RequestMapping("/adminpage.html")
+    public String adminpage(){
+        return "adminpage";
+    }
+
 }
