@@ -6,38 +6,42 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class TestController {
+    @RequestMapping("/index")
+    public String index(){
+        return "index";
+    }
 
-    @RequestMapping("/login.html")
+    @RequestMapping("/login")
     public String login(){
         return "login";
     }
 
-    @RequestMapping("/register.html")
+    @RequestMapping("/register")
     public String register(){
         return "register";
     }
 
-    @RequestMapping("/mypage.html")
+    @RequestMapping("/mypage")
     public String mypage(){
         return "mypage";
     }
 
-    @RequestMapping("/adminpage.html")
+    @RequestMapping("/adminpage")
     public String adminpage(){
         return "adminpage";
     }
 
-    @RequestMapping("/product_list.html")
+    @RequestMapping("/product_list")
     public String pList() {
         return "product_list";
     }
 
-    @RequestMapping("/product_detail.html")
+    @RequestMapping("/product_detail")
     public String pDetail() {
         return "product_detail";
     }
 
-    @RequestMapping("/navbar.html")
+    @RequestMapping("/navbar")
     public String navbar() {
         return "navbar";
     }

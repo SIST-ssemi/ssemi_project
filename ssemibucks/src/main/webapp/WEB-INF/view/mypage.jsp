@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
     <meta charset="utf-8" />
     <meta
       name="viewport"
@@ -18,7 +19,7 @@
   </head>
   <body>
     <!-- Navbar -->
-    <div include-html="navbar.html"></div>
+    <div include-html="navbar"></div>
     <script>includeHTML();</script>
 
     <!-- Header - set the background image for the header in the line below-->
@@ -87,7 +88,7 @@
               <button
                 type="button"
                 class="btn mybtn btnmodify"
-                onclick="location.href='usermodify.html'"
+                onclick="location.href='usermodify'"
               >
                 정보수정
               </button>

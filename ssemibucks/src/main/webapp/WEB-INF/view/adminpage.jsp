@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
     <meta charset="utf-8" />
     <meta
       name="viewport"
@@ -24,7 +25,7 @@
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0">
       <a
-        href="index.html"
+        href="index"
         class="navbar-brand d-flex align-items-center px-4 px-lg-5"
       >
         <h2 class="m-0 text-primary">Ssemibucks</h2>
@@ -39,8 +40,8 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarCollapse">
         <div class="navbar-nav ms-auto p-4 p-lg-0">
-          <a href="index.html" class="nav-item nav-link active">Home</a>
-          <a href="mypage.html" class="nav-item nav-link">My Page</a>
+          <a href="index" class="nav-item nav-link active">Home</a>
+          <a href="mypage" class="nav-item nav-link">My Page</a>
           <div class="nav-item dropdown">
             <a
               href="#"

@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+    <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,7 +26,7 @@
 
 <body>
     <!-- Navbar -->
-    <div include-html="navbar.html"></div>
+    <div include-html="navbar"></div>
     <script>includeHTML();</script>
 
     <!-- Header-->
@@ -43,7 +43,7 @@
         <div class="container px-4 px-lg-5 mt-5">
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center">
                 <div class="col mb-5">
-                    <div class="card h-100" id="product" onclick="location.href='product_detail.html';">
+                    <div class="card h-100" id="product" onclick="location.href='product_detail';">
                         <!-- Product image-->
                         <img class="card-img-top"
                             src="https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/[94]_20210430103337157.jpg"

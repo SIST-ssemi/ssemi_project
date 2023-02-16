@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
+    <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -49,7 +49,7 @@
 <body>
 
     <!-- Navbar -->
-    <div include-html="navbar.html"></div>
+    <div include-html="navbar"></div>
     <script>includeHTML();</script>
 
     <!-- Header-->
@@ -62,7 +62,7 @@
         <div class="container px-4 px-lg-5 my-5">
             <!-- btn -->
             <div>
-                <button class="btn" onclick="location.href='/product_list.html';" style="margin-bottom: 20px;"><i
+                <button class="btn" onclick="location.href='/product_list';" style="margin-bottom: 20px;"><i
                         class="bi bi-arrow-left-circle"></i></span>
                     Back</button>
                 <button class="btn" style="margin-bottom: 20px; float: right;" data-bs-toggle="modal"
@@ -89,7 +89,7 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 <button type="button" class="btn btn-primary"
-                                    onclick="location.href='/product_update.html';">Update</button>
+                                    onclick="location.href='/product_update';">Update</button>
                             </div>
                         </div>
                     </div>
@@ -112,7 +112,7 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 <button type="button" class="btn btn-primary"
-                                    onclick="location.href='/product_list.html';">Delete</button>
+                                    onclick="location.href='/product_list';">Delete</button>
                             </div>
                         </div>
                     </div>
