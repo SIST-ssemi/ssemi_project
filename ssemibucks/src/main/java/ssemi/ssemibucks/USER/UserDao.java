@@ -1,5 +1,6 @@
 package ssemi.ssemibucks.USER;
 
+import org.springframework.stereotype.Repository;
 import ssemi.ssemibucks.DbConnection.DbConnect;
 
 import java.sql.Connection;
@@ -8,6 +9,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
 
+@Repository
 public class UserDao {
     DbConnect db = new DbConnect();
     Scanner sc = new Scanner(System.in);

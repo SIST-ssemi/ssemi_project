@@ -21,6 +21,10 @@ public class User {
         this.pw = pw;
     }
 
+    public User() {
+
+    }
+
     public String getuId() {
         return uId;
     }

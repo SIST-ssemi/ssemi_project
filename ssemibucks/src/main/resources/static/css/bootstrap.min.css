@@ -235,7 +235,7 @@ sup {
 }
 
 a {
-  color: #ab7442;
+
   text-decoration: none;
 }
 
@@ -3502,15 +3502,9 @@ fieldset:disabled .btn {
   border-color: #353535;
 }
 
-.btn-outline-primary {
-  color: #ab7442;
-  border-color: #ab7442;
-}
-
 .btn-outline-primary:hover {
   color: #000;
-  background-color: #ab7442;
-  border-color: #ab7442;
+
 }
 
 .btn-check:focus + .btn-outline-primary,
@@ -3524,8 +3518,7 @@ fieldset:disabled .btn {
 .btn-outline-primary.active,
 .btn-outline-primary.dropdown-toggle.show {
   color: #000;
-  background-color: #ab7442;
-  border-color: #ab7442;
+
 }
 
 .btn-check:checked + .btn-outline-primary:focus,
@@ -3538,7 +3531,7 @@ fieldset:disabled .btn {
 
 .btn-outline-primary:disabled,
 .btn-outline-primary.disabled {
-  color: #ab7442;
+
   background-color: transparent;
 }
 
@@ -4422,7 +4415,7 @@ fieldset:disabled .btn {
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
   color: #fff;
-  background-color: #ab7442;
+
 }
 
 .nav-fill > .nav-link,
@@ -5179,7 +5172,7 @@ fieldset:disabled .btn {
 .page-link {
   position: relative;
   display: block;
-  color: #ab7442;
+
   background-color: #fff;
   border: 1px solid #dee2e6;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
@@ -5214,8 +5207,7 @@ fieldset:disabled .btn {
 .page-item.active .page-link {
   z-index: 3;
   color: #fff;
-  background-color: #ab7442;
-  border-color: #ab7442;
+
 }
 
 .page-item.disabled .page-link {
@@ -5422,7 +5414,7 @@ fieldset:disabled .btn {
   color: #fff;
   text-align: center;
   white-space: nowrap;
-  background-color: #ab7442;
+
   transition: width 0.6s ease;
 }
 
@@ -5522,8 +5514,7 @@ fieldset:disabled .btn {
 .list-group-item.active {
   z-index: 2;
   color: #fff;
-  background-color: #ab7442;
-  border-color: #ab7442;
+
 }
 
 .list-group-item + .list-group-item {
@@ -6915,9 +6906,7 @@ fieldset:disabled .btn {
   content: "";
 }
 
-.link-primary {
-  color: #ab7442;
-}
+
 
 .link-primary:hover,
 .link-primary:focus {
@@ -7341,9 +7330,7 @@ fieldset:disabled .btn {
   border-left: 0 !important;
 }
 
-.border-primary {
-  border-color: #ab7442 !important;
-}
+
 
 .border-secondary {
   border-color: #6c757d !important;
@@ -8374,9 +8361,7 @@ fieldset:disabled .btn {
   color: inherit !important;
 }
 
-.bg-primary {
-  background-color: #ab7442 !important;
-}
+
 
 .bg-secondary {
   background-color: #6c757d !important;

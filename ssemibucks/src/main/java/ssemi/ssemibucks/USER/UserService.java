@@ -1,28 +1,49 @@
 package ssemi.ssemibucks.USER;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.Scanner;
 
-public class UserService {
 
-    UserDao userDao = new UserDao();
+@Service
+public class UserService {
     Scanner sc = new Scanner(System.in);
+    private final UserDao userDao;
+
+    @Autowired
+    public UserService(UserDao userDao) {
+        this.userDao = userDao;
+    }
+
+//    public static void alertAndGo( HttpServletResponse response,String msg, String url) {
+//        try {
+//            response.setContentType("text/html; charset=utf-8");
+//            PrintWriter out = response.getWriter();
+//            out.write("<script>alert('"+msg+"');location.href='"+url+"';</script>");
+//            out.flush();
+//            out.close();
+//        } catch(Exception e) {
+//            e.printStackTrace();
+//        }
+//}
 
     //로그인
-    public String loginUser() {
+    public String loginUser(String uId, String pw) throws IOException {
         boolean flag = false;
         User user;
 
         do {
-            System.out.println("[Log in]");
-            System.out.print("아이디: ");
-            String uId = sc.nextLine();
-            System.out.print("비밀번호: ");
-            String pw = sc.nextLine();
-
-            user = new User(uId, pw);
+            user = new User();
+            user.setuId(uId);
+            user.setPw(pw);
 
             if (userDao.findByUser(uId) == null)
-                System.out.println("해당 아이디가 존재하지 않습니다.\n");
+//                alertAndGo(null,"아이디가 존재하지 않습니다.","login");
+                System.out.println("아이디가 존재하지 않습니다.\n");
 
             else if (userDao.findByUser(uId).getuId().equals(user.getuId()) && !userDao.findByUser(uId).getPw().equals(user.getPw()))
                 System.out.println("비밀번호가 일치하지 않습니다.\n");
@@ -40,7 +61,7 @@ public class UserService {
     public void registerUser() {
         System.out.println("[Sign up]");
         userDao.insertUser();
-        loginUser();
+//        loginUser();
     }
 
     //마이페이지
