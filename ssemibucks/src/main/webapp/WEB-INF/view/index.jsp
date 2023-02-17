@@ -52,7 +52,7 @@
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">MENU</a>
                     <div class="dropdown-menu fade-up m-0">
-                        <a href="product_list" class="dropdown-item">All menu</a>
+                        <a href="/product/product_list" class="dropdown-item">All menu</a>
                         <a href="#" class="dropdown-item">Coffee</a>
                         <a href="#" class="dropdown-item">Non-Coffee</a>
                         <a href="#" class="dropdown-item">Desserts</a>

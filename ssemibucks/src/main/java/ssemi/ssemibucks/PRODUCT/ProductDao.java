@@ -1,5 +1,6 @@
 package ssemi.ssemibucks.PRODUCT;
 
+import org.springframework.stereotype.Repository;
 import ssemi.ssemibucks.DbConnection.DbConnect;
 
 import java.sql.Connection;
@@ -7,9 +8,10 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
+import java.util.Vector;
 
+@Repository
 public class ProductDao {
-
     Scanner sc = new Scanner(System.in);
     DbConnect db = new DbConnect();
     PreparedStatement pstmt = null;
@@ -17,7 +19,9 @@ public class ProductDao {
     String sql = "";
 
     // 전체 상품 목록
-    public void selectAllProduct() {
+    public Vector<Product> selectAllProduct() {
+        Vector<Product> list = new Vector<>();
+
         Connection conn = db.getConnection();
 
         sql = "select * from PRODUCT";
@@ -26,36 +30,33 @@ public class ProductDao {
             pstmt = conn.prepareStatement(sql);
             rs = pstmt.executeQuery();
 
-            if (rs.next()) {
-                System.out.println("전체 상품 목록");
-                System.out.println("pId\tpName\tpOption\tcategory\tprice\tpStock\tpDetail\tpImage");
-                System.out.println("-------------------------------------------------------------------");
+            while(rs.next()) {
+                Product product = new Product();
 
-                do {
-                    System.out.println(rs.getString("pId") + "\t"
-                            + rs.getString("pName") + "\t"
-                            + rs.getString("pOption") + "\t"
-                            + rs.getString("category") + "\t"
-                            + rs.getInt("price") + "\t"
-                            + rs.getInt("pStock") + "\t"
-                            + rs.getString("pDetail") + "\t"
-                            + rs.getString("pImage") + "\t");
-                } while (rs.next());
+                product.setpId(rs.getString("pId"));
+                product.setpName(rs.getString("pName"));
+                product.setpOption(rs.getString("pOption"));
+                product.setCategory(rs.getString("category"));
+                product.setPrice(rs.getInt("price"));
+                product.setpStock(rs.getInt("pStock"));
+                product.setpDetail(rs.getString("pDetail"));
+                product.setpImage(rs.getString("pImage"));
 
-                System.out.println("\n상품 목록 조회 완료\n\n");
-            } else {
-                System.out.println("상품 목록 없음\n\n");
+                // list 추가
+                list.add(product);
             }
-
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
             db.dbClose(rs, pstmt, conn);
         }
+        return list;
     }
 
     // 상품 상세페이지
-    public void selectProduct(String pId) {
+    public Vector<Product> selectProduct(String pId) {
+        Vector<Product> list = new Vector<>();
+
         Connection conn = db.getConnection();
 
         sql = "select * from PRODUCT where pId = ?";
@@ -65,27 +66,27 @@ public class ProductDao {
             pstmt.setString(1, pId);
             rs = pstmt.executeQuery();
 
-            System.out.println("상품 상세 조회");
-            System.out.println("pId\tpName\tpOption\tcategory\tprice\tpStock\tpDetail\tpImage");
-            System.out.println("-------------------------------------------------------------------");
+            while(rs.next()) {
+                Product product = new Product();
 
-            while (rs.next()) {
-                System.out.println(rs.getString("pId") + "\t"
-                        + rs.getString("pName") + "\t"
-                        + rs.getString("pOption") + "\t"
-                        + rs.getString("category") + "\t"
-                        + rs.getInt("price") + "\t"
-                        + rs.getInt("pStock") + "\t"
-                        + rs.getString("pDetail") + "\t"
-                        + rs.getString("pImage") + "\t");
+                product.setpId(rs.getString("pId"));
+                product.setpName(rs.getString("pName"));
+                product.setpOption(rs.getString("pOption"));
+                product.setCategory(rs.getString("category"));
+                product.setPrice(rs.getInt("price"));
+                product.setpStock(rs.getInt("pStock"));
+                product.setpDetail(rs.getString("pDetail"));
+                product.setpImage(rs.getString("pImage"));
+
+                // list 추가
+                list.add(product);
             }
-
-            System.out.println("\n상품 목록 조회 완료\n\n");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
             db.dbClose(rs, pstmt, conn);
         }
+        return list;
     }
 
     // 상품 추가
@@ -116,17 +117,17 @@ public class ProductDao {
     }
 
     // 상품 삭제
-    public void deleteProduct(String pId, String pName) {
+    public void deleteProduct(Product product) {
         Connection conn = db.getConnection();
 
         sql = "delete from PRODUCT where pId = ?";
 
         try {
             pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, pId);
+            pstmt.setString(1, product.getpId());
 
             pstmt.execute();
-            System.out.println("[" + pName + "] 삭제 완료\n\n");
+            System.out.println("\n상품 삭제 완료\n\n");
 
         } catch (SQLException e) {
             e.printStackTrace();
@@ -137,19 +138,20 @@ public class ProductDao {
     }
 
     // 상품 수정
-    public void updateProduct(String pId, String pName, String sql, int input) {
+    public void updateProduct(Product product) {
 
         Connection conn = db.getConnection();
 
+        String sql = "update team set price =?, pStock = ? where pId = ?";
         try {
             pstmt = conn.prepareStatement(sql);
 
-            // pstmt.setString(1, str);
-            pstmt.setInt(1, input);
-            pstmt.setString(2, pId);
-            
+            pstmt.setInt(1, product.getPrice());
+            pstmt.setInt(2, product.getpStock());
+            pstmt.setString(3, product.getpId());
+
             pstmt.execute();
-            System.out.println("[" + pName + "] 수정 완료\n\n");
+            System.out.println("\n상품 수정 완료\n\n");
 
         } catch (SQLException ex) {
             ex.printStackTrace();
@@ -162,7 +164,7 @@ public class ProductDao {
     // 상품 아이디 존재 여부 확인 - 중복 상품 등록 방지
     public Product findBypId(String pId) {
         Connection conn = db.getConnection();
-        Product product = null;
+        Product product = new Product();
 
         sql = "select * from PRODUCT where pId = ?";
 
@@ -172,8 +174,15 @@ public class ProductDao {
             pstmt.setString(1, pId);
             rs = pstmt.executeQuery();
 
-            while (rs.next()) {
-                product = new Product(rs.getString("pId"), rs.getString("pName"), rs.getString("pOption"), rs.getInt("price"));
+            if(rs.next()) {
+                product.setpId(rs.getString("pId"));
+                product.setpName(rs.getString("pName"));
+                product.setpOption(rs.getString("pOption"));
+                product.setCategory(rs.getString("category"));
+                product.setPrice(rs.getInt("price"));
+                product.setpStock(rs.getInt("pStock"));
+                product.setpDetail(rs.getString("pDetail"));
+                product.setpImage(rs.getString("pImage"));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
