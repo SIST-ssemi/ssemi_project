@@ -54,8 +54,8 @@ public class ProductDao {
     }
 
     // 상품 상세페이지
-    public Vector<Product> selectProduct(String pId) {
-        Vector<Product> list = new Vector<>();
+    public Product selectProduct(String pId) {
+        Product product = new Product();
 
         Connection conn = db.getConnection();
 
@@ -66,9 +66,7 @@ public class ProductDao {
             pstmt.setString(1, pId);
             rs = pstmt.executeQuery();
 
-            while(rs.next()) {
-                Product product = new Product();
-
+            if(rs.next()) {
                 product.setpId(rs.getString("pId"));
                 product.setpName(rs.getString("pName"));
                 product.setpOption(rs.getString("pOption"));
@@ -77,16 +75,13 @@ public class ProductDao {
                 product.setpStock(rs.getInt("pStock"));
                 product.setpDetail(rs.getString("pDetail"));
                 product.setpImage(rs.getString("pImage"));
-
-                // list 추가
-                list.add(product);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
             db.dbClose(rs, pstmt, conn);
         }
-        return list;
+        return product;
     }
 
     // 상품 추가

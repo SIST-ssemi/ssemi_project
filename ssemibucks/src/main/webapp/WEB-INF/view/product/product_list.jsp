@@ -21,7 +21,7 @@
     <!-- Template Stylesheet -->
     <link href="/css/style.css" rel="stylesheet" />
 
-    <script src="/js/includeHTML.js" type="text/javascript"></script>
+    <script src="/js/includeHTML.js"></script>
 
     <title>Document</title>
 
@@ -34,7 +34,7 @@
     %>
 
     <!-- Navbar -->
-    <div include-html="/navbar"></div>
+    <div include-html="navbar"></div>
     <script>includeHTML();</script>
 
     <!-- Header-->
@@ -56,7 +56,7 @@
                             Product product = list.get(i);
                     %>
                         <div class="col mb-5">
-                            <div class="card h-100" id="product" onclick="location.href='/product/product_detail';" style="cursor: pointer;">
+                            <div class="card h-100" id="product" onclick="location.href='/product/product_detail?pId=<%= product.getpId()%>';" style="cursor: pointer;">
                                 <!-- Product image-->
                                 <img class="card-img-top"
                                      src="<%=product.getpImage() %>"

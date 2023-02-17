@@ -21,12 +21,17 @@ public class ProductService {
         return productDao.selectAllProduct();
     }
 
+    // 상세 상품 조회
+    public Product selectProduct(String pId) {
+        System.out.println("전체 상품 조회\n");
+        return productDao.selectProduct(pId);
+    }
+
     // 상품 등록
     public void registerProduct(Product product) {
         System.out.println("상품 등록\n");
         productDao.insertProduct(product);
     }
-
 
     // 상품 삭제
     public void removeProduct(Product product) {
