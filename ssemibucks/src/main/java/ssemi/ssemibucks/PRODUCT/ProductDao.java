@@ -53,6 +53,42 @@ public class ProductDao {
         return list;
     }
 
+    // 카테고리별 상품 목록
+    public Vector<Product> selectCategoryProduct(String category) {
+        Vector<Product> categoryList = new Vector<>();
+
+        Connection conn = db.getConnection();
+
+        sql = "select * from PRODUCT where category = ?";
+
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, category);
+            rs = pstmt.executeQuery();
+
+            while(rs.next()) {
+                Product product = new Product();
+
+                product.setpId(rs.getString("pId"));
+                product.setpName(rs.getString("pName"));
+                product.setpOption(rs.getString("pOption"));
+                product.setCategory(rs.getString("category"));
+                product.setPrice(rs.getInt("price"));
+                product.setpStock(rs.getInt("pStock"));
+                product.setpDetail(rs.getString("pDetail"));
+                product.setpImage(rs.getString("pImage"));
+
+                // list 추가
+                categoryList.add(product);
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            db.dbClose(rs, pstmt, conn);
+        }
+        return categoryList;
+    }
+
     // 상품 상세페이지
     public Product selectProduct(String pId) {
         Product product = new Product();

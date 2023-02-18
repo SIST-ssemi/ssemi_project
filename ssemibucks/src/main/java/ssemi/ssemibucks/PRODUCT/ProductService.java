@@ -21,6 +21,12 @@ public class ProductService {
         return productDao.selectAllProduct();
     }
 
+    // 카테고리별 상품 조회
+    public Vector<Product> selectCategoryProduct(String category) {
+        System.out.println("카테고리별 상품 조회\n");
+        return productDao.selectCategoryProduct(category);
+    }
+
     // 상세 상품 조회
     public Product selectProduct(String pId) {
         System.out.println("전체 상품 조회\n");

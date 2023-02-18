@@ -18,7 +18,7 @@
     <!-- Template Stylesheet -->
     <link href="/css/style.css" rel="stylesheet" />
 
-    <script src="../js/includeHTML.js"></script>
+    <script src="/js/includeHTML.js" type="text/javascript"></script>
 
     <title>Document</title>
 
@@ -55,7 +55,7 @@
     %>
 
     <!-- Navbar -->
-    <div include-html="navbar"></div>
+    <div include-html="/navbar"></div>
     <script>includeHTML();</script>
 
     <!-- Header-->
@@ -69,13 +69,13 @@
             <!-- btn -->
             <div>
                 <button class="btn" onclick="location.href='/product/product_list';" style="margin-bottom: 20px;"><i
-                        class="bi bi-arrow-left-circle"></i></span>
-                    Back</button>
+                        class="bi bi-arrow-left-circle"></i>
+                    back</button>
                 <button class="btn" style="margin-bottom: 20px; float: right;" data-bs-toggle="modal"
-                    data-bs-target="#staticBackdrop2"><i class="bi bi-trash"></i></span>
+                    data-bs-target="#staticBackdrop2"><i class="bi bi-trash"></i>
                     delete</button>
                 <button class="btn" style="margin-bottom: 20px; float: right;" data-bs-toggle="modal"
-                    data-bs-target="#staticBackdrop"><i class="bi bi-pencil"></i></span>
+                    data-bs-target="#staticBackdrop"><i class="bi bi-pencil"></i>
                     update</button>
 
                 <!-- 수정 modal -->
@@ -95,7 +95,7 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 <button type="button" class="btn btn-primary"
-                                    onclick="location.href='/product/product_update';">Update</button>
+                                    onclick="location.href='/product/product_update?pId=<%= product.getpId()%>';">Update</button>
                             </div>
                         </div>
                     </div>
@@ -130,7 +130,7 @@
                         src="<%=product.getpImage() %>"
                         alt="..." /></div>
                 <div class="col-md-6">
-                    <div class="small mb-1"><%=product.getpOption() %></div>
+                    <div class="small mb-1"><%=product.getpOption().toUpperCase() %></div>
                     <h1 class="display-5 fw-bolder"><%=product.getpName() %></h1>
                     <div class="fs-5 mb-5">
                         <span>₩<%=product.getPrice() %></span>

@@ -29,8 +29,10 @@
 
 <body>
     <%
+        String category = request.getParameter("category");
+
         ProductDao dao = new ProductDao();
-        Vector<Product> list = dao.selectAllProduct();
+        Vector<Product> list = dao.selectCategoryProduct(category);
     %>
 
     <!-- Navbar -->
@@ -41,7 +43,7 @@
     <header class="py-5" style="background-color: rgb(167, 193, 55); height: 200px;">
         <div class="container px-4 px-lg-5 my-5">
             <div class="text-center">
-                <h1 class="display-4 fw-bolder" style="line-height: 0px; color: white">All Menu</h1>
+                <h1 class="display-4 fw-bolder" style="line-height: 0px; color: white"><%=category %></h1>
             </div>
         </div>
     </header>

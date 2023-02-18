@@ -37,7 +37,7 @@
 <body>
     <!-- Navbar Start -->
     <nav class="navbar navbar-expand-lg bg-white navbar-light sticky-top p-0">
-        <a href="index" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+        <a href="/index" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
             <h2 class="m-0 text-primary">Ssemibucks</h2>
         </a>
         <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
@@ -45,16 +45,16 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarCollapse">
             <div class="navbar-nav ms-auto p-4 p-lg-0">
-                <a href="index" class="nav-item nav-link active">Home</a>
+                <a href="/index" class="nav-item nav-link active">Home</a>
                 <a href="https://github.com/SIST-ssemi/ssemi_project" class="nav-item nav-link">About</a>
-                <a href="mypage" class="nav-item nav-link">My Page</a>
+                <a href="/mypage" class="nav-item nav-link">My Page</a>
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">MENU</a>
                     <div class="dropdown-menu fade-up m-0">
                         <a href="/product/product_list" class="dropdown-item">All menu</a>
-                        <a href="#" class="dropdown-item">Coffee</a>
-                        <a href="#" class="dropdown-item">Non-Coffee</a>
-                        <a href="#" class="dropdown-item">Desserts</a>
+                        <a href="/product/product_categoryList?category=coffee" class="dropdown-item">Coffee</a>
+                        <a href="/product/product_categoryList?category=non-coffee" class="dropdown-item">Non-Coffee</a>
+                        <a href="/product/product_categoryList?category=desserts" class="dropdown-item">Desserts</a>
                     </div>
                 </div>
             </div>

@@ -3410,8 +3410,8 @@ fieldset:disabled .btn {
 
 .btn-light-g {
   color: #000;
-  background-color: #f5f5f5;
-  border-color: #f5f5f5;
+  background-color: white;
+  border-color: white;
   border-radius: 5px;
 }
 
