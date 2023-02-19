@@ -34,15 +34,15 @@
             <h4><span class="glyphicon glyphicon-lock"></span> Login</h4>
         </div>
         <div class="body" style="padding: 40px 50px">
-            <form action="loginAction" method="post">
+            <form action="/user/loginAction" method="post">
             <div class="form-group">
-                <label for="username"><span class="glyphicon glyphicon-user"></span> Username</label>
-                <input name="uId" type="text" class="form-control" id="username" placeholder="Enter email"/>
+                <label for="username"><span class="glyphicon glyphicon-user"></span> UserID</label>
+                <input name="uId" type="text" class="form-control" id="username" placeholder="Enter userID"/>
             </div>
             <div class="form-group">
                 <label for="psw"><span class="glyphicon glyphicon-eye-open"></span>
                     Password</label>
-                <input name="pw" type="text" class="form-control" id="psw" placeholder="Enter password"/>
+                <input name="pw" type="password" class="form-control" id="psw" placeholder="Enter password"/>
             </div>
             <button type="submit" class="btn btn-success btn-block"
                     style="background-color: rgb(167, 193, 55); border: rgb(167, 193, 55)">
@@ -52,7 +52,7 @@
         </div>
         <div class="footer">
             <p style="margin-left: 50px">
-                Not a member? <a href="register">Sign Up</a>
+                Not a member? <a href="user/register">Sign Up</a>
             </p>
         </div>
     </div>

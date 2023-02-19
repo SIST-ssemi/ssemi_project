@@ -17,12 +17,17 @@ import java.io.IOException;
 @Controller
 public class UserController {
 
-    @GetMapping("/login")
+    @GetMapping("/user/login")
     public String login(){
-            return "login";
+            return "/user/login";
     }
 
-    @RequestMapping(value = "loginAction", method = RequestMethod.POST)
+    @GetMapping("/user/logout")
+    public String logout(){
+        return "/user/logout";
+    }
+
+    @RequestMapping(value = "/user/loginAction", method = RequestMethod.POST)
     public String loginAction(String uId, String pw, Model model, HttpServletRequest request) throws IOException {
         HttpSession session = request.getSession();
         String msg = "";
@@ -35,26 +40,41 @@ public class UserController {
 
         UserService userService = new UserService(userDao);
         if(userService.loginUser(user.getuId(), user.getPw()).equals("noId")) {
-            model.addAttribute("msg", "아이디룰 다시 입력해주세요");
-            model.addAttribute("url", "login");
+            model.addAttribute("msg", "아이디를 다시 입력해주세요");
+            model.addAttribute("url", "/user/login");
             session.setAttribute("uId", null);
             return "alert";
         }
 
         else if(userService.loginUser(user.getuId(), user.getPw()).equals("noPw")) {
             model.addAttribute("msg", "비밀번호를 다시 입력해주세요");
-            model.addAttribute("url", "login");
+            model.addAttribute("url", "/user/login");
             session.setAttribute("uId", null);
             return "alert";
         }
         else {
             System.out.println("userId = " + userService.loginUser(user.getuId(), user.getPw()));
             model.addAttribute("msg", user.getuId() +"님, 환영합니다");
-            // request.setAttribute("url", "/index");
+//            String referer = request.getHeader("Referer");
             model.addAttribute("url", "index");
             session.setAttribute("uId", uId);
             return "alert";
         }
+    }
+
+    @GetMapping("/user/register")
+    public String register(){
+        return "/user/register";
+    }
+
+    @GetMapping("/user/mypage")
+    public String mypage(){
+        return "/user/mypage";
+    }
+
+    @GetMapping("/user/adminpage")
+    public String adminpage(){
+        return "/user/adminpage";
     }
 
 }

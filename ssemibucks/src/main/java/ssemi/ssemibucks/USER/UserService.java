@@ -20,31 +20,18 @@ public class UserService {
         this.userDao = userDao;
     }
 
-//    public static void alertAndGo( HttpServletResponse response,String msg, String url) {
-//        try {
-//            response.setContentType("text/html; charset=utf-8");
-//            PrintWriter out = response.getWriter();
-//            out.write("<script>alert('"+msg+"');location.href='"+url+"';</script>");
-//            out.flush();
-//            out.close();
-//        } catch(Exception e) {
-//            e.printStackTrace();
-//        }
-//}
-
     //로그인
     public String loginUser(String uId, String pw) throws IOException {
         boolean flag = false;
         User user;
         String str ="";
 
-//        do {
+
             user = new User();
             user.setuId(uId);
             user.setPw(pw);
 
             if (userDao.findByUser(uId) == null) {
-//                alertAndGo(null,"아이디가 존재하지 않습니다.","login");
                 System.out.println("아이디가 존재하지 않습니다.\n");
                 str ="noId";
             }
@@ -59,7 +46,6 @@ public class UserService {
                 flag = true;
                 str =user.getuId();
             }
-//        } while (!flag);
 
         return str;
     }
