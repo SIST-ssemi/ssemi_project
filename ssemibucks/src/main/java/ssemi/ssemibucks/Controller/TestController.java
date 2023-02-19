@@ -31,16 +31,6 @@ public class TestController {
         return "adminpage";
     }
 
-    @RequestMapping("/product_list")
-    public String pList() {
-        return "product_list";
-    }
-
-    @RequestMapping("/product_detail")
-    public String pDetail() {
-        return "product_detail";
-    }
-
     @RequestMapping("/navbar")
     public String navbar() {
         return "navbar";

@@ -1,6 +1,7 @@
-package ssemi.ssemibucks.PRODUCT;
+package ssemi.ssemibucks.Controller;
 
-public class Product {
+public class ProductForm {
+
     private String pId;
     private String pName;
     private String pOption;
@@ -54,7 +55,7 @@ public class Product {
         return pStock;
     }
 
-    public void setpStock(int pSTock) {
+    public void setpStock(int pStock) {
         this.pStock = pStock;
     }
 

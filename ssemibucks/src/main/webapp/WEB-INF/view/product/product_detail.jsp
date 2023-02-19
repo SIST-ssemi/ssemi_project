@@ -1,3 +1,5 @@
+<%@ page import="ssemi.ssemibucks.PRODUCT.Product" %>
+<%@ page import="ssemi.ssemibucks.PRODUCT.ProductDao" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -8,19 +10,17 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
-    <link href="css/styles.css" rel="stylesheet" />
     <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 
     <!-- Customized Bootstrap Stylesheet -->
-    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/css/bootstrap.min.css" rel="stylesheet" />
 
     <!-- Template Stylesheet -->
-    <link href="css/style.css" rel="stylesheet" />
+    <link href="/css/style.css" rel="stylesheet" />
 
-    <script src="/js/includeHTML.js"></script>
+    <script src="/js/includeHTML.js" type="text/javascript"></script>
 
     <title>Document</title>
-
 
     <script>
         $(function () {
@@ -47,9 +47,15 @@
 </head>
 
 <body>
+    <%
+        String pId = request.getParameter("pId");
+
+        ProductDao dao = new ProductDao();
+        Product product = dao.selectProduct(pId);
+    %>
 
     <!-- Navbar -->
-    <div include-html="navbar"></div>
+    <div include-html="/navbar"></div>
     <script>includeHTML();</script>
 
     <!-- Header-->
@@ -62,14 +68,14 @@
         <div class="container px-4 px-lg-5 my-5">
             <!-- btn -->
             <div>
-                <button class="btn" onclick="location.href='/product_list';" style="margin-bottom: 20px;"><i
-                        class="bi bi-arrow-left-circle"></i></span>
-                    Back</button>
+                <button class="btn" onclick="location.href='/product/product_list';" style="margin-bottom: 20px;"><i
+                        class="bi bi-arrow-left-circle"></i>
+                    back</button>
                 <button class="btn" style="margin-bottom: 20px; float: right;" data-bs-toggle="modal"
-                    data-bs-target="#staticBackdrop2"><i class="bi bi-trash"></i></span>
+                    data-bs-target="#staticBackdrop2"><i class="bi bi-trash"></i>
                     delete</button>
                 <button class="btn" style="margin-bottom: 20px; float: right;" data-bs-toggle="modal"
-                    data-bs-target="#staticBackdrop"><i class="bi bi-pencil"></i></span>
+                    data-bs-target="#staticBackdrop"><i class="bi bi-pencil"></i>
                     update</button>
 
                 <!-- 수정 modal -->
@@ -89,7 +95,7 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 <button type="button" class="btn btn-primary"
-                                    onclick="location.href='/product_update';">Update</button>
+                                    onclick="location.href='/product/product_update?pId=<%= product.getpId()%>';">Update</button>
                             </div>
                         </div>
                     </div>
@@ -112,7 +118,7 @@
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                                 <button type="button" class="btn btn-primary"
-                                    onclick="location.href='/product_list';">Delete</button>
+                                    onclick="location.href='/product/product_list';">Delete</button>
                             </div>
                         </div>
                     </div>
@@ -121,15 +127,15 @@
 
             <div class="row gx-4 gx-lg-5 align-items-center">
                 <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0"
-                        src="https://image.istarbucks.co.kr/upload/store/skuimg/2021/04/[94]_20210430103337157.jpg"
+                        src="<%=product.getpImage() %>"
                         alt="..." /></div>
                 <div class="col-md-6">
-                    <div class="small mb-1" id="pOption">HOT</div>
-                    <h1 class="display-5 fw-bolder">카페 아메리카노</h1>
+                    <div class="small mb-1"><%=product.getpOption().toUpperCase() %></div>
+                    <h1 class="display-5 fw-bolder"><%=product.getpName() %></h1>
                     <div class="fs-5 mb-5">
-                        <span id="price">₩4500</span>
+                        <span>₩<%=product.getPrice() %></span>
                     </div>
-                    <p class="lead" id="pDetail">진한 에스프레소와 뜨거운 물을 섞어 깔끔하고 강렬한 에스프레소를 가장 부드럽게 잘 느낄 수 있는 커피</p><br>
+                    <p class="lead"><%=product.getpDetail() %></p><br>
 
                     <div class="d-flex">
                         <button class="btn btn-outline-dark flex-shrink-0" type="button" style="margin-right: 5px;"
