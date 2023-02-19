@@ -84,9 +84,16 @@
                             함께해서 더 따뜻한 지역사회 소통 공간. 다양한 Ssemibucks 매장이
                             여러분을 기다립니다.
                         </p>
+
+                        <% if(session.getAttribute("uId") == null) { %>
+
                         <a href="login" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Log
-                            in</a>
+                        in</a>
                         <a href="register" class="btn btn-light py-md-3 px-md-5 animated slideInRight">Sign Up</a>
+
+                        <%
+                            }
+                        %>
                     </div>
                 </div>
             </div>

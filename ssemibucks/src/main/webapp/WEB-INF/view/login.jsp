@@ -26,6 +26,9 @@
 
 <body>
 
+<%
+    String msg = request.getParameter("msg");
+%>
     <div class="content">
         <div class="header" style="padding: 35px 50px">
             <h4><span class="glyphicon glyphicon-lock"></span> Login</h4>
@@ -33,8 +36,8 @@
         <div class="body" style="padding: 40px 50px">
             <form action="loginAction" method="post">
             <div class="form-group">
-                <label for="usrname"><span class="glyphicon glyphicon-user"></span> Username</label>
-                <input name="uId" type="text" class="form-control" id="usrname" placeholder="Enter email"/>
+                <label for="username"><span class="glyphicon glyphicon-user"></span> Username</label>
+                <input name="uId" type="text" class="form-control" id="username" placeholder="Enter email"/>
             </div>
             <div class="form-group">
                 <label for="psw"><span class="glyphicon glyphicon-eye-open"></span>

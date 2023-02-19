@@ -2,6 +2,7 @@ package ssemi.ssemibucks.USER;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.ui.Model;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -35,26 +36,32 @@ public class UserService {
     public String loginUser(String uId, String pw) throws IOException {
         boolean flag = false;
         User user;
+        String str ="";
 
-        do {
+//        do {
             user = new User();
             user.setuId(uId);
             user.setPw(pw);
 
-            if (userDao.findByUser(uId) == null)
+            if (userDao.findByUser(uId) == null) {
 //                alertAndGo(null,"아이디가 존재하지 않습니다.","login");
                 System.out.println("아이디가 존재하지 않습니다.\n");
+                str ="noId";
+            }
 
-            else if (userDao.findByUser(uId).getuId().equals(user.getuId()) && !userDao.findByUser(uId).getPw().equals(user.getPw()))
+            else if (userDao.findByUser(uId).getuId().equals(user.getuId()) && !userDao.findByUser(uId).getPw().equals(user.getPw())) {
                 System.out.println("비밀번호가 일치하지 않습니다.\n");
+                str ="noPw";
+            }
 
             else {
                 System.out.println(user.getuId() + "님 환영합니다.\n");
                 flag = true;
+                str =user.getuId();
             }
-        } while (!flag);
+//        } while (!flag);
 
-        return user.getuId();
+        return str;
     }
 
     //회원가입

@@ -29,7 +29,7 @@ public class ProductService {
 
     // 상세 상품 조회
     public Product selectProduct(String pId) {
-        System.out.println("전체 상품 조회\n");
+        System.out.println("상세 상품 조회\n");
         return productDao.selectProduct(pId);
     }
 
