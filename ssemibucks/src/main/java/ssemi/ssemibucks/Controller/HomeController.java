@@ -16,5 +16,9 @@ public class HomeController {
         return "navbar";
     }
 
+    @RequestMapping("/alert")
+    public String alert() {
+        return "alert";
+    }
 
 }
