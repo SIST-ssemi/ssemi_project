@@ -10,6 +10,7 @@ import ssemi.ssemibucks.USER.UserService;
 //@Controller
 public class TestController {
 
+<<<<<<< HEAD
 //    private final UserService userService;
 //
 //    @Autowired
@@ -56,5 +57,31 @@ public class TestController {
 //    public String navbar() {
 //        return "navbar";
 //    }
+=======
+    @RequestMapping("/login")
+    public String login(){
+        return "login";
+    }
+
+    @RequestMapping("/register")
+    public String register(){
+        return "register";
+    }
+
+    @RequestMapping("/mypage")
+    public String mypage(){
+        return "mypage";
+    }
+
+    @RequestMapping("/adminpage")
+    public String adminpage(){
+        return "adminpage";
+    }
+
+    @RequestMapping("/navbar")
+    public String navbar() {
+        return "navbar";
+    }
+>>>>>>> abc95b5671b59d9b01ed0b30dead766d96dd298f
 
 }
