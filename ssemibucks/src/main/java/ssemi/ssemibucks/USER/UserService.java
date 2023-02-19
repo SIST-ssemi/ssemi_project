@@ -24,37 +24,31 @@ public class UserService {
     public String loginUser(String uId, String pw) throws IOException {
         boolean flag = false;
         User user;
-        String str ="";
+        String str = "";
 
 
-            user = new User();
-            user.setuId(uId);
-            user.setPw(pw);
+        user = new User();
+        user.setuId(uId);
+        user.setPw(pw);
 
-            if (userDao.findByUser(uId) == null) {
-                System.out.println("아이디가 존재하지 않습니다.\n");
-                str ="noId";
-            }
-
-            else if (userDao.findByUser(uId).getuId().equals(user.getuId()) && !userDao.findByUser(uId).getPw().equals(user.getPw())) {
-                System.out.println("비밀번호가 일치하지 않습니다.\n");
-                str ="noPw";
-            }
-
-            else {
-                System.out.println(user.getuId() + "님 환영합니다.\n");
-                flag = true;
-                str =user.getuId();
-            }
+        if (userDao.findByUser(uId) == null) {
+            System.out.println("아이디가 존재하지 않습니다.\n");
+            str = "noId";
+        } else if (userDao.findByUser(uId).getuId().equals(user.getuId()) && !userDao.findByUser(uId).getPw().equals(user.getPw())) {
+            System.out.println("비밀번호가 일치하지 않습니다.\n");
+            str = "noPw";
+        } else {
+            System.out.println(user.getuId() + "님 환영합니다.\n");
+            flag = true;
+            str = user.getuId();
+        }
 
         return str;
     }
 
     //회원가입
-    public void registerUser() {
-        System.out.println("[Sign up]");
-        userDao.insertUser();
-//        loginUser();
+    public void registerUser(String uId, String pw, String uName, String hp, String addr) {
+        userDao.insertUser(uId, pw, uName, hp, addr);
     }
 
     //마이페이지

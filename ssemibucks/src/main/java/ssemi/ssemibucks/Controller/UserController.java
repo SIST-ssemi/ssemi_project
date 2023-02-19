@@ -55,7 +55,6 @@ public class UserController {
         else {
             System.out.println("userId = " + userService.loginUser(user.getuId(), user.getPw()));
             model.addAttribute("msg", user.getuId() +"님, 환영합니다");
-//            String referer = request.getHeader("Referer");
             model.addAttribute("url", "index");
             session.setAttribute("uId", uId);
             return "alert";
@@ -65,6 +64,18 @@ public class UserController {
     @GetMapping("/user/register")
     public String register(){
         return "/user/register";
+    }
+
+    @RequestMapping(value = "/user/registerAction", method = RequestMethod.POST)
+    public String registerAction(String uId,String pw,String uName,String hp,String addr,Model model){
+
+        UserDao userDao=new UserDao();
+        UserService userService=new UserService(userDao);
+        userService.registerUser(uId,pw,uName,hp,addr);
+
+        model.addAttribute("msg", uId+"님, 환영합니다. 재로그인해주세요");
+        model.addAttribute("url", "/user/login");
+        return "alert";
     }
 
     @GetMapping("/user/mypage")
