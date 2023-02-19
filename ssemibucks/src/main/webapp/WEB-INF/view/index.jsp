@@ -47,7 +47,7 @@
             <div class="navbar-nav ms-auto p-4 p-lg-0">
                 <a href="index" class="nav-item nav-link active">Home</a>
                 <a href="https://github.com/SIST-ssemi/ssemi_project" class="nav-item nav-link">About</a>
-                <a href="mypage" class="nav-item nav-link">My Page</a>
+                <a href="/mypage" class="nav-item nav-link">My Page</a>
 
                 <div class="nav-item dropdown">
                     <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">MENU</a>

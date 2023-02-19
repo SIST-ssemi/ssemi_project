@@ -57,4 +57,8 @@ public class UserController {
         }
     }
 
+    @GetMapping("/mypage")
+    public String mypage(){
+        return "mypage";
+    }
 }

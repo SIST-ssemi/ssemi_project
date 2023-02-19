@@ -133,7 +133,7 @@
                     <div class="small mb-1"><%=product.getpOption().toUpperCase() %></div>
                     <h1 class="display-5 fw-bolder"><%=product.getpName() %></h1>
                     <div class="fs-5 mb-5">
-                        <span>₩<%=product.getPrice() %></span>
+                        <span>￦<%=product.getPrice() %></span>
                     </div>
                     <p class="lead"><%=product.getpDetail() %></p><br>
 
