@@ -42,12 +42,14 @@ public class UserDao {
     }
 
     //아이디 중복체크
-    public int idDuplication(String uId) {
-        if (findByUser(uId).getuId() == uId) {
-            System.out.println("아이디 중복");
-            return 1;
+    public String idDuplication(String uId) {
+        String str = "";
+        if (findByUser(uId) == null) {
+            str = "사용가능아이디";
+        } else {
+            str = "중복아이디";
         }
-        return 0;
+        return str;
     }
 
     //모든회원조회
@@ -87,61 +89,42 @@ public class UserDao {
     }
 
     //단순회원조회
-    public void selectUser() {
+    public User selectUser(String uId) {
         Connection conn = db.getConnection();
         PreparedStatement pstmt = null;
         ResultSet rs = null;
 
+        User user = new User();
+
         String sql = "select * from USER where uId=?";
 
-        while (true) {
-            System.out.print("아이디를 입력하세요 >> ");
-            String uId = sc.nextLine();
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, uId);
 
-            User user = findByUser(uId);
-            if (user == null) {
-                System.out.println("재입력하세요");
-            } else {
+            pstmt.execute();
 
-                try {
-                    pstmt = conn.prepareStatement(sql);
-                    pstmt.setString(1, uId);
+            rs = pstmt.executeQuery();
 
-                    pstmt.execute();
-
-                    rs = pstmt.executeQuery();
-                    System.out.println("**내 정보**");
-                    System.out.println("아이디\t이름\t\t비밀번호\t전화번호\t\t\t주소");
-                    System.out.println("==================================================");
-                    while (rs.next()) {
-                        System.out.println(rs.getString("uId") + "\t" +
-                                rs.getString("uName") + "\t" +
-                                rs.getString("pw") + "\t" +
-                                rs.getString("hp") + "\t" +
-                                rs.getString("addr"));
-                    }
-                    System.out.println();
-                    break;
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                } finally {
-                    db.dbClose(pstmt, conn);
-                }
-
+            if (rs.next()) {
+                user.setuId(rs.getString("uId"));
+                user.setPw(rs.getString("pw"));
+                user.setuName(rs.getString("uName"));
+                user.setHp(rs.getString("hp"));
+                user.setAddr(rs.getString("addr"));
             }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            db.dbClose(rs, pstmt, conn);
         }
+
+        return user;
     }
 
     //회원추가
-    public void insertUser(String uId,String pw,String uName,String hp, String addr) {
-//        String uId = "";
-//        while (true) {
-//            System.out.print("아이디 입력 >> ");
-//            uId = sc.nextLine();
-//            User user=findByUser(uId);
-//            if(user==null) break;
-//            else System.out.println("이미 존재하는 아이디입니다.");
-//        }
+    public void insertUser(String uId, String pw, String uName, String hp, String addr) {
 
         String sql = "insert into USER values(?,?,?,?,?)";
 

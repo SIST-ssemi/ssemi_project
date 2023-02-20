@@ -1,3 +1,5 @@
+<%@ page import="ssemi.ssemibucks.USER.UserDao" %>
+<%@ page import="ssemi.ssemibucks.USER.User" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -30,6 +32,11 @@
       height: 100px;
     }
   </style>
+  <%
+    String uId = (String) session.getAttribute("uId");
+    UserDao dao = new UserDao();
+    User user = dao.selectUser(uId);
+  %>
   <body>
   <!-- Navbar -->
   <div include-html="/navbar"></div>

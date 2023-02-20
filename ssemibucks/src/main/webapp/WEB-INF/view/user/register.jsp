@@ -1,3 +1,4 @@
+<%@ page import="ssemi.ssemibucks.USER.UserDao" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -11,6 +12,7 @@
             href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
     />
     <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
     <style>
         body {
             padding: 0;
@@ -55,6 +57,7 @@
             background-color: rgb(167, 193, 55);
             border: rgb(167, 193, 55);
             color: white;
+            margin: 10px;
         }
 
         .mybtn:hover,
@@ -71,25 +74,39 @@
 <form action="/user/registerAction" METHOD="post">
     <table class="table table-stripped" align="center">
         <tr>
-            <div class="uId">
-                <th style="vertical-align: middle">UserID</th>
-                <td style="vertical-align: middle">
-                    <input type="text" name="uId" placeholder="Enter UserID"/>
-                    <button
-                            type="button"
-                            class="btn btn-sm mybtn"
-                            style="margin-left: 20px"
-                    >
-                        Check
-                    </button>
-                </td>
-            </div>
+            <form id>
+                <div class="uId">
+                    <th style="vertical-align: middle">UserID</th>
+                    <td style="vertical-align: middle">
+                        <input type="text" name="uId" id="uId" placeholder="Enter UserID" required="required"/>
+
+                        <button
+                                type="button"
+                                class="btn btn-sm mybtn" id="chkbtn"
+                                style="margin-left: 20px"
+                        >
+                            Check
+                        </button>
+                        <input type="hidden" name="checked_id" value="">
+                        <script>
+                            $("#chkbtn").click(function () {
+                                if ($('#uId').val() != '') {
+                                    window.open("chkId", "chk", "width=500, height=200");
+                                    $("input[name=checked_id]").val("check");
+                                } else
+                                    alert("아이디를 입력해주세요.")
+                            })
+                        </script>
+
+                    </td>
+                </div>
+            </form>
         </tr>
         <tr>
             <div class="pw">
                 <th style="vertical-align: middle">Password</th>
                 <td style="vertical-align: middle">
-                    <input type="password"name="pw" placeholder="Enter Password"/>
+                    <input type="password" name="pw" placeholder="Enter Password" required="required"/>
                 </td>
             </div>
         </tr>
@@ -97,7 +114,7 @@
             <div class="uName">
                 <th style="vertical-align: middle">UserName</th>
                 <td style="vertical-align: middle">
-                    <input type="text" name="uName" placeholder="Enter UserName"/>
+                    <input type="text" name="uName" placeholder="Enter UserName" required="required"/>
                 </td>
             </div>
         </tr>
@@ -107,7 +124,7 @@
                 <td style="vertical-align: middle">
                     <input
                             type="text" name="hp"
-                            placeholder="Enter HP (without ' - ')"
+                            placeholder="Enter HP (without ' - ')" required="required"
                     />
                 </td>
             </div>
@@ -116,14 +133,22 @@
             <div class="addr">
                 <th style="vertical-align: middle">Address</th>
                 <td style="vertical-align: middle">
-                    <input type="text" name="addr" placeholder="Enter Address"/>
+                    <input type="text" name="addr" placeholder="Enter Address" required="required"/>
                 </td>
             </div>
         </tr>
         <tr>
             <td colspan="2" align="center">
-                <button type="submit" class="btn mybtn">Sign Up</button>
+                <button type="submit" id="signup" class="btn mybtn">Sign Up</button>
+                <button type="button" class="btn mybtn" onclick="history.back()">Cancel</button>
             </td>
+            <script>
+                $("#signup").click(function (){
+                    if ($("input[name='checked_id']").val()!="check"){
+                        alert('아이디 중복확인을 해주세요.');
+                    }
+                })
+            </script>
         </tr>
     </table>
 </form>

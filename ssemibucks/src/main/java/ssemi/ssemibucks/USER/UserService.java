@@ -52,29 +52,8 @@ public class UserService {
     }
 
     //마이페이지
-    public void myPage() {
-        System.out.println("[My Page]");
-        userDao.selectUser();
-
-        while (true) {
-            System.out.println("1.정보수정\t2.회원탈퇴\t0.돌아가기");
-            System.out.print("입력 >> ");
-
-            int num = Integer.parseInt(sc.nextLine());
-            switch (num) {
-                case 1:
-                    userDao.updateUser();
-                    break;
-                case 2:
-                    userDao.deleteUser();
-                    break;
-                case 0:
-                    System.out.println("취소합니다.");
-                    return;
-                default:
-                    System.out.println("재입력하세요.");
-            }
-        }
+    public void myPage(String uId) {
+        userDao.selectUser(uId);
 
     }
 
