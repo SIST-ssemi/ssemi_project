@@ -113,7 +113,8 @@
                                     aria-label="Close"></button>
                             </div>
                             <div class="modal-body">
-                                정말 삭제하시겠습니까?
+                                Admin 계정의 비밀번호를 입력해주세요
+                                <input type="password" class="form-control" id="inputPassword">
                             </div>
                             <div class="modal-footer">
                                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -124,6 +125,10 @@
                     </div>
                 </div>
             </div>
+
+            <!-- hidden으로 표시 -->
+            <input type="hidden" name="pId" value="<%=pId %>">
+            <input type="hidden" name="pStock" value="<%=product.getpStock() %>">
 
             <div class="row gx-4 gx-lg-5 align-items-center">
                 <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0"
@@ -141,13 +146,12 @@
                         <button class="btn btn-outline-dark flex-shrink-0" type="button" style="margin-right: 5px;"
                             id="minus">-</button>
 
-                        <input type="text" class="form-control text-center" value="0" id="cQTY" readonly="readonly"
-                            style="text-align:center; width: 50px; margin-right: 5px;">
+                        <input type="text" class="form-control text-center" value="0" id="cQTY" style="text-align:center; width: 50px; margin-right: 5px;" readonly>
 
 
                         <button class="btn btn-outline-dark flex-shrink-0" type="button" id="plus">+</button>
 
-                        <button class="btn btn-outline-dark flex-shrink-0" type="button" style="margin-left: 50px;">
+                        <button class="btn btn-outline-dark flex-shrink-0" type="button" style="margin-left: 50px;" id="cartBtn">
                             <i class="bi-cart-fill me-1"></i>
                             Add to cart
                         </button>
