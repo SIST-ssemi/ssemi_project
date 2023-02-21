@@ -42,12 +42,14 @@ public class UserDao {
     }
 
     //아이디 중복체크
-    public int idDuplication(String uId) {
-        if (findByUser(uId).getuId() == uId) {
-            System.out.println("아이디 중복");
-            return 1;
+    public String idDuplication(String uId) {
+        String str = "";
+        if (findByUser(uId) == null) {
+            str = "사용가능아이디";
+        } else {
+            str = "중복아이디";
         }
-        return 0;
+        return str;
     }
 
     //모든회원조회
@@ -87,70 +89,42 @@ public class UserDao {
     }
 
     //단순회원조회
-    public void selectUser() {
+    public User selectUser(String uId) {
         Connection conn = db.getConnection();
         PreparedStatement pstmt = null;
         ResultSet rs = null;
 
+        User user = new User();
+
         String sql = "select * from USER where uId=?";
 
-        while (true) {
-            System.out.print("아이디를 입력하세요 >> ");
-            String uId = sc.nextLine();
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, uId);
 
-            User user = findByUser(uId);
-            if (user == null) {
-                System.out.println("재입력하세요");
-            } else {
+            pstmt.execute();
 
-                try {
-                    pstmt = conn.prepareStatement(sql);
-                    pstmt.setString(1, uId);
+            rs = pstmt.executeQuery();
 
-                    pstmt.execute();
-
-                    rs = pstmt.executeQuery();
-                    System.out.println("**내 정보**");
-                    System.out.println("아이디\t이름\t\t비밀번호\t전화번호\t\t\t주소");
-                    System.out.println("==================================================");
-                    while (rs.next()) {
-                        System.out.println(rs.getString("uId") + "\t" +
-                                rs.getString("uName") + "\t" +
-                                rs.getString("pw") + "\t" +
-                                rs.getString("hp") + "\t" +
-                                rs.getString("addr"));
-                    }
-                    System.out.println();
-                    break;
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                } finally {
-                    db.dbClose(pstmt, conn);
-                }
-
+            if (rs.next()) {
+                user.setuId(rs.getString("uId"));
+                user.setPw(rs.getString("pw"));
+                user.setuName(rs.getString("uName"));
+                user.setHp(rs.getString("hp"));
+                user.setAddr(rs.getString("addr"));
             }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            db.dbClose(rs, pstmt, conn);
         }
+
+        return user;
     }
 
     //회원추가
-    public void insertUser() {
-        String uId = "";
-        while (true) {
-            System.out.print("아이디 입력 >> ");
-            uId = sc.nextLine();
-            User user=findByUser(uId);
-            if(user==null) break;
-            else System.out.println("이미 존재하는 아이디입니다.");
-        }
-
-        System.out.print("이름 입력 >> ");
-        String uName = sc.nextLine();
-        System.out.print("비밀번호 입력 >> ");
-        String pw = sc.nextLine();
-        System.out.print("전화번호 입력 >> ");
-        String hp = sc.nextLine();
-        System.out.print("주소 입력 >> ");
-        String addr = sc.nextLine();
+    public void insertUser(String uId, String pw, String uName, String hp, String addr) {
 
         String sql = "insert into USER values(?,?,?,?,?)";
 
@@ -292,38 +266,38 @@ public class UserDao {
     }
 
     //회원 관리
-    public void managementUser() {
-        while (true) {
-            System.out.println("[회원 관리 시스템]");
-            System.out.println("1. 회원전체조회\t2. 회원상세조회\t3.회원삭제\t4. 회원정보수정\t5.회원가입\t0.종료");
-            System.out.print("입력 >> ");
-            int num = Integer.parseInt(sc.nextLine());
-
-            switch (num) {
-                case 1:
-                    selectAllUser();
-                    break;
-                case 2:
-                    selectUser();
-                    break;
-                case 3:
-                    deleteUser();
-                    break;
-                case 4:
-                    updateUser();
-                    break;
-                case 5:
-                    insertUser();
-                    break;
-                case 0:
-                    System.out.println("프로그램 종료합니다\n");
-                    System.exit(0);
-                default:
-                    System.out.println("재입력하세요");
-            }
-        }
-
-    }
+//    public void managementUser() {
+//        while (true) {
+//            System.out.println("[회원 관리 시스템]");
+//            System.out.println("1. 회원전체조회\t2. 회원상세조회\t3.회원삭제\t4. 회원정보수정\t5.회원가입\t0.종료");
+//            System.out.print("입력 >> ");
+//            int num = Integer.parseInt(sc.nextLine());
+//
+//            switch (num) {
+//                case 1:
+//                    selectAllUser();
+//                    break;
+//                case 2:
+//                    selectUser();
+//                    break;
+//                case 3:
+//                    deleteUser();
+//                    break;
+//                case 4:
+//                    updateUser();
+//                    break;
+//                case 5:
+//                    insertUser();
+//                    break;
+//                case 0:
+//                    System.out.println("프로그램 종료합니다\n");
+//                    System.exit(0);
+//                default:
+//                    System.out.println("재입력하세요");
+//            }
+//        }
+//
+//    }
 
 
 }
