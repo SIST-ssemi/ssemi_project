@@ -170,32 +170,7 @@
                                                    placeholder="0">
                                         </div>
                                     </div>
-
-
-                                    <!-- category -->
-                                    <div class="row mb-3">
-                                        <label class="col-sm-2 col-form-label">Category</label>
-                                        <div class="col-sm-10">
-                                            <select class="form-select" aria-label="Category" name="category">
-                                                <option value="coffee" selected>coffee</option>
-                                                <option value="non-coffee">non-coffee</option>
-                                                <option value="desserts">desserts</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <!-- price -->
-                                    <div class="row mb-3">
-                                        <label class="col-sm-2 col-form-label">Price</label>
-                                        <div class="col-sm-10">
-                                            <div class="input-group mb-3">
-                                                <input type="text" class="form-control" aria-label="Price" name="price"
-                                                    placeholder="0">
-                                                <span class="input-group-text">won</span>
-                                            </div>
-                                        </div>
-                                    </div>
-
+                                    
                                     <!-- detail -->
                                     <div class="row mb-3">
                                         <label class="col-sm-2 col-form-label">Detail</label>
