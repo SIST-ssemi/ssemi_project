@@ -73,18 +73,7 @@
                 class="btn mybtn btnmodify"
                 onclick="location.href='#'"
               >
-                회원목록조회
-              </button>
-            </td>
-          </tr>
-          <tr align="center">
-            <td style="vertical-align: middle">
-              <button
-                type="button"
-                class="btn mybtn btnmodify"
-                onclick="location.href='#'"
-              >
-                회원강제탈퇴
+                회원관리
               </button>
             </td>
           </tr>

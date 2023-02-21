@@ -52,7 +52,7 @@
             <a href="/user/login" class="nav-item nav-link"> My Page </a>
             <%
             } else if (session.getAttribute("uId").equals("admin")) { %>
-            <a href="/user/adminpage" class="nav-item nav-link">Admin Page</a>
+            <a href="/admin/adminpage" class="nav-item nav-link">Admin Page</a>
             <%
             } else {
             %>
