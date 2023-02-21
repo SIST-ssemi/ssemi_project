@@ -98,9 +98,4 @@ public class UserController {
         return "/user/mypage";
     }
 
-    @GetMapping("/user/adminpage")
-    public String adminpage() {
-        return "/user/adminpage";
-    }
-
 }
