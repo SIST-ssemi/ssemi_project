@@ -37,70 +37,71 @@
 
     <script src="/js/includeHTML.js" type="text/javascript"></script>
 </head>
-
 <%
     UserController userController = new UserController();
 %>
 
 <body>
-      <!-- Navbar -->
-      <div include-html="/navbar"></div>
-      <script>includeHTML();</script>
+<!-- Navbar -->
+<div include-html="/navbar"></div>
+<script>includeHTML();</script>
 
 
-      <!-- Carousel Start -->
-      <div class="container-fluid p-0 pb-5">
-          <img class="img-fluid" src="./img/cafe.JPG" alt=""/>
-          <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center"
-               style="background: rgba(53, 53, 53, 0.7)">
-              <div class="container">
-                  <div class="row justify-content-center">
-                      <div class="col-12 col-lg-8 text-center">
-                          <h5 class="text-white text-uppercase mb-3 animated slideInDown">
-                              Welcome To Ssemibucks
-                          </h5>
-                          <h3 class="display-3 text-white animated slideInDown mb-4">
-                              Ssemibucks와 함께 커피 한잔의 여유를 가져보세요
-                          </h3>
-                          <p class="fs-5 fw-medium text-white mb-4 pb-2">
-                              나의 취향이 머무는 곳. 더욱 편리하게 Ssemibucks를 만나보세요.<br>
-                              함께해서 더 따뜻한 지역사회 소통 공간. 다양한 Ssemibucks 매장이
-                              여러분을 기다립니다.
-                          </p>
+<!-- Carousel Start -->
+<div class="container-fluid p-0 pb-5">
+    <img class="img-fluid" src="./img/cafe.JPG" alt=""/>
+    <div class="position-absolute top-0 start-0 w-100 h-100 d-flex align-items-center"
+         style="background: rgba(53, 53, 53, 0.7)">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-12 col-lg-8 text-center">
+                    <h5 class="text-white text-uppercase mb-3 animated slideInDown">
+                        Welcome To Ssemibucks
+                    </h5>
+                    <h3 class="display-3 text-white animated slideInDown mb-4">
+                        Ssemibucks와 함께 커피 한잔의 여유를 가져보세요
+                    </h3>
+                    <p class="fs-5 fw-medium text-white mb-4 pb-2">
+                        나의 취향이 머무는 곳. 더욱 편리하게 Ssemibucks를 만나보세요.<br>
+                        함께해서 더 따뜻한 지역사회 소통 공간. 다양한 Ssemibucks 매장이
+                        여러분을 기다립니다.
+                    </p>
 
-                          <% if (session.getAttribute("uId") == null) { %>
+                    <% if (session.getAttribute("uId") == null) { %>
 
-                          <a href="/user/login" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Login</a>
-                          <a href="/user/register" class="btn btn-light py-md-3 px-md-5 animated slideInRight">Sign Up</a>
+                    <a href="/user/login" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Log
+                        in</a>
+                    <a href="/user/register" class="btn btn-light py-md-3 px-md-5 animated slideInRight">Sign Up</a>
 
-                          <%
-                          } else {
-                          %>
-                          <a href="/user/logout" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Log
-                              out</a>
+                    <%
+                    } else {
+                    %>
+                    <a href="/user/logout" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Log
+                        out</a>
 
-                          <%
-                              }
-                          %>
-                      </div>
-                  </div>
-              </div>
-          </div>
-      </div>
-      <!-- Carousel End -->
+                    <%
+                        }
+                    %>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Carousel End -->
 
-      <!-- JavaScript Libraries -->
-      <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
-      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
-      <script src="lib/wow/wow.min.js"></script>
-      <script src="lib/easing/easing.min.js"></script>
-      <script src="lib/waypoints/waypoints.min.js"></script>
-      <script src="lib/counterup/counterup.min.js"></script>
-      <script src="lib/owlcarousel/owl.carousel.min.js"></script>
-      <script src="lib/isotope/isotope.pkgd.min.js"></script>
-      <script src="lib/lightbox/js/lightbox.min.js"></script>
+<!-- JavaScript Libraries -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="lib/wow/wow.min.js"></script>
+<script src="lib/easing/easing.min.js"></script>
+<script src="lib/waypoints/waypoints.min.js"></script>
+<script src="lib/counterup/counterup.min.js"></script>
+<script src="lib/owlcarousel/owl.carousel.min.js"></script>
+<script src="lib/isotope/isotope.pkgd.min.js"></script>
+<script src="lib/lightbox/js/lightbox.min.js"></script>
 
-      <!-- Template Javascript -->
-      <script src="js/main.js"></script>
-   </body>
+<!-- Template Javascript -->
+<script src="js/main.js"></script>
+</body>
+
 </html>
