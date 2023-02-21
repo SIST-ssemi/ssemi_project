@@ -37,7 +37,6 @@
 
     <script src="/js/includeHTML.js" type="text/javascript"></script>
 </head>
-
 <%
     UserController userController = new UserController();
 %>
