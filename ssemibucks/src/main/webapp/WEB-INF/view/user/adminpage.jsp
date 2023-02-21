@@ -1,3 +1,5 @@
+<%@ page import="ssemi.ssemibucks.USER.UserDao" %>
+<%@ page import="ssemi.ssemibucks.USER.User" %>
 <!DOCTYPE html>
 <html lang="en">
   <head>
@@ -22,7 +24,7 @@
     <!-- Template Stylesheet -->
     <link href="/css/style.css" rel="stylesheet" />
 
-    <script src="js/includeHTML.js" type="text/javascript"></script>
+    <script src="/js/includeHTML.js" type="text/javascript"></script>
   </head>
   <style>
     .btnmodify {
@@ -30,9 +32,14 @@
       height: 100px;
     }
   </style>
+  <%
+    String uId = (String) session.getAttribute("uId");
+    UserDao dao = new UserDao();
+    User user = dao.selectUser(uId);
+  %>
   <body>
   <!-- Navbar -->
-  <div include-html="navbar"></div>
+  <div include-html="/navbar"></div>
   <script>includeHTML();</script>
 
   <header class="py-5" style="background-color: rgb(167, 193, 55); height: 100px;">
