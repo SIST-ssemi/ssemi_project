@@ -54,7 +54,7 @@ public class Product {
         return pStock;
     }
 
-    public void setpStock(int pSTock) {
+    public void setpStock(int pStock) {
         this.pStock = pStock;
     }
 

@@ -173,13 +173,15 @@ public class ProductDao {
 
         Connection conn = db.getConnection();
 
-        String sql = "update team set price =?, pStock = ? where pId = ?";
+        String sql = "update team set price =?, pStock = ?, pDetail = ?, pImage = ? where pId = ?";
         try {
             pstmt = conn.prepareStatement(sql);
 
             pstmt.setInt(1, product.getPrice());
             pstmt.setInt(2, product.getpStock());
-            pstmt.setString(3, product.getpId());
+            pstmt.setString(3, product.getpDetail());
+            pstmt.setString(4, product.getpImage());
+            pstmt.setString(5, product.getpId());
 
             pstmt.execute();
             System.out.println("\n상품 수정 완료\n\n");

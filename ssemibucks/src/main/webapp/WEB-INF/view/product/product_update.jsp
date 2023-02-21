@@ -24,23 +24,11 @@
 
     <script>
         $(function () {
+            $("#previewBtn").click(function () {
+                var url = $("#pImageUrl").val();
+                console.log(url);
 
-            var cQTY = parseInt($("#cQTY").val());
-
-            $("#plus").click(function () {
-                cQTY += 1;
-
-                $("#cQTY").attr("value", cQTY)
-            });
-
-            $("#minus").click(function () {
-                cQTY -= 1;
-
-                if (cQTY < 0) {
-                    alert("수량을 다시 설정해주세요");
-                    cQTY = 0;
-                }
-                $("#cQTY").attr("value", cQTY)
+                $("#preview").attr("src", url);
             });
         });
     </script>
@@ -60,7 +48,7 @@
 
 <!-- Header-->
 <header class="py-5" style="background-color: rgb(167, 193, 55); height: 100px;">
-    <h1 class="display-4 fw-bolder" style="line-height: 0px; text-align: center; color: white">Detail</h1>
+    <h1 class="display-4 fw-bolder" style="line-height: 0px; text-align: center; color: white">Update</h1>
 </header>
 
 <!-- Product section-->
@@ -74,6 +62,33 @@
             <button class="btn" style="margin-bottom: 20px; float: right;" data-bs-toggle="modal"
                     data-bs-target="#staticBackdrop2"><i class="bi bi-trash"></i>
                 delete</button>
+            <button class="btn" style="margin-bottom: 20px; float: right;" data-bs-toggle="modal"
+                    data-bs-target="#staticBackdrop"><i class="bi bi-pencil"></i>
+                update</button>
+
+            <!-- 수정 modal -->
+            <!-- Modal -->
+            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                 tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="staticBackdropLabel">update</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Admin 계정의 비밀번호를 입력해주세요
+                            <input type="password" class="form-control" id="inputPassword">
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary"
+                                    onclick="location.href='/product/product_update?pId=<%= product.getpId()%>';">Update</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
 
             <!-- 삭제 modal -->
             <!-- Modal -->
@@ -87,7 +102,8 @@
                                     aria-label="Close"></button>
                         </div>
                         <div class="modal-body">
-                            정말 삭제하시겠습니까?
+                            Admin 계정의 비밀번호를 입력해주세요
+                            <input type="password" class="form-control" id="inputPassword">
                         </div>
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -100,32 +116,118 @@
         </div>
 
         <div class="row gx-4 gx-lg-5 align-items-center">
-            <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0"
-                                       src="<%=product.getpImage() %>"
-                                       alt="..." /></div>
+            <!-- pImage preview -->
             <div class="col-md-6">
-                <div class="small mb-1"><%=product.getpOption().toUpperCase() %></div>
-                <h1 class="display-5 fw-bolder"><%=product.getpName() %></h1>
-                <div class="fs-5 mb-5">
-                    <span>₩<%=product.getPrice() %></span>
+                <img class="card-img-top mb-5 mb-md-0" id="preview"
+                     src="<%=product.getpImage() %>"
+                     alt="...">
+            </div>
+
+            <div class="col-md-6">
+
+                <!-- pName -->
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Name</label>
+                    <div class="col-sm-10">
+                        <div class="mb-3">
+                            <input type="text" class="form-control" id="pName" name="pName" value="<%=product.getpName() %>" disabled>
+                        </div>
+                    </div>
                 </div>
-                <p class="lead"><%=product.getpDetail() %></p><br>
 
-                <div class="d-flex">
-                    <button class="btn btn-outline-dark flex-shrink-0" type="button" style="margin-right: 5px;"
-                            id="minus">-</button>
+                <!-- pOption -->
+                <fieldset class="row mb-3">
+                    <legend class="col-form-label col-sm-2 pt-0">Option</legend>
+                    <div class="col-sm-10">
 
-                    <input type="text" class="form-control text-center" value="0" id="cQTY" readonly="readonly"
-                           style="text-align:center; width: 50px; margin-right: 5px;">
+                        <%
+                            String [] pOption = {"hot", "ice", "none"};
 
+                            for(int i = 0; i < pOption.length; i++) {
+                                if(product.getpOption().equals(pOption[i])) {
+                        %>
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="pOption" id="pOption" value="<%=pOption[i] %>"
+                                        checked>
+                                    <label class="form-check-label" for="pOption">
+                                        <%=pOption[i] %>
+                                    </label>
+                                </div>
+                        <%
+                                } else {
+                        %>
+                                    <div class="form-check form-check-inline">
+                                        <input class="form-check-input" type="radio" name="pOption" id="pOption" value="<%=pOption[i] %>" disabled>
+                                        <label class="form-check-label" for="pOption">
+                                            <%=pOption[i] %>
+                                        </label>
+                                    </div>
+                        <%
+                                }
+                            }
+                        %>
+                    </div>
+                </fieldset>
 
-                    <button class="btn btn-outline-dark flex-shrink-0" type="button" id="plus">+</button>
+                <!-- category -->
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Category</label>
+                    <div class="col-sm-10">
 
-                    <button class="btn btn-outline-dark flex-shrink-0" type="button" style="margin-left: 50px;">
-                        <i class="bi-cart-fill me-1"></i>
-                        Add to cart
-                    </button>
+                        <div class="mb-3">
+                            <input type="text" class="form-control" id="category" name="category" placeholder="category" value="<%=product.getCategory() %>" disabled>
+                        </div>
+                    </div>
                 </div>
+
+                <!-- price -->
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Price</label>
+                    <div class="col-sm-10">
+                        <div class="input-group mb-3">
+                            <span class="input-group-text">￦</span>
+                            <input type="text" class="form-control" aria-label="Price" name="price"
+                                   value="<%=product.getPrice() %>">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- pStock -->
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Stock</label>
+                    <div class="col-sm-10">
+                        <div class="mb-3">
+                            <input type="text" class="form-control" id="pStock" name="pStock" value="<%=product.getpStock() + 100%>">
+                        </div>
+                    </div>
+                </div>
+
+                <!-- detail -->
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Detail</label>
+                    <div class="col-sm-10">
+                        <div class="form-floating">
+                            <textarea class="form-control" placeholder="Detail" name="datail" style="height: 100px;"><%=product.getpDetail() %></textarea>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- pImage -->
+                <div class="row mb-3">
+                    <label class="col-sm-2 col-form-label">Image</label>
+                    <div class="col-sm-8">
+                        <div class="form-floating mb-3">
+                            <input type="text" class="form-control" id="pImageUrl" name="pImage"
+                                   placeholder="pImage" value="<%=product.getpImage() %>">
+                            <label>Product Image URL</label>
+                        </div>
+
+                    </div>
+                    <div class="col-sm-2" style="line-height: 50px;">
+                        <button type="button" class="btn btn-primary" id="previewBtn">preview</button>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
