@@ -49,14 +49,14 @@
             <a href="https://github.com/SIST-ssemi/ssemi_project" class="nav-item nav-link">About</a>
 
             <% if (session.getAttribute("uId") == null) { %>
-            <a href="/user/login" class="nav-item nav-link"> My Page </a>
+            <a href="/user/user_login" class="nav-item nav-link"> My Page </a>
             <%
             } else if (session.getAttribute("uId").equals("admin")) { %>
-            <a href="/admin/adminpage" class="nav-item nav-link">Admin Page</a>
+            <a href="/admin/admin_adminpage" class="nav-item nav-link">Admin Page</a>
             <%
             } else {
             %>
-            <a href="/user/mypage" class="nav-item nav-link">My Page</a>
+            <a href="/user/user_mypage" class="nav-item nav-link">My Page</a>
             <%
                 }
             %>

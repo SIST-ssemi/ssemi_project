@@ -150,120 +150,135 @@ public class UserDao {
     }
 
     //회원삭제
-    public void deleteUser() {
+    public void deleteUser(String uId) {
         Connection conn = db.getConnection();
         PreparedStatement pstmt = null;
 
         String sql = "delete from USER where uId=?";
 
-        while (true) {
-            System.out.print("삭제하고싶은 계정의 아이디 입력 >> ");
-            String uId = sc.nextLine();
-            User user = findByUser(uId);
-            if (user == null) {
-                System.out.println("재입력하세요");
-            } else {
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, uId);
+            int n = pstmt.executeUpdate();
+            if (n == 1) System.out.println("**회원 삭제 완료**\n");
 
-                try {
-                    pstmt = conn.prepareStatement(sql);
-
-                    pstmt.setString(1, uId);
-
-                    int n = pstmt.executeUpdate();
-                    if (n == 1) System.out.println("**회원 삭제 완료**\n");
-                    break;
-                } catch (SQLException e) {
-                    throw new RuntimeException(e);
-                } finally {
-                    db.dbClose(pstmt, conn);
-                }
-            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            db.dbClose(pstmt, conn);
         }
     }
 
     //회원 수정
-    public void updateUser() {
-        while (true) {
-            System.out.print("수정하고싶은 계정의 아이디 입력 >> ");
-            String uId = sc.nextLine();
-            User user = findByUser(uId);
-            if (user == null) {
-                System.out.println("재입력하세요");
-            } else {
-                System.out.println("1. 비밀번호 수정\t2. 주소 수정\t0. 돌아가기");
-                System.out.print("입력 >> ");
-                int num = Integer.parseInt(sc.nextLine());
+//    public void updateUser() {
+//        while (true) {
+//            System.out.print("수정하고싶은 계정의 아이디 입력 >> ");
+//            String uId = sc.nextLine();
+//            User user = findByUser(uId);
+//            if (user == null) {
+//                System.out.println("재입력하세요");
+//            } else {
+//                System.out.println("1. 비밀번호 수정\t2. 주소 수정\t0. 돌아가기");
+//                System.out.print("입력 >> ");
+//                int num = Integer.parseInt(sc.nextLine());
+//
+//                while (true) {
+//                    switch (num) {
+//                        case 1:
+//                            updatePwUser(uId);
+//                            return;
+//                        case 2:
+//                            updateAddrUser(uId);
+//                            return;
+//                        case 0:
+//                            System.out.println("취소합니다.\n");
+//                            return;
+//                        default:
+//                            System.out.println("재입력하세요.\n");
+//                    }
+//                }
+//            }
+//        }
+//    }
 
-                while (true) {
-                    switch (num) {
-                        case 1:
-                            updatePwUser(uId);
-                            return;
-                        case 2:
-                            updateAddrUser(uId);
-                            return;
-                        case 0:
-                            System.out.println("취소합니다.\n");
-                            return;
-                        default:
-                            System.out.println("재입력하세요.\n");
-                    }
-                }
-            }
-        }
-    }
+//    //회원 pw 수정
+//    public void updatePwUser(String uId) {
+//        Connection conn = db.getConnection();
+//        PreparedStatement pstmt = null;
+//
+//        String sql = "update USER set pw=? where uId=?";
+//
+//        System.out.print("비밀번호 변경 >> ");
+//        String pw = sc.nextLine();
+//
+//        try {
+//            pstmt = conn.prepareStatement(sql);
+//
+//            pstmt.setString(1, pw);
+//            pstmt.setString(2, uId);
+//
+//            int n = pstmt.executeUpdate();
+//            if (n == 1) System.out.println("**비밀번호 변경 완료**\n");
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        } finally {
+//            db.dbClose(pstmt, conn);
+//        }
+//
+//    }
+//
+//    //회원 주소 수정
+//    public void updateAddrUser(String uId) {
+//        Connection conn = db.getConnection();
+//        PreparedStatement pstmt = null;
+//
+//        String sql = "update USER set addr=? where uId=?";
+//
+//        System.out.print("주소 변경 >> ");
+//        String addr = sc.nextLine();
+//
+//        try {
+//            pstmt = conn.prepareStatement(sql);
+//
+//            pstmt.setString(1, addr);
+//            pstmt.setString(2, uId);
+//
+//            int n = pstmt.executeUpdate();
+//            if (n == 1) System.out.println("**주소 변경 완료**\n");
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        } finally {
+//            db.dbClose(pstmt, conn);
+//        }
+//
+//    }
 
-    //회원 pw 수정
-    public void updatePwUser(String uId) {
-        Connection conn = db.getConnection();
-        PreparedStatement pstmt = null;
-
-        String sql = "update USER set pw=? where uId=?";
-
-        System.out.print("비밀번호 변경 >> ");
-        String pw = sc.nextLine();
-
-        try {
-            pstmt = conn.prepareStatement(sql);
-
-            pstmt.setString(1, pw);
-            pstmt.setString(2, uId);
-
-            int n = pstmt.executeUpdate();
-            if (n == 1) System.out.println("**비밀번호 변경 완료**\n");
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            db.dbClose(pstmt, conn);
-        }
-
-    }
-
-    //회원 주소 수정
-    public void updateAddrUser(String uId) {
-        Connection conn = db.getConnection();
-        PreparedStatement pstmt = null;
-
-        String sql = "update USER set addr=? where uId=?";
-
-        System.out.print("주소 변경 >> ");
-        String addr = sc.nextLine();
-
-        try {
-            pstmt = conn.prepareStatement(sql);
-
-            pstmt.setString(1, addr);
-            pstmt.setString(2, uId);
-
-            int n = pstmt.executeUpdate();
-            if (n == 1) System.out.println("**주소 변경 완료**\n");
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        } finally {
-            db.dbClose(pstmt, conn);
-        }
-
-    }
+//    //회원 통합 수정
+//    public void updateUser(String uId) {
+//        Connection conn = db.getConnection();
+//        PreparedStatement pstmt = null;
+//
+//        User user= selectUser(uId);
+//
+//        String sql = "update USER set pw=?, hp=?, addr=? where uId=?";
+//
+//        try {
+//            pstmt = conn.prepareStatement(sql);
+//
+//            pstmt.setString(1, user.getPw());
+//            pstmt.setString(2, user.setHp());
+//            pstmt.setString(3, user.getAddr());
+//            pstmt.setString(4, uId);
+//
+//            int n = pstmt.executeUpdate();
+//            if (n == 1) System.out.println("**변경 완료**\n");
+//        } catch (SQLException e) {
+//            throw new RuntimeException(e);
+//        } finally {
+//            db.dbClose(pstmt, conn);
+//        }
+//
+//    }
 
     //회원 관리
 //    public void managementUser() {

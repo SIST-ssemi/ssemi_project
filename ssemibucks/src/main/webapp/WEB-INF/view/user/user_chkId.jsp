@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Insert title here</title>
+    <title>Ssemibucks_chkId</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>
     <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
     <style>
@@ -39,7 +39,7 @@
 UserDao dao=new UserDao();
 %>
 <body>
-<form action="/user/chkIdAction" method="post">
+<form action="/user/user_chkIdAction" method="post">
 <table class="table" style="width: 100%; height: 100%; border-style: none">
     <tr style="border-style: none">
         <td align="center" style="border-style: none">

@@ -69,13 +69,13 @@
 
                           <% if (session.getAttribute("uId") == null) { %>
 
-                          <a href="/user/login" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Login</a>
-                          <a href="/user/register" class="btn btn-light py-md-3 px-md-5 animated slideInRight">Sign Up</a>
+                          <a href="/user/user_login" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Login</a>
+                          <a href="/user/user_register" class="btn btn-light py-md-3 px-md-5 animated slideInRight">Sign Up</a>
 
                           <%
                           } else {
                           %>
-                          <a href="/user/logout" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Log
+                          <a href="/user/user_logout" class="btn btn-primary py-md-3 px-md-5 me-3 animated slideInLeft">Log
                               out</a>
 
                           <%
