@@ -170,7 +170,7 @@
                                                    placeholder="0">
                                         </div>
                                     </div>
-                                    
+
                                     <!-- detail -->
                                     <div class="row mb-3">
                                         <label class="col-sm-2 col-form-label">Detail</label>
