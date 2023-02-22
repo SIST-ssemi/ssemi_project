@@ -3,12 +3,10 @@ package ssemi.ssemibucks.Controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import ssemi.ssemibucks.PRODUCT.Product;
 import ssemi.ssemibucks.PRODUCT.ProductService;
+import ssemi.ssemibucks.USER.UserDao;
 
 import java.util.List;
 
@@ -28,6 +26,13 @@ public class ProductController {
         return "/product/product_list";
     }
 
+    @GetMapping("/admin/admin_pManagement")
+    public String admin_pManagement(Model model) {
+        List<Product> products = productService.allProduct();
+        model.addAttribute("products", products);
+        return "/admin/admin_pManagement";
+    }
+
     @GetMapping("product/product_categoryList")
     public String productList_desserts(@RequestParam String category, Model model) {
         List<Product> products = productService.selectCategoryProduct(category);
@@ -45,13 +50,15 @@ public class ProductController {
 
     @GetMapping ("/product/product_insert")
     public String productInsertForm() {
+        System.out.println("insertㅗㅗㅗㅗ");
         return "/product/product_insert";
 
     }
-
+    
     @PostMapping ("/product/product_insert")
     public String productInsert(ProductForm form) {
         Product product = new Product();
+
         product.setpId(form.getpName());
         product.setpName(form.getpName());
         product.setpOption(form.getpOption());
@@ -72,4 +79,5 @@ public class ProductController {
         model.addAttribute("product", product);
         return "/product/product_update";
     }
+
 }
