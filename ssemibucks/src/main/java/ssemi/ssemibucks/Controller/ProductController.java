@@ -23,6 +23,7 @@ public class ProductController {
     public String productList(Model model) {
         List<Product> products = productService.allProduct();
         model.addAttribute("products", products);
+
         return "/product/product_list";
     }
 
@@ -30,6 +31,7 @@ public class ProductController {
     public String admin_pManagement(Model model) {
         List<Product> products = productService.allProduct();
         model.addAttribute("products", products);
+
         return "/admin/admin_pManagement";
     }
 
@@ -37,6 +39,7 @@ public class ProductController {
     public String productList_desserts(@RequestParam String category, Model model) {
         List<Product> products = productService.selectCategoryProduct(category);
         model.addAttribute("products", products);
+
         return "/product/product_categoryList";
     }
 
@@ -50,9 +53,7 @@ public class ProductController {
 
     @GetMapping ("/product/product_insert")
     public String productInsertForm() {
-        System.out.println("insertㅗㅗㅗㅗ");
         return "/product/product_insert";
-
     }
     
     @PostMapping ("/product/product_insert")
@@ -70,14 +71,36 @@ public class ProductController {
 
         productService.registerProduct(product);
 
-        return "/product/product_list";
+        return "/admin/admin_pManagement";
     }
 
     @GetMapping ("/product/product_update")
     public String productUpdate(@RequestParam String pId, Model model) {
         Product product = productService.selectProduct(pId);
         model.addAttribute("product", product);
+
         return "/product/product_update";
     }
 
+    @PostMapping ("/product/product_update")
+    public String productUpdate(@RequestParam String pId, ProductForm form) {
+        Product product = productService.selectProduct(pId);
+
+        product.setPrice(form.getPrice());
+        product.setpStock(form.getpStock());
+        product.setpDetail(form.getpDetail());
+        product.setpImage(form.getpImage());
+
+        productService.modifyProduct(product);
+
+        return "/admin/admin_pManagement";
+    }
+
+    @GetMapping ("/product/product_delete")
+    public String productDelete(@RequestParam String pId) {
+        Product product = productService.selectProduct(pId);
+        productService.removeProduct(product);
+
+        return "/admin/admin_pManagement";
+    }
 }

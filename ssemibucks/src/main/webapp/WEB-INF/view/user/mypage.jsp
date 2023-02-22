@@ -56,9 +56,9 @@
     </div>
 </div>
 <!-- Content section-->
-<div class="container my-5">
+<div class="container my-5 text-md-center">
     <!-- <div class="row justify-content-center"> -->
-    <div class="col-lg-6">
+    <div class="col-lg">
         <h1>My Information</h1>
         <hr/>
         <table class="table table-stripped" align="center">
@@ -96,14 +96,14 @@
                 <td colspan="2" align="center">
                     <button
                             type="button"
-                            class="btn mybtn btnmodify"
+                            class="btn btn-primary"
                             onclick="location.href='usermodify'"
                     >
                         정보수정
                     </button>
                     <button
                             type="button"
-                            class="btn mybtn btndropout"
+                            class="btn btn-primary"
                             onclick="confirm('정말 탈퇴하시겠습니까?')"
                     >
                         회원탈퇴

@@ -68,62 +68,69 @@
         <div class="container px-4 px-lg-5 my-5">
             <!-- btn -->
             <div>
-                <button class="btn" onclick="location.href='/product/product_list';" style="margin-bottom: 20px;"><i
+                <button class="btn" onclick="location.href='javascript:history.back();'" style="margin-bottom: 20px;"><i
                         class="bi bi-arrow-left-circle"></i>
                     back</button>
-                <button class="btn" style="margin-bottom: 20px; float: right;" data-bs-toggle="modal"
-                    data-bs-target="#staticBackdrop2"><i class="bi bi-trash"></i>
-                    delete</button>
-                <button class="btn" style="margin-bottom: 20px; float: right;" data-bs-toggle="modal"
-                    data-bs-target="#staticBackdrop"><i class="bi bi-pencil"></i>
-                    update</button>
+                <%
+                    if (session.getAttribute("uId").equals("admin")) {
+                %>
 
-                <!-- 수정 modal -->
-                <!-- Modal -->
-                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
-                    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="staticBackdropLabel">update</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                정말 수정하시겠습니까?
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary"
-                                    onclick="location.href='/product/product_update?pId=<%= product.getpId()%>';">Update</button>
+                    <button class="btn" style="margin-bottom: 20px; float: right;" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop"><i class="bi bi-trash"></i>
+                        delete</button>
+                    <button class="btn" style="margin-bottom: 20px; float: right;" data-bs-toggle="modal"
+                        data-bs-target="#staticBackdrop2"><i class="bi bi-pencil"></i>
+                        update</button>
+
+                    <!-- 삭제 modal -->
+                    <!-- Modal -->
+                    <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                        tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="staticBackdropLabel">delete</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                        aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    정말 삭제하시겠습니까?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary"
+                                            onclick="location.href='/product/product_delete?pId=<%=product.getpId()%>';">Delete</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
 
-                <!-- 삭제 modal -->
-                <!-- Modal -->
-                <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false"
-                    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="staticBackdropLabel">delete</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                Admin 계정의 비밀번호를 입력해주세요
-                                <input type="password" class="form-control" id="inputPassword">
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary"
-                                    onclick="location.href='/product/product_list';">Delete</button>
+                    <!-- 수정 modal -->
+                    <!-- Modal -->
+                    <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false"
+                         tabindex="-1" aria-labelledby="staticBackdropLabel2" aria-hidden="true">
+                        <div class="modal-dialog">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h1 class="modal-title fs-5" id="staticBackdropLabel2">update</h1>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                            aria-label="Close"></button>
+                                </div>
+                                <div class="modal-body">
+                                    정말 수정하시겠습니까?
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="button" class="btn btn-primary"
+                                            onclick="location.href='/product/product_update?pId=<%= product.getpId()%>';">Update</button>
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+
+                <%
+                    }
+                %>
             </div>
 
             <!-- hidden으로 표시 -->

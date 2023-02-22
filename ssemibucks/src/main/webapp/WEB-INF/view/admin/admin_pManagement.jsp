@@ -38,6 +38,8 @@
             });
 
             $("#navbar").load("/navbar");
+
+            pId = $("#productId").val();
         });
     </script>
 </head>
@@ -73,6 +75,35 @@
 
     <!-- Content section-->
     <div class="container-fluid py-5 col-10">
+        <button class="btn" onclick="location.href='javascript:history.back();'" style="margin-bottom: 20px;"><i
+                class="bi bi-arrow-left-circle"></i> back</button>
+        <button class="btn" style="margin-bottom: 20px; float: right;" data-bs-toggle="modal"
+                data-bs-target="#staticBackdrop"><i class="bi bi-plus-circle"></i>
+            add</button>
+
+        <!-- 추가 modal -->
+        <!-- Modal -->
+        <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+             tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="staticBackdropLabel">add</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        상품을 추가하시겠습니까?
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary"
+                                onclick="location.href='/product/product_insert';">Add</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <div class="row">
             <div class="col-12">
                 <div class="card my-4">
@@ -83,7 +114,9 @@
                     </div>
                     <div class="card-body px-0 pb-2">
                         <div class="table-responsive p-3">
+
                             <table class="table align-items-center mb-0" id="dataTable" width="100%" cellspacing="0">
+
                                 <thead>
                                     <tr>
                                         <th
@@ -121,7 +154,7 @@
                                 %>
                                     <tr>
                                         <td>
-                                            <a href="location.href='/product_detail?pId=<%= product.getpId()%>.html'">
+                                            <a href="/product/product_detail?pId=<%=product.getpId() %>">
                                                 <div class=" d-flex px-2 py-1">
                                                     <div>
                                                         <img src="<%=product.getpImage() %>" class="avatar avatar-sm me-3 border-radius-lg"
@@ -129,7 +162,7 @@
                                                     </div>
                                                     <div class="d-flex flex-column justify-content-center">
                                                         <h6 class="mb-0 text-sm"><%=product.getpName() %></h6>
-                                                        <p class="text-xs text-secondary mb-0"><%=product.getpId() %></p>
+                                                        <p class="text-xs text-secondary mb-0" id="productId"><%=product.getpId() %></p>
                                                     </div>
                                                 </div>
                                             </a>
@@ -147,12 +180,11 @@
                                             <span><%=product.getpStock() %></span>
                                         </td>
                                         <td class="align-middle text-center text-sm" style="width: 300px;">
-                                            <button class="btn" onclick="location.href='/product/product_insert'"><i class="bi bi-plus-circle"></i>
-                                                add</button>
-                                            <button class="btn" onclick="location.href='/product/product_update'"><i class="bi bi-pencil"></i>
+                                            <button class="btn" style="margin-bottom: 20px;" onclick="location.href='/product/product_update?pId=<%=product.getpId() %>'"><i class="bi bi-pencil"></i>
                                                 update</button>
-                                            <button class="btn" onclick="location.href='/product/product_delete'"><i class="bi bi-trash"></i>
+                                            <button class="btn" style="margin-bottom: 20px;" onclick="location.href='/product/product_delete?pId=<%=product.getpId() %>'"><i class="bi bi-trash"></i>
                                                 delete</button>
+
                                         </td>
                                     </tr>
                                 <%

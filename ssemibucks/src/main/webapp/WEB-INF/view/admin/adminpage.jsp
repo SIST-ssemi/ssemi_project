@@ -82,7 +82,7 @@
               <button
                 type="button"
                 class="btn mybtn btnmodify"
-                onclick="location.href='#'"
+                onclick="location.href='/admin/admin_pManagement'"
               >
                 재고관리
               </button>
