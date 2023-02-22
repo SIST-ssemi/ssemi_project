@@ -235,12 +235,12 @@ sup {
 }
 
 a {
-
+  color: rgb(167, 193, 55) ;
   text-decoration: none;
 }
 
 a:hover {
-  color: #895d35;
+  color: rgb(140, 161, 46);
 }
 
 a:not([href]):not([class]),
@@ -3408,10 +3408,12 @@ fieldset:disabled .btn {
   border-color: #f5f5f5;
 }
 
+////
+
 .btn-light-g {
   color: #000;
-  background-color: white;
-  border-color: white;
+  background-color: #f5f5f5;
+  border-color: #f5f5f5;
   border-radius: 5px;
 }
 
@@ -3454,6 +3456,7 @@ fieldset:disabled .btn {
   border-color: #f5f5f5;
 }
 
+////
 .btn-dark {
   color: #fff;
   background-color: #353535;
@@ -3499,14 +3502,20 @@ fieldset:disabled .btn {
   border-color: #353535;
 }
 
+.btn-outline-primary {
+  color: rgb(167, 193, 55);
+  border-color: rgb(167, 193, 55)2;
+}
+
 .btn-outline-primary:hover {
   color: #000;
-
+  background-color: rgb(140, 161, 46);
+  border-color: rgb(140, 161, 46);
 }
 
 .btn-check:focus + .btn-outline-primary,
 .btn-outline-primary:focus {
-  box-shadow: 0 0 0 0.25rem rgba(171, 116, 66, 0.5);
+  box-shadow: 0 0 0 0.25rem rgba(rgb(140, 161, 46), 116, 66, 0.5);
 }
 
 .btn-check:checked + .btn-outline-primary,
@@ -3515,7 +3524,8 @@ fieldset:disabled .btn {
 .btn-outline-primary.active,
 .btn-outline-primary.dropdown-toggle.show {
   color: #000;
-
+  background-color: rgb(167, 193, 55);
+  border-color: rgb(167, 193, 55);
 }
 
 .btn-check:checked + .btn-outline-primary:focus,
@@ -3523,12 +3533,12 @@ fieldset:disabled .btn {
 .btn-outline-primary:active:focus,
 .btn-outline-primary.active:focus,
 .btn-outline-primary.dropdown-toggle.show:focus {
-  box-shadow: 0 0 0 0.25rem rgb(167, 193, 55);
+  box-shadow: 0 0 0 0.25rem rgb(140, 161, 46);
 }
 
 .btn-outline-primary:disabled,
 .btn-outline-primary.disabled {
-
+  color: rgb(167, 193, 55);
   background-color: transparent;
 }
 
@@ -4357,7 +4367,7 @@ fieldset:disabled .btn {
 
 .nav-link:hover,
 .nav-link:focus {
-  color: #895d35;
+  color: rgb(167, 193, 55);
 }
 
 .nav-link.disabled {
@@ -4412,7 +4422,7 @@ fieldset:disabled .btn {
 .nav-pills .nav-link.active,
 .nav-pills .show > .nav-link {
   color: #fff;
-
+  background-color: rgb(167, 193, 55);
 }
 
 .nav-fill > .nav-link,
@@ -4838,7 +4848,7 @@ fieldset:disabled .btn {
   background-color: #fff;
   background-clip: border-box;
   border: 1px solid rgba(0, 0, 0, 0.125);
-  border-radius: 0px;
+  border-radius:  0.75rem;
 }
 
 .card > hr {
@@ -4853,14 +4863,14 @@ fieldset:disabled .btn {
 
 .card > .list-group:first-child {
   border-top-width: 0;
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
+  border-top-left-radius:  0.75rem;
+  border-top-right-radius:  0.75rem;
 }
 
 .card > .list-group:last-child {
   border-bottom-width: 0;
-  border-bottom-right-radius: 0;
-  border-bottom-left-radius: 0;
+  border-bottom-right-radius:  0.75rem;
+  border-bottom-left-radius:  0.75rem;
 }
 
 .card > .card-header + .list-group,
@@ -4945,8 +4955,8 @@ fieldset:disabled .btn {
 
 .card-img,
 .card-img-top {
-  border-top-left-radius: 0;
-  border-top-right-radius: 0;
+  border-top-left-radius: 0.75rem;
+  border-top-right-radius: 0.75rem;
 }
 
 .card-img,
@@ -5169,7 +5179,7 @@ fieldset:disabled .btn {
 .page-link {
   position: relative;
   display: block;
-
+  color: rgb(140, 161, 46);
   background-color: #fff;
   border: 1px solid #dee2e6;
   transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out,
@@ -5184,17 +5194,17 @@ fieldset:disabled .btn {
 
 .page-link:hover {
   z-index: 2;
-  color: #895d35;
+  color: rgb(140, 161, 46);
   background-color: #e9ecef;
   border-color: #dee2e6;
 }
 
 .page-link:focus {
   z-index: 3;
-  color: #895d35;
+  color: rgb(140, 161, 46);
   background-color: #e9ecef;
   outline: 0;
-  box-shadow: 0 0 0 0.25rem rgba(171, 116, 66, 0.25);
+  box-shadow: 0 0 0 0.25rem rgba(168, 193, 55, 0.644);
 }
 
 .page-item:not(:first-child) .page-link {
@@ -5204,11 +5214,12 @@ fieldset:disabled .btn {
 .page-item.active .page-link {
   z-index: 3;
   color: #fff;
-
+  background-color: rgb(167, 193, 55);
+  border-color: rgb(167, 193, 55);
 }
 
 .page-item.disabled .page-link {
-  color: #6c757d;
+  color:rgb(140, 161, 46);
   pointer-events: none;
   background-color: #fff;
   border-color: #dee2e6;
@@ -5309,13 +5320,13 @@ fieldset:disabled .btn {
 }
 
 .alert-primary {
-  color: #674628;
+  color: rgb(167, 193, 55);
   background-color: #eee3d9;
   border-color: #e6d5c6;
 }
 
 .alert-primary .alert-link {
-  color: #523820;
+  color:  rgb(140, 161, 46);
 }
 
 .alert-secondary {
@@ -5411,7 +5422,7 @@ fieldset:disabled .btn {
   color: #fff;
   text-align: center;
   white-space: nowrap;
-
+  background-color: #ab7442;
   transition: width 0.6s ease;
 }
 
@@ -5511,7 +5522,8 @@ fieldset:disabled .btn {
 .list-group-item.active {
   z-index: 2;
   color: #fff;
-
+  background-color: #ab7442;
+  border-color: #ab7442;
 }
 
 .list-group-item + .list-group-item {
@@ -6903,7 +6915,9 @@ fieldset:disabled .btn {
   content: "";
 }
 
-
+.link-primary {
+  color: rgb(167, 193, 55) ;
+}
 
 .link-primary:hover,
 .link-primary:focus {
@@ -7327,7 +7341,9 @@ fieldset:disabled .btn {
   border-left: 0 !important;
 }
 
-
+.border-primary {
+  border-color: #ab7442 !important;
+}
 
 .border-secondary {
   border-color: #6c757d !important;
@@ -8055,10 +8071,10 @@ fieldset:disabled .btn {
   padding-left: 3rem !important;
 }
 
-.py-0 {
+/* .py-0 {
   padding-top: 0 !important;
   padding-bottom: 0 !important;
-}
+} */
 
 .py-1 {
   padding-top: 0.25rem !important;
@@ -8351,14 +8367,25 @@ fieldset:disabled .btn {
 }
 
 .text-white-50 {
-  color: rgba(255, 255, 255, 0.5) !important;
+  --bs-text-opacity: 1;
+  color: rgba(255, 255, 255, 0.763) !important;
 }
 
 .text-reset {
   color: inherit !important;
 }
 
+.bg-primary {
+  background-color: rgb(167, 193, 55) !important;
+}
 
+.shadow-primary {
+  box-shadow: 0 0 0 0.25rem rgba(168, 193, 55, 0.644);
+  border-top-left-radius:  0.75rem;
+  border-top-right-radius:  0.75rem;
+  border-bottom-right-radius:  0.75rem;
+  border-bottom-left-radius:  0.75rem;
+}
 
 .bg-secondary {
   background-color: #6c757d !important;
@@ -12548,4 +12575,5 @@ fieldset:disabled .btn {
   .d-print-none {
     display: none !important;
   }
+
 }

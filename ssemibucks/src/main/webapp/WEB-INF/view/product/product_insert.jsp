@@ -1,3 +1,4 @@
+<%@ page import="ssemi.ssemibucks.USER.UserDao" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html lang="en">
@@ -34,15 +35,32 @@
                 // pId check 함수 호출
                 $("#pId").css("disabled");
             });
+
+            // function adPwCheck() {
+            //     inputPw = $("#inputPw").val();
+            //     if(inputPw == session.get){
+            //         alert("흥");
+            //     }
+            //      else {
+            //         alert("뿡");
+            //     }
+            //     // location.href="location.href='/product/product_list";
+            // }
+
+            $("#navbar").load("/navbar");
         });
     </script>
+
+    <style>
+        /*.l-fs {*/
+        /*    font-size: 0.9rem;*/
+        /*}*/
+    </style>
 </head>
 
 <body>
-
-    <!-- Navbar -->
-    <div include-html="/navbar.html"></div>
-    <script>includeHTML();</script>
+    <%-- Navbar --%>
+    <div id="navbar"></div>
 
     <!-- Header-->
     <header class="py-5" style="background-color: rgb(167, 193, 55); height: 100px;">
@@ -52,6 +70,7 @@
         <!-- Product section-->
         <section class="py-5">
             <div class="container px-4 px-lg-5 my-5">
+                <form method="post">
                 <!-- btn -->
                 <div>
                     <button class="btn" onclick="location.href='/product/product_list';" style="margin-bottom: 20px;"><i
@@ -60,7 +79,8 @@
                     <button class="btn" style="float: right;" data-bs-toggle="modal"
                             data-bs-target="#staticBackdrop"><i class="bi bi-plus-circle"></i>
                         add</button>
-
+<%--                    <button type="submit" class="btn" style="float: right;"><i class="bi bi-plus-circle"></i>--%>
+<%--                        add</button>--%>
                     <!-- 추가 modal -->
                     <!-- Modal -->
                     <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
@@ -73,36 +93,39 @@
                                             aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    Admin 계정의 비밀번호를 입력해주세요
-                                    <input type="password" class="form-control" id="inputPassword">
+                                    정말 추가하시겠습니까?
+<%--                                    <form action="/product/product_insert" method="post">--%>
+<%--                                        Admin 계정의 비밀번호를 입력해주세요--%>
+<%--                                        <input type="password" class="form-control" id="inputPw" name="inputPw">--%>
+<%--                                    </form>--%>
                                 </div>
                                 <div class="modal-footer">
                                     <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                    <button type="button" class="btn btn-primary"
-                                            onclick="location.href='/product/product_list';">Add</button>
+                                    <button type="submit" class="btn btn-primary" onclick="location.href='/product/product_insert'">Add</button>
+<%--                                     location.href='/product/product_insert'--%>
                                 </div>
                             </div>
                         </div>
                     </div>
 
-                    <form>
+
                         <div class="row gx-4 gx-lg-5 align-items-center">
                             <!-- pImage preview -->
-                            <div class="col-md-6">
+                            <div class="col-md-4">
                                 <img class="card-img-top mb-5 mb-md-0" id="preview"
                                      src="https://cdn11.bigcommerce.com/s-4f830/stencil/21634b10-fa2b-013a-00f1-62a1dd733893/e/4a0532a0-6207-013b-8ab2-261f9b1f5b00/icons/icon-no-image.svg"
                                      alt="...">
                             </div>
 
-                            <div class="col-md-6">
+                            <div class="col-md-8">
 
                                 <!-- pId -->
                                 <div class="row mb-3">
-                                    <label class="col-sm-2 col-form-label">Product Id</label>
+                                    <label class="col-sm-2 col-form-label l-fs">Product Id</label>
                                     <div class="col-sm-10">
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control" id="pId" name="pId"
-                                                   placeholder="Product Id">
+                                                   placeholder="Product Id" pattern="^p[0-9]{4}" required>
                                             <label>start with p and 4 digits</label>
                                         </div>
                                     </div>
@@ -114,7 +137,7 @@
                                     <div class="col-sm-10">
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control" id="pName" name="pName"
-                                                   placeholder="Product Name">
+                                                   placeholder="Product Name" required>
                                             <label>Product Name</label>
                                         </div>
                                     </div>
@@ -166,41 +189,42 @@
                                     <div class="col-sm-10">
                                         <div class="input-group mb-3">
                                             <span class="input-group-text">￦</span>
-                                            <input type="text" class="form-control" aria-label="Price" name="price"
-                                                   placeholder="0">
+                                            <input type="number" class="form-control" aria-label="Price" name="price"
+                                                   placeholder="0" required>
                                         </div>
                                     </div>
+                                </div>
 
-                                    <!-- detail -->
-                                    <div class="row mb-3">
-                                        <label class="col-sm-2 col-form-label">Detail</label>
-                                        <div class="col-sm-10">
-                                            <div class="form-floating">
-                                                <textarea class="form-control" placeholder="Detail" name="datail"
-                                                    style="height: 100px;"></textarea>
-                                                <label>product detail</label>
-                                            </div>
+                                <!-- detail -->
+                                <div class="row mb-3">
+                                    <label class="col-sm-2 col-form-label">Detail</label>
+                                    <div class="col-sm-10">
+                                        <div class="form-floating">
+                                            <textarea class="form-control" placeholder="pDetail" name="pDetail"
+                                                style="height: 100px;" required></textarea>
+                                            <label>product detail</label>
                                         </div>
                                     </div>
+                                </div>
 
-                                    <!-- pImage -->
-                                    <div class="row mb-3">
-                                        <label class="col-sm-2 col-form-label">Image</label>
-                                        <div class="col-sm-8">
-                                            <div class="form-floating mb-3">
-                                                <input type="text" class="form-control" id="pImageUrl" name="pImage"
-                                                    placeholder="pImage">
-                                                <label>Product Image URL</label>
-                                            </div>
+                                <!-- pImage -->
+                                <div class="row mb-3">
+                                    <label class="col-sm-2 col-form-label">Image</label>
+                                    <div class="col-sm-8">
+                                        <div class="form-floating mb-3">
+                                            <input type="text" class="form-control" id="pImageUrl" name="pImage"
+                                                placeholder="pImage" required>
+                                            <label>Product Image URL</label>
+                                        </div>
 
-                                        </div>
-                                        <div class="col-sm-2" style="line-height: 50px;">
-                                            <button type="button" class="btn btn-primary" id="previewBtn">preview</button>
-                                        </div>
+                                    </div>
+                                    <div class="col-sm-2" style="line-height: 50px;">
+                                        <button type="button" class="btn btn-primary" id="previewBtn">preview</button>
                                     </div>
                                 </div>
                             </div>
                         </div>
+
                     </form>
                 </div>
             </div>
