@@ -7,7 +7,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 import java.util.Scanner;
+import java.util.Vector;
 
 @Repository
 public class UserDao {
@@ -53,7 +55,9 @@ public class UserDao {
     }
 
     //모든회원조회
-    public void selectAllUser() {
+    public Vector<User> selectAllUser() {
+        Vector<User> list = new Vector<>();
+
         Connection conn = db.getConnection();
         PreparedStatement pstmt = null;
         ResultSet rs = null;
@@ -65,27 +69,23 @@ public class UserDao {
             rs = pstmt.executeQuery();
 
 
-            if (rs.next()) {
-                System.out.println("아이디\t이름\t\t비밀번호\t전화번호\t\t\t주소");
-                System.out.println("==================================================");
-                do {
-                    System.out.println(rs.getString("uId") + "\t" +
-                            rs.getString("uName") + "\t" +
-                            rs.getString("pw") + "\t" +
-                            rs.getString("hp") + "\t" +
-                            rs.getString("addr"));
-                } while (rs.next());
+            while (rs.next()) {
+                User user = new User();
 
-            } else {
-                System.out.println("회원이 없습니다.");
+                user.setuId(rs.getString("uId"));
+                user.setuName(rs.getString("uName"));
+                user.setPw(rs.getString("pw"));
+                user.setHp(rs.getString("hp"));
+                user.setAddr(rs.getString("addr"));
+
+                list.add(user);
             }
-            System.out.println();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
             db.dbClose(rs, pstmt, conn);
         }
-
+        return list;
     }
 
     //단순회원조회
@@ -253,32 +253,29 @@ public class UserDao {
 //
 //    }
 
-//    //회원 통합 수정
-//    public void updateUser(String uId) {
-//        Connection conn = db.getConnection();
-//        PreparedStatement pstmt = null;
-//
-//        User user= selectUser(uId);
-//
-//        String sql = "update USER set pw=?, hp=?, addr=? where uId=?";
-//
-//        try {
-//            pstmt = conn.prepareStatement(sql);
-//
-//            pstmt.setString(1, user.getPw());
-//            pstmt.setString(2, user.setHp());
-//            pstmt.setString(3, user.getAddr());
-//            pstmt.setString(4, uId);
-//
-//            int n = pstmt.executeUpdate();
-//            if (n == 1) System.out.println("**변경 완료**\n");
-//        } catch (SQLException e) {
-//            throw new RuntimeException(e);
-//        } finally {
-//            db.dbClose(pstmt, conn);
-//        }
-//
-//    }
+    //회원 통합 수정
+    public void updateUser(User user) {
+        Connection conn = db.getConnection();
+        PreparedStatement pstmt = null;
+
+        String sql = "update USER set pw=?, hp=?, addr=? where uId=?";
+
+        try {
+            pstmt = conn.prepareStatement(sql);
+
+            pstmt.setString(1, user.getPw());
+            pstmt.setString(2, user.getHp());
+            pstmt.setString(3, user.getAddr());
+            pstmt.setString(4, user.getuId());
+
+            int n = pstmt.executeUpdate();
+            if (n == 1) System.out.println("**변경 완료**\n");
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            db.dbClose(pstmt, conn);
+        }
+    }
 
     //회원 관리
 //    public void managementUser() {

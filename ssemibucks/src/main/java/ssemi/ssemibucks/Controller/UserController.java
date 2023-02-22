@@ -99,6 +99,11 @@ public class UserController {
         return "/user/user_mypage";
     }
 
+    @RequestMapping("/user/user_signout")
+    public String user_signout() {
+        return "/user/user_signout";
+    }
+
     @RequestMapping(value = "/user/user_deleteAction", method = RequestMethod.GET)
     public String deleteAction(@RequestParam String uId,Model model,HttpServletRequest request) {
         HttpSession session = request.getSession();
@@ -106,24 +111,34 @@ public class UserController {
         userDao.deleteUser(uId);
 
         model.addAttribute("msg", uId + "님, 탈퇴 처리되었습니다.");
-        model.addAttribute("url", "/signout");
+        model.addAttribute("url", "/user/user_signout");
         return "alert";
     }
+
+//    @GetMapping("/user/user_delete")
+//    public String user_delete() {
+//        return "/user/user_delete";
+//    }
 
     @GetMapping("/user/user_update")
     public String userupdate() {
         return "/user/user_update";
     }
 
-//    @RequestMapping(value = "/user/user_updateAction", method = RequestMethod.GET)
-//    public String updateAction(@RequestParam String uId,Model model,HttpServletRequest request) {
-//        HttpSession session = request.getSession();
-//        UserDao userDao = new UserDao();
-//        userDao.updateUser(uId);
-//
-//        model.addAttribute("msg", uId + "님, 수정완료되었습니다.");
-//        model.addAttribute("url", "history.back()");
-//        return "alert";
-//    }
+    @RequestMapping(value = "/user/user_updateAction", method = RequestMethod.POST)
+    public String updateAction(@RequestParam String uId,String pw,String hp,String addr,Model model,HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        UserDao userDao = new UserDao();
+        User user= userDao.selectUser(uId);
+        user.setPw(pw);
+        user.setHp(hp);
+        user.setAddr(addr);
+
+        userDao.updateUser(user);
+
+        model.addAttribute("msg", uId + "님, 수정완료되었습니다.");
+        model.addAttribute("url", "/user/user_mypage");
+        return "/alert";
+    }
 
 }

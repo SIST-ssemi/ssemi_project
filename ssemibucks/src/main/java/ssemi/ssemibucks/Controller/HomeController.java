@@ -21,10 +21,5 @@ public class HomeController {
         return "alert";
     }
 
-    @RequestMapping("/signout")
-    public String signout() {
-        return "signout";
-    }
-
 }
 

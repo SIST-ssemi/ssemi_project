@@ -84,7 +84,7 @@
                 <div class="uId">
                     <th style="vertical-align: middle">UserID</th>
                     <td style="vertical-align: middle">
-                        <input type="text" name="uId" id="uId" placeholder="Enter UserID" required="required" value="<%=user.getuId()%>" readonly/>
+                        <input type="text" style="color: rgba(0,0,0,0.3)" name="uId" id="uId" placeholder="Enter UserID" required="required" value="<%=user.getuId()%>" readonly/>
                     </td>
                 </div>
             </form>
@@ -101,7 +101,7 @@
             <div class="uName">
                 <th style="vertical-align: middle">UserName</th>
                 <td style="vertical-align: middle">
-                    <input type="text" name="uName" placeholder="Enter UserName" value="<%=user.getuName()%>" required="required" readonly/>
+                    <input type="text" name="uName" style="color: rgba(0,0,0,0.3)" placeholder="Enter UserName" value="<%=user.getuName()%>" required="required" readonly/>
                 </td>
             </div>
         </tr>
