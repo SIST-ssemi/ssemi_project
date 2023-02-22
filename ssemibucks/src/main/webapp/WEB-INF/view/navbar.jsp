@@ -70,7 +70,7 @@
                 </div>
             </div>
         </div>
-        <a href="#" class="btn btn-light-g py-4 px-lg-5 d-none d-lg-block" style="border-radius: 0px; font-size: 14pt;">Cart<i
+        <a href="/cart/cart_list" class="btn btn-light-g py-4 px-lg-5 d-none d-lg-block" style="border-radius: 0px; font-size: 14pt;">Cart<i
                 class="fas fa-shopping-cart ms-3"></i></a>
     </div>
 </nav>
