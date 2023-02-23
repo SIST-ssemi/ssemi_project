@@ -69,8 +69,9 @@
 
 <body>
 <%
+    String uId=request.getParameter("uId");
     CartDao dao = new CartDao();
-    Vector<Cart> list = dao.selectCart();
+    Vector<Cart> list = dao.selectCart(uId);
 %>
 
 <div id="navbar"></div>
@@ -103,7 +104,7 @@
             <div class="card my-4">
                 <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                     <div class="bg-primary shadow-primary border-radius-lg pt-4 pb-3">
-                        <h6 class="text-white text-capitalize ps-3">Users table</h6>
+                        <h6 class="text-white text-capitalize ps-3">Cart table</h6>
                     </div>
                 </div>
                 <div class="card-body px-0 pb-2">
@@ -113,11 +114,11 @@
                             <tr>
                                 <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                    pId
+                                    category
                                 </th>
-                                <th
+                                <th colspan="2"
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
-                                    pName
+                                    product
                                 </th>
                                 <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
@@ -146,12 +147,22 @@
                             %>
                             <tr>
                                 <td class="align-middle text-center text-sm">
-                                    <%= cart.getpId()%>
+                                    <%= cart.getCategory()%>
                                 </td>
-                                <td class="align-middle text-center text-sm">
-                                    <span><%=cart.getpName() %></span>
+                                <td>
+                                <a href="/product/product_detail?pId=<%=cart.getpId() %>">
+                                    <div class=" d-flex px-2 py-1">
+                                        <div>
+                                            <img src="<%=cart.getpImage() %>" class="img-thumbnail avatar avatar-sm me-3 border-radius-lg "
+                                                 alt="image" width="60px" height="60px">
+                                        </div>
+                                        <div class="d-flex flex-column justify-content-center">
+                                            <h6 class="mb-0 text-sm"><%=cart.getpName() %></h6>
+                                        </div>
+                                    </div>
+                                </a>
                                 </td>
-                                <td class="align-middle text-center text-sm">
+                                <td class="align-middle text-center text-uppercase text-sm">
                                     <span><%=cart.getpOption() %></span>
                                 </td>
                                 <td class="align-middle text-center text-sm">
@@ -164,7 +175,7 @@
                                     <button class="btn btn-outline-dark flex-shrink-0" type="button" style="margin-left: 5px; border-style: none; width: 35px; height: 35px;" id="plus">+</button>
 
                                 </td>
-                                <td class="align-middle text-center text-sm" style="width: 300px;">
+                                <td class="align-middle text-center text-sm">
                                     <button class="btn"
                                             onclick="location.href='#'">
                                         <i class="bi bi-trash"></i>

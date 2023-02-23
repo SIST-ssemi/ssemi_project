@@ -9,10 +9,15 @@
 </head>
 <body>
 <%
-    session.invalidate();
-
-    response.sendRedirect("/index");
+    String uId=(String) session.getAttribute("uId");
 %>
+<script>
+    <%--alert(<%=uId%>+"님, 로그아웃하셨습니다.");--%>
+    location.href("/index");
+</script>
+<%--session.invalidate();
+response.sendRedirect("/index");--%>
+
 
 </body>
 </html>
