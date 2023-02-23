@@ -1,28 +1,30 @@
 package ssemi.ssemibucks.CART;
 
 public class Cart {
+    private String cId;
+    private String uId;
     private String pId;
     private String pName;
     private String pOption;
+    private String category;
     private int price;
     private int cQty;
+    private String pImage;
 
-    public Cart(String pId, String pName, String pOption, int price, int cQty) {
-        this.pId = pId;
-        this.pName = pName;
-        this.pOption = pOption;
-        this.price = price;
-        this.cQty = cQty;
+    public String getcId() {
+        return cId;
     }
 
-    public Cart(String pId, String pName, int cQty) {
-        this.pId = pId;
-        this.pName = pName;
-        this.cQty = cQty;
+    public void setcId(String cId) {
+        this.cId = cId;
     }
 
-    public Cart() {
+    public String getuId() {
+        return uId;
+    }
 
+    public void setuId(String uId) {
+        this.uId = uId;
     }
 
     public String getpId() {
@@ -49,6 +51,14 @@ public class Cart {
         this.pOption = pOption;
     }
 
+    public String getCategory() {
+        return category;
+    }
+
+    public void setCategory(String category) {
+        this.category = category;
+    }
+
     public int getPrice() {
         return price;
     }
@@ -63,5 +73,13 @@ public class Cart {
 
     public void setcQty(int cQty) {
         this.cQty = cQty;
+    }
+
+    public String getpImage() {
+        return pImage;
+    }
+
+    public void setpImage(String pImage) {
+        this.pImage = pImage;
     }
 }
