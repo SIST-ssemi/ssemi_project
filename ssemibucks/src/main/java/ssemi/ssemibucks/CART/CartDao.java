@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.Scanner;
+import java.util.Vector;
 
 public class CartDao {
 
@@ -18,36 +19,34 @@ public class CartDao {
     String sql = "";
 
     //장바구니 목록 조회
-    public void selectCart() {
-        Connection conn = db.getConnection();
-        PreparedStatement pstmt = null;
-        ResultSet rs = null;
+    public Vector<Cart> selectCart() throws SQLException {
+        Vector<Cart> list = new Vector<>();
 
-        String sql = "select * from CART";
+        Connection conn = db.getConnection();
+
+        sql = "select * from CART";
 
         try {
             pstmt = conn.prepareStatement(sql);
             rs = pstmt.executeQuery();
 
-            if (rs.next()) {
-                System.out.println("상품ID\t상품명\t\t상품옵션\t상품가격\t상품수량");
-                System.out.println("==================================================");
-                do {
-                    System.out.println(rs.getString("pId") + "\t" +
-                            rs.getString("pName") + "\t" +
-                            rs.getString("pOption") + "\t\t" +
-                            rs.getString("price") + "\t" +
-                            rs.getString("cQTY"));
-                } while (rs.next());
+            while (rs.next()) {
+                Cart cart = new Cart();
+                cart.setpId(rs.getString("pId"));
+                cart.setpName(rs.getString("pName"));
+                cart.setpOption(rs.getString("pOption"));
+                cart.setPrice(rs.getInt("price"));
+                cart.setcQty(rs.getInt("cQTY"));
 
-            } else {
-                System.out.println("장바구니에 상품이 없습니다.");
+                list.add(cart);
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
             db.dbClose(rs, pstmt, conn);
         }
+        return list;
+
     }
 
     // 장바구니 추가

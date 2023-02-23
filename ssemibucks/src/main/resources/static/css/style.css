@@ -228,7 +228,7 @@
 
 .page-header {
   background: linear-gradient(rgba(53, 53, 53, 0.7), rgba(53, 53, 53, 0.7)),
-    url(../img/carousel-1.jpg) center center no-repeat;
+  url(../img/carousel-1.jpg) center center no-repeat;
   background-size: cover;
 }
 
@@ -442,9 +442,9 @@
   height: 100%;
   width: 0;
   background: linear-gradient(
-    to right,
-    rgba(255, 255, 255, 1) 0%,
-    rgba(255, 255, 255, 0) 100%
+          to right,
+          rgba(255, 255, 255, 1) 0%,
+          rgba(255, 255, 255, 0) 100%
   );
   z-index: 1;
 }
@@ -457,9 +457,9 @@
   height: 100%;
   width: 0;
   background: linear-gradient(
-    to left,
-    rgba(255, 255, 255, 1) 0%,
-    rgba(255, 255, 255, 0) 100%
+          to left,
+          rgba(255, 255, 255, 1) 0%,
+          rgba(255, 255, 255, 0) 100%
   );
   z-index: 1;
 }

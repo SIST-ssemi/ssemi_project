@@ -3,7 +3,9 @@ package ssemi.ssemibucks.CART;
 import ssemi.ssemibucks.PRODUCT.Product;
 import ssemi.ssemibucks.PRODUCT.ProductDao;
 
+import java.sql.SQLException;
 import java.util.Scanner;
+import java.util.Vector;
 
 public class CartService {
 
@@ -17,9 +19,9 @@ public class CartService {
     }
     
     //장바구니 목록 조회
-    public void allCart() {
+    public Vector<Cart> allCart() throws SQLException {
         System.out.println("장바구니 목록 조회\n");
-        cartDao.selectCart();
+        return cartDao.selectCart();
     }
     
     // 장바구니 등록

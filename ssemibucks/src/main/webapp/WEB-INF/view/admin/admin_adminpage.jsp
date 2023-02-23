@@ -71,7 +71,7 @@
               <button
                 type="button"
                 class="btn mybtn btnmodify"
-                onclick="location.href='#'"
+                onclick="location.href='/admin/admin_uManagement'"
               >
                 회원관리
               </button>
