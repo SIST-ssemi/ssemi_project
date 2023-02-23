@@ -225,4 +225,25 @@ public class ProductDao {
 
         return product;
     }
+
+    //아이디 중복체크
+    public String idDuplication(String pId) {
+        String str = "";
+
+        if(pIdCheck(pId)) {
+            if (findBypId(pId).getpId() == null) {
+                str = "사용가능아이디";
+            } else {
+                str = "중복아이디";
+            }
+        } else {
+            str = "조건확인";
+        }
+        return str;
+    }
+
+    // 상품 아이디 무조건 p + 숫자 4자리
+    private boolean pIdCheck(String pId) {
+        return pId.matches("^p[0-9]{4}");
+    }
 }
