@@ -24,7 +24,7 @@ public class CartDao {
 
         Connection conn = db.getConnection();
 
-        sql = "select * from CART";
+        sql = "select * from CART C JOIN PRODUCT P ON C.pId=P.pId;";
 
         try {
             pstmt = conn.prepareStatement(sql);
@@ -32,11 +32,15 @@ public class CartDao {
 
             while (rs.next()) {
                 Cart cart = new Cart();
+                cart.setcId(rs.getString("cId"));
+                cart.setuId(rs.getString("uId"));
                 cart.setpId(rs.getString("pId"));
                 cart.setpName(rs.getString("pName"));
                 cart.setpOption(rs.getString("pOption"));
+                cart.setCategory(rs.getString("category"));
                 cart.setPrice(rs.getInt("price"));
                 cart.setcQty(rs.getInt("cQTY"));
+                cart.setpImage(rs.getString("pImage"));
 
                 list.add(cart);
             }
@@ -117,7 +121,7 @@ public class CartDao {
     }
 
     // 상품 아이디 존재 여부 확인 - 중복 상품 등록 방지
-    public Cart findBypId(String pId) {
+   /* public Cart findBypId(String pId) {
         Connection conn = db.getConnection();
         Cart cart = null;
 
@@ -139,5 +143,5 @@ public class CartDao {
         }
 
         return cart;
-    }
+    }*/
 }

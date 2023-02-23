@@ -7,7 +7,7 @@ import java.sql.SQLException;
 import java.util.Scanner;
 import java.util.Vector;
 
-public class CartService {
+/*public class CartService {
 
     private final CartDao cartDao;
     private final ProductDao productDao;
@@ -145,4 +145,4 @@ public class CartService {
 
         cartDao.updateCart(pId, pName, cQTY);
     }
-}
+}*/
