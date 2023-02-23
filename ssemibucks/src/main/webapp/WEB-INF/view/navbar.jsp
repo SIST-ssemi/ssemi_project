@@ -33,6 +33,9 @@
     <!-- Template Stylesheet -->
     <link href="/css/style.css" rel="stylesheet"/>
 </head>
+<%
+String uId= (String)session.getAttribute("uId");
+%>
 
 <body>
 <!-- Navbar Start -->
@@ -70,8 +73,20 @@
                 </div>
             </div>
         </div>
-        <a href="/cart/cart_list" class="btn btn-light-g py-4 px-lg-5 d-none d-lg-block" style="border-radius: 0px; font-size: 14pt;">Cart<i
+        <% if (session.getAttribute("uId") == null) { %>
+        <a href="/user/user_login" class="btn btn-light-g py-4 px-lg-5 d-none d-lg-block" style="border-radius: 0px; font-size: 14pt;">Cart<i
                 class="fas fa-shopping-cart ms-3"></i></a>
+        <%
+        } else if (session.getAttribute("uId").equals("admin")) { %>
+        <div></div>
+        <%
+        } else {
+        %>
+        <a href="/cart/cart_list?uId=<%=uId%>" class="btn btn-light-g py-4 px-lg-5 d-none d-lg-block" style="border-radius: 0px; font-size: 14pt;">Cart<i
+                class="fas fa-shopping-cart ms-3"></i></a>
+        <%
+            }
+        %>
     </div>
 </nav>
 <!-- Navbar End -->

@@ -9,10 +9,9 @@
 </head>
 <body>
 <%
-    session.invalidate();
+session.invalidate();
 
-    response.sendRedirect("/index");
+response.sendRedirect("/index");
 %>
-
 </body>
 </html>
