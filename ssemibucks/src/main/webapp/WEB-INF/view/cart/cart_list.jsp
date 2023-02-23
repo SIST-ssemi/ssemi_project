@@ -36,6 +36,10 @@
 
     <script>
         $(function () {
+            $("#dataTable").DataTable({
+                ordering: false
+            });
+            $("#navbar").load("/navbar");
 
             var cQTY = parseInt($("#cQTY").val());
 
@@ -56,20 +60,11 @@
             });
         });
     </script>
-
-    <script>
-        $(function () {
-            $("#dataTable").DataTable({
-                ordering: false
-            });
-            $("#navbar").load("/navbar");
-        });
-    </script>
 </head>
 
 <body>
 <%
-    String uId=request.getParameter("uId");
+    String uId = request.getParameter("uId");
     CartDao dao = new CartDao();
     Vector<Cart> list = dao.selectCart(uId);
 %>
@@ -116,8 +111,8 @@
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                     category
                                 </th>
-                                <th colspan="2"
-                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                <th
+                                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                     product
                                 </th>
                                 <th
@@ -150,18 +145,21 @@
                                     <%= cart.getCategory()%>
                                 </td>
                                 <td>
-                                <a href="/product/product_detail?pId=<%=cart.getpId() %>">
-                                    <div class=" d-flex px-2 py-1">
-                                        <div>
-                                            <img src="<%=cart.getpImage() %>" class="img-thumbnail avatar avatar-sm me-3 border-radius-lg "
-                                                 alt="image" width="60px" height="60px">
+                                    <a href="/product/product_detail?pId=<%=cart.getpId() %>">
+                                        <div class=" d-flex px-2 py-1">
+                                            <div>
+                                                <img src="<%=cart.getpImage() %>"
+                                                     class="img-thumbnail avatar avatar-sm me-3 border-radius-lg "
+                                                     alt="image" width="60px" height="60px">
+                                            </div>
+                                            <div class="d-flex flex-column justify-content-center">
+                                                <h6 class="mb-0 text-sm"><%=cart.getpName() %>
+                                                </h6>
+                                            </div>
                                         </div>
-                                        <div class="d-flex flex-column justify-content-center">
-                                            <h6 class="mb-0 text-sm"><%=cart.getpName() %></h6>
-                                        </div>
-                                    </div>
-                                </a>
+                                    </a>
                                 </td>
+
                                 <td class="align-middle text-center text-uppercase text-sm">
                                     <span><%=cart.getpOption() %></span>
                                 </td>
@@ -169,10 +167,15 @@
                                     <span><%=cart.getPrice() %></span>
                                 </td>
                                 <td class="align-middle text-center text-sm">
-                                    <button class="btn btn-outline-dark flex-shrink-0" type="button" style="margin-right: 5px; border-style: none; width: 35px; height: 35px;"
-                                            id="minus">-</button>
+                                    <button class="btn btn-outline-dark flex-shrink-0" type="button"
+                                            style="margin-right: 5px; border-style: none; width: 35px; height: 35px;"
+                                            id="minus">-
+                                    </button>
                                     <%=cart.getcQty()%>
-                                    <button class="btn btn-outline-dark flex-shrink-0" type="button" style="margin-left: 5px; border-style: none; width: 35px; height: 35px;" id="plus">+</button>
+                                    <button class="btn btn-outline-dark flex-shrink-0" type="button"
+                                            style="margin-left: 5px; border-style: none; width: 35px; height: 35px;"
+                                            id="plus">+
+                                    </button>
 
                                 </td>
                                 <td class="align-middle text-center text-sm">
