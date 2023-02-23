@@ -6,7 +6,7 @@
     <meta charset="UTF-8"/>
     <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
     <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-    <title>Register_ssemibucks</title>
+    <title>Ssemibucks_Sign Up</title>
     <link
             rel="stylesheet"
             href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
@@ -71,7 +71,7 @@
 </head>
 <body>
 <div class="title"><h1>Sign Up</h1></div>
-<form action="/user/registerAction" METHOD="post">
+<form action="/user/user_registerAction" METHOD="post">
     <table class="table table-stripped" align="center">
         <tr>
             <form id>
@@ -91,7 +91,7 @@
                         <script>
                             $("#chkbtn").click(function () {
                                 if ($('#uId').val() != '') {
-                                    window.open("chkId", "chk", "width=500, height=200");
+                                    window.open("user_chkId", "chk", "width=500, height=200");
                                     $("input[name=checked_id]").val("check");
                                 } else
                                     alert("아이디를 입력해주세요.")

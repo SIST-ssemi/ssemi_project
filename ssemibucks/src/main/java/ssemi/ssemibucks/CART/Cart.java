@@ -21,6 +21,10 @@ public class Cart {
         this.cQty = cQty;
     }
 
+    public Cart() {
+
+    }
+
     public String getpId() {
         return pId;
     }

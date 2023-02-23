@@ -58,29 +58,29 @@ public class UserService {
     }
 
     //회원관리
-    public void management() {
-        while (true) {
-            System.out.println("[관리자 페이지]");
-            System.out.println("1. 회원목록확인\t2. 회원 강제탈퇴\t0. 종료");
-            System.out.print("입력 >> ");
-
-            int num = Integer.parseInt(sc.nextLine());
-            switch (num) {
-                case 1:
-                    userDao.selectAllUser();
-                    break;
-                case 2:
-                    userDao.deleteUser();
-                    break;
-                case 0:
-                    System.out.println("관리자 모드 종료");
-                    System.exit(0);
-                default:
-                    System.out.println("재입력하세요");
-            }
-        }
-
-
-    }
+//    public void management() {
+//        while (true) {
+//            System.out.println("[관리자 페이지]");
+//            System.out.println("1. 회원목록확인\t2. 회원 강제탈퇴\t0. 종료");
+//            System.out.print("입력 >> ");
+//
+//            int num = Integer.parseInt(sc.nextLine());
+//            switch (num) {
+//                case 1:
+//                    userDao.selectAllUser();
+//                    break;
+//                case 2:
+//                    userDao.deleteUser();
+//                    break;
+//                case 0:
+//                    System.out.println("관리자 모드 종료");
+//                    System.exit(0);
+//                default:
+//                    System.out.println("재입력하세요");
+//            }
+//        }
+//
+//
+//    }
 
 }

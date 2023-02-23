@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"/>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
 
-    <title>LogIn_ssemibuck</title>
+    <title>Ssemibucks_MyPage</title>
     <style>
         .header,
         h4,
@@ -48,7 +48,7 @@
         <h4><span class="glyphicon glyphicon-lock"></span> Login</h4>
     </div>
     <div class="body" style="padding: 40px 50px">
-        <form action="/user/loginAction" method="post">
+        <form action="/user/user_loginAction" method="post">
             <div class="form-group">
                 <label for="username"><span class="glyphicon glyphicon-user"></span> UserID</label>
                 <input name="uId" type="text" class="form-control" id="username" placeholder="Enter userID"/>
@@ -66,7 +66,7 @@
     </div>
     <div class="footer">
         <p style="margin-left: 50px">
-            Not a member? <a href="/user/register">Sign Up</a>
+            Not a member? <a href="/user/user_register">Sign Up</a>
         </p>
     </div>
     <div style="float: right">
