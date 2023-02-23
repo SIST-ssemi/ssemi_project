@@ -54,29 +54,6 @@
             <button class="btn" onclick="location.href='javascript:history.back();'" style="margin-bottom: 20px;"><i
                     class="bi bi-arrow-left-circle"></i> back</button>
 
-            <!-- 추가 modal -->
-            <!-- Modal -->
-            <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
-                 tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h1 class="modal-title fs-5" id="staticBackdropLabel">add</h1>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                    aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            상품을 추가하시겠습니까?
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary"
-                                    onclick="location.href='/product/product_insert';">Add</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
             <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"  style="border: 2px solid white; margin-top: 80px;">
                 <%
                     for(int i =0; i <list.size(); i++) {

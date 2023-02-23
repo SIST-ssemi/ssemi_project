@@ -72,7 +72,11 @@
                         class="bi bi-arrow-left-circle"></i>
                     back</button>
                 <%
-                    if (session.getAttribute("uId").equals("admin")) {
+                    if(session.getAttribute("uId") == null) {
+                %>
+                        <span></span>
+                <%
+                    } else if(session.getAttribute("uId").equals("admin")) {
                 %>
 
                     <button class="btn" style="margin-bottom: 20px; float: right;" data-bs-toggle="modal"
@@ -132,10 +136,6 @@
                     }
                 %>
             </div>
-
-            <!-- hidden으로 표시 -->
-            <input type="hidden" name="pId" value="<%=pId %>">
-            <input type="hidden" name="pStock" value="<%=product.getpStock() %>">
 
             <div class="row gx-4 gx-lg-5 align-items-center">
                 <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0"

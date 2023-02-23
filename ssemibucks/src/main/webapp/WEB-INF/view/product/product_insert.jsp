@@ -64,14 +64,14 @@
         <!-- Product section-->
         <section class="py-5">
             <div class="container px-4 px-lg-5 my-5">
-                <form id="insertForm" method="post">
+                <form action="/product/product_insertAction" method="post">
                 <!-- btn -->
                 <div>
                     <button class="btn" onclick="location.href='/admin/admin_pManagement'" style="margin-bottom: 20px;"><i
-                            class="bi bi-arrow-left-circle"></i></span>
-                        Back</button>
-                    <button type="submit" class="btn" style="margin-bottom: 20px; float: right" onclick="location.href='/product/product_insert'"><i class="bi bi-plus-circle"></i>
-                        insert</button>
+                            class="bi bi-arrow-left-circle"></i>
+                        back</button>
+                    <button type="submit" class="btn" style="margin-bottom: 20px; float: right"><i class="bi bi-plus-circle"></i>
+                        add</button>
 
                         <div class="row gx-4 gx-lg-5 align-items-center">
                             <!-- pImage preview -->
@@ -86,14 +86,28 @@
                                 <!-- pId -->
                                 <div class="row mb-3">
                                     <label class="col-sm-2 col-form-label l-fs">Product Id</label>
-                                    <div class="col-sm-10">
+                                    <div class="col-sm-8">
                                         <div class="form-floating mb-3">
                                             <input type="text" class="form-control" id="pId" name="pId"
                                                    placeholder="Product Id" pattern="^p[0-9]{4}" required>
                                             <label>start with p and 4 digits</label>
                                         </div>
                                     </div>
+                                    <div class="col-sm-2" style="line-height: 50px;">
+                                        <button type="button" class="btn btn-primary" id="chkbtn">Check</button>
+                                    </div>
                                 </div>
+
+                                <input type="hidden" name="checked_id" value="">
+                                <script>
+                                    $("#chkbtn").click(function () {
+                                        if ($('#pId').val() != '') {
+                                            window.open("product_chkId", "chk", "width=500, height=200");
+                                            $("input[name=checked_id]").val("check");
+                                        } else
+                                            alert("아이디를 입력해주세요.")
+                                    })
+                                </script>
 
                                 <!-- pName -->
                                 <div class="row mb-3">
@@ -180,7 +194,6 @@
                                                 placeholder="pImage" required>
                                             <label>Product Image URL</label>
                                         </div>
-
                                     </div>
                                     <div class="col-sm-2" style="line-height: 50px;">
                                         <button type="button" class="btn btn-primary" id="previewBtn">preview</button>

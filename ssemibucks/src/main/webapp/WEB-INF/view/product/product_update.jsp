@@ -54,70 +54,20 @@
 <!-- Product section-->
 <section class="py-5">
     <div class="container px-4 px-lg-5 my-5">
-        <form action="/product/product_update?pId=<%=product.getpId()%>" method="post">
+        <form action="/product/produt_updateAction" method="post">
+            <!-- hidden으로 표시 -->
+            <input type="hidden" name="pId" value="<%=pId %>">
+
             <!-- btn -->
             <div>
-                <button class="btn" onclick="location.href='/admin/admin_pManagement'" style="margin-bottom: 20px;"><i
-                        class="bi bi-arrow-left-circle"></i> back</button>
-                <button class="btn" style="margin-bottom: 20px; float: right;" data-bs-toggle="modal"
-                        data-bs-target="#staticBackdrop"><i class="bi bi-trash"></i>
+                <button type="button" class="btn" onclick="history.back()" style="margin-bottom: 20px;"><i class="bi bi-arrow-left-circle"></i>
+                    back</button>
+                <button type="button" class="btn" style="margin-bottom: 20px; float: right;" onclick="location.href='/product/product_delete?pId=<%=product.getpId() %>'"><i class="bi bi-trash"></i>
                     delete</button>
-                <button class="btn" style="margin-bottom: 20px; float: right;" data-bs-toggle="modal"
-                        data-bs-target="#staticBackdrop2"><i class="bi bi-pencil"></i>
+                <button type="submit" class="btn" style="margin-bottom: 20px; float: right;"><i class="bi bi-pencil"></i>
                     update</button>
-
-                <!-- 삭제 modal -->
-                <!-- Modal -->
-                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
-                     tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="staticBackdropLabel">delete</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                정말 삭제하시겠습니까?
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="button" class="btn btn-primary"
-                                        onclick="location.href='/product/product_delete';">Delete</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
             </div>
-                <!-- 수정 modal -->
-                <!-- Modal -->
-                <div class="modal fade" id="staticBackdrop2" data-bs-backdrop="static" data-bs-keyboard="false"
-                     tabindex="-1" aria-labelledby="staticBackdropLabel2" aria-hidden="true">
-                    <div class="modal-dialog">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h1 class="modal-title fs-5" id="staticBackdropLabel2">update</h1>
-                                <button type="button" class="btn-close" data-bs-dismiss="modal"
-                                        aria-label="Close"></button>
-                            </div>
-                            <div class="modal-body">
-                                정말 수정하시겠습니까?
-<%--                                    <form action="" method="post">--%>
-<%--                                        Admin 계정의 비밀번호를 입력해주세요--%>
-<%--                                        <input type="password" class="form-control" id="inputPw" name="inputPw">--%>
-<%--                                    </form>--%>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Update</button>
-<%--                                 onclick="location.href='/product/product_update?pId=<%=product.getpId()%>';"--%>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-
-
-
+            
             <div class="row gx-4 gx-lg-5 align-items-center">
                 <!-- pImage preview -->
                 <div class="col-md-6">
@@ -127,6 +77,17 @@
                 </div>
 
                 <div class="col-md-6">
+
+                    <!-- pId -->
+                    <div class="row mb-3">
+                        <label class="col-sm-2 col-form-label l-fs">Product Id</label>
+                        <div class="col-sm-10">
+                            <div class="form-floating mb-3">
+                                <input type="text" class="form-control" id="pId" name="pId"
+                                       value="<%=product.getpName() %>" disabled>
+                            </div>
+                        </div>
+                    </div>
 
                     <!-- pName -->
                     <div class="row mb-3">

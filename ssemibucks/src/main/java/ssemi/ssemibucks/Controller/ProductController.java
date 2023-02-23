@@ -5,9 +5,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ssemi.ssemibucks.PRODUCT.Product;
+import ssemi.ssemibucks.PRODUCT.ProductDao;
 import ssemi.ssemibucks.PRODUCT.ProductService;
 import ssemi.ssemibucks.USER.UserDao;
 
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 @Controller
@@ -28,9 +31,11 @@ public class ProductController {
     }
 
     @GetMapping("/admin/admin_pManagement")
-    public String admin_pManagement(Model model) {
+    public String admin_pManagement(Model model, HttpServletRequest request) {
+        HttpSession session = request.getSession();
         List<Product> products = productService.allProduct();
         model.addAttribute("products", products);
+        session.setAttribute("uId", "admin");
 
         return "/admin/admin_pManagement";
     }
@@ -56,11 +61,10 @@ public class ProductController {
         return "/product/product_insert";
     }
     
-    @PostMapping ("/product/product_insert")
-    public String productInsert(ProductForm form) {
+    @PostMapping ("/product/product_insertAction")
+    public String productInsert(ProductForm form, Model model) {
         Product product = new Product();
-
-        product.setpId(form.getpName());
+        product.setpId(form.getpId());
         product.setpName(form.getpName());
         product.setpOption(form.getpOption());
         product.setCategory(form.getCategory());
@@ -71,7 +75,10 @@ public class ProductController {
 
         productService.registerProduct(product);
 
-        return "/admin/admin_pManagement";
+        model.addAttribute("msg",  "\\'" + product.getpName() + "\\'을/를 추가하였습니다");
+        model.addAttribute("url", "/admin/admin_pManagement");
+
+        return "/alert";
     }
 
     @GetMapping ("/product/product_update")
@@ -82,8 +89,8 @@ public class ProductController {
         return "/product/product_update";
     }
 
-    @PostMapping ("/product/product_update")
-    public String productUpdate(@RequestParam String pId, ProductForm form) {
+    @RequestMapping(value="/product/product_updateAction", method = RequestMethod.POST)
+    public String productUpdate(@RequestParam String pId, ProductForm form, Model model) {
         Product product = productService.selectProduct(pId);
 
         product.setPrice(form.getPrice());
@@ -93,14 +100,44 @@ public class ProductController {
 
         productService.modifyProduct(product);
 
-        return "/admin/admin_pManagement";
+        model.addAttribute("msg", "\\'" + product.getpName() + "\\'을/를 수정하였습니다");
+        model.addAttribute("url", "/admin/admin_pManagement");
+
+        return "/alert";
     }
 
     @GetMapping ("/product/product_delete")
-    public String productDelete(@RequestParam String pId) {
+    public String productDelete(@RequestParam String pId, Model model) {
         Product product = productService.selectProduct(pId);
         productService.removeProduct(product);
 
-        return "/admin/admin_pManagement";
+        model.addAttribute("msg", "\\'" + product.getpName() + "\\'을/를 삭제하였습니다");
+        model.addAttribute("url", "/admin/admin_pManagement");
+
+        return "/alert";
+    }
+
+    @GetMapping("/product/product_chkId")
+    public String chkId() {
+        return "/product/product_chkId";
+    }
+
+    @RequestMapping(value = "/product/product_chkIdAction", method = RequestMethod.POST)
+    public String chkIdAction(String chkId, Model model) {
+
+        ProductDao dao = new ProductDao();
+        String result = dao.idDuplication(chkId);
+
+        if (result.equals("중복아이디")) {
+            model.addAttribute("msg", "중복된 아이디입니다. 다시 입력해주세요.");
+            return "alert_idcheck";
+        } else if(result.equals("조건확인")) {
+            model.addAttribute("msg", "상품 아이디는 p + 숫자 4자리로 입력 가능합니다.");
+            return "alert_idcheck";
+        } else {
+            model.addAttribute("msg", "사용가능한 아이디입니다.");
+            return "alert_idcheck";
+        }
+
     }
 }
