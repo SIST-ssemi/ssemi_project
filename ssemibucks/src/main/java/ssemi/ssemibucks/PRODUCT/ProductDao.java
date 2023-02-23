@@ -173,7 +173,7 @@ public class ProductDao {
 
         Connection conn = db.getConnection();
 
-        String sql = "update team set price =?, pStock = ?, pDetail = ?, pImage = ? where pId = ?";
+        String sql = "update PRODUCT set price =?, pStock = ?, pDetail = ?, pImage = ? where pId = ?";
         try {
             pstmt = conn.prepareStatement(sql);
 

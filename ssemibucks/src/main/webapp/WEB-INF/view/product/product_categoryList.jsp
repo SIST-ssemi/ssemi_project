@@ -51,9 +51,8 @@
     <!-- Section-->
     <section class="py-5">
         <div class="container px-4 px-lg-5 mt-5" style="border: 2px solid white;" >
-            <button class="btn" style="float: right;" data-bs-toggle="modal"
-                    data-bs-target="#staticBackdrop"><i class="bi bi-plus-circle"></i>
-                add</button>
+            <button class="btn" onclick="location.href='javascript:history.back();'" style="margin-bottom: 20px;"><i
+                    class="bi bi-arrow-left-circle"></i> back</button>
 
             <!-- 추가 modal -->
             <!-- Modal -->
