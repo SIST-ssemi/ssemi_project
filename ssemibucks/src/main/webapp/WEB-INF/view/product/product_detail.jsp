@@ -149,20 +149,22 @@
                     </div>
                     <p class="lead"><%=product.getpDetail() %></p><br>
 
-                    <div class="d-flex">
-                        <button class="btn btn-outline-dark flex-shrink-0" type="button" style="margin-right: 5px;"
-                            id="minus">-</button>
+                    <form action="/cart/cart_insertAction" method="post">
+                        <input type="hidden" name="pId" value="<%=(session.getAttribute("uId") == null)? "null" : product.getpId() %>">
+                        <div class="d-flex">
+                            <button class="btn btn-outline-dark flex-shrink-0" type="button" style="margin-right: 5px;"
+                                id="minus">-</button>
 
-                        <input type="text" class="form-control text-center" value="0" id="cQTY" style="text-align:center; width: 50px; margin-right: 5px;" readonly>
+                            <input type="text" class="form-control text-center" value="1" id="cQTY" name="cQTY" style="text-align:center; width: 50px; margin-right: 5px;" readonly>
 
+                            <button class="btn btn-outline-dark flex-shrink-0" type="button" id="plus">+</button>
 
-                        <button class="btn btn-outline-dark flex-shrink-0" type="button" id="plus">+</button>
-
-                        <button class="btn btn-outline-dark flex-shrink-0" type="button" style="margin-left: 50px;" id="cartBtn">
-                            <i class="bi-cart-fill me-1"></i>
-                            Add to cart
-                        </button>
-                    </div>
+                            <button class="btn btn-outline-dark flex-shrink-0" type="submit" style="margin-left: 50px;" id="cartBtn">
+                                <i class="bi-cart-fill me-1"></i>
+                                Add to cart
+                            </button>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>

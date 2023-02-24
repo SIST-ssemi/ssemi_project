@@ -70,8 +70,15 @@
                     <button class="btn" onclick="location.href='/admin/admin_pManagement'" style="margin-bottom: 20px;"><i
                             class="bi bi-arrow-left-circle"></i>
                         back</button>
-                    <button type="submit" class="btn" style="margin-bottom: 20px; float: right"><i class="bi bi-plus-circle"></i>
+                    <button type="submit" class="btn" style="margin-bottom: 20px; float: right" id="add"><i class="bi bi-plus-circle"></i>
                         add</button>
+                    <script>
+                        $("#add").click(function (){
+                            if ($("input[name='checked_id']").val() != "check"){
+                                alert('상품 아이디 중복확인을 해주세요.');
+                            }
+                        })
+                    </script>
 
                         <div class="row gx-4 gx-lg-5 align-items-center">
                             <!-- pImage preview -->

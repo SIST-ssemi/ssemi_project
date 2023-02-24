@@ -57,27 +57,31 @@
                     for(int i =0; i <list.size(); i++) {
                         Product product = list.get(i);
                 %>
-                        <div class="col mb-5">
-                            <div class="card h-100" id="product" onclick="location.href='/product/product_detail?pId=<%= product.getpId()%>'" style="cursor: pointer;">
-                                <!-- Product image-->
-                                <img class="card-img-top"
-                                     src="<%=product.getpImage() %>"
-                                     alt="..." />
-                                <!-- Product details-->
-                                <div class="card-body p-4">
-                                    <div class="text-center">
-                                        <!-- Product name-->
-                                        <h5 class="fw-bolder"><%=product.getpName() %></h5>
-                                    </div>
-                                </div>
-                                <!-- Product actions-->
-                                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                                    <div class="text-center"><a class="btn btn-outline-dark mt-auto" href="#">Add to cart</a>
-                                    </div>
+                    <div class="col mb-5">
+                        <div class="card h-100" id="product" style="cursor: pointer;">
+                            <!-- Product image-->
+                            <img class="card-img-top"
+                                 src="<%=product.getpImage() %>"
+                                 alt="..."
+                                 onclick="location.href='/product/product_detail?pId=<%= product.getpId()%>'"/>
+                            <!-- Product details-->
+                            <div class="card-body p-4">
+                                <div class="text-center">
+                                    <!-- Product name-->
+                                    <h5 class="fw-bolder"><%=product.getpName() %></h5>
                                 </div>
                             </div>
+                            <!-- Product actions-->
+                            <form action="/cart/cart_insertAction" method="post">
+                                <input type="hidden" name="pId" value="<%=product.getpId() %>">
+                                <input type="hidden" name="cQTY" value=1>
+                                <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                                    <div class="text-center"><button type="submit" class="btn btn-outline-dark mt-auto">Add to cart</button>
+                                    </div>
+                                </div>
+                            </form>
                         </div>
-
+                    </div>
                 <%
                     }
                 %>

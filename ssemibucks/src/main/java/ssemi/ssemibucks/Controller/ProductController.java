@@ -7,7 +7,6 @@ import org.springframework.web.bind.annotation.*;
 import ssemi.ssemibucks.PRODUCT.Product;
 import ssemi.ssemibucks.PRODUCT.ProductDao;
 import ssemi.ssemibucks.PRODUCT.ProductService;
-import ssemi.ssemibucks.USER.UserDao;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -48,7 +47,7 @@ public class ProductController {
         return "/product/product_categoryList";
     }
 
-    @GetMapping ("/product/product_detail")
+    @RequestMapping(value="/product/product_detail", method = RequestMethod.GET)
     public String productDetail(@RequestParam String pId, Model model) {
         Product product = productService.selectProduct(pId);
         model.addAttribute("product", product);
@@ -88,8 +87,7 @@ public class ProductController {
 
         return "/product/product_update";
     }
-
-    @RequestMapping(value="/product/product_updateAction", method = RequestMethod.POST)
+    @RequestMapping(value="/product/produt_updateAction", method = RequestMethod.POST)
     public String productUpdate(@RequestParam String pId, ProductForm form, Model model) {
         Product product = productService.selectProduct(pId);
 
@@ -99,7 +97,7 @@ public class ProductController {
         product.setpImage(form.getpImage());
 
         productService.modifyProduct(product);
-
+        
         model.addAttribute("msg", "\\'" + product.getpName() + "\\'을/를 수정하였습니다");
         model.addAttribute("url", "/admin/admin_pManagement");
 

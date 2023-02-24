@@ -160,7 +160,7 @@
                                 <td class="align-middle text-center text-sm">
                                     <button class="btn btn-outline-dark flex-shrink-0" type="button" style="margin-right: 5px; border-style: none; width: 35px; height: 35px;"
                                             id="minus">-</button>
-                                    <%=cart.getcQty()%>
+                                    <input type="text" class="form-control text-center" value="<%=cart.getcQty()%>" id="cQTY" name="cQTY" style="text-align:center; width: 50px; margin-right: 5px;" readonly>
                                     <button class="btn btn-outline-dark flex-shrink-0" type="button" style="margin-left: 5px; border-style: none; width: 35px; height: 35px;" id="plus">+</button>
 
                                 </td>

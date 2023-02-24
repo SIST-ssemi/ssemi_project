@@ -1,5 +1,6 @@
 package ssemi.ssemibucks.CART;
 
+import org.springframework.stereotype.Repository;
 import ssemi.ssemibucks.DbConnection.DbConnect;
 import ssemi.ssemibucks.PRODUCT.Product;
 
@@ -10,6 +11,7 @@ import java.sql.SQLException;
 import java.util.Scanner;
 import java.util.Vector;
 
+@Repository
 public class CartDao {
 
     Scanner sc = new Scanner(System.in);
@@ -54,19 +56,17 @@ public class CartDao {
     }
 
     // 장바구니 추가
-    public void insertCart(Product product, int cQTY) {
+    public void insertCart(String uId, String pId, int cQTY) {
         Connection conn = db.getConnection();
 
-        sql = "insert into CART values(?, ?, ?, ?, ?)";
+        sql = "insert into CART values(null, ?, ?, ?)";
 
         try {
             pstmt = conn.prepareStatement(sql);
 
-            pstmt.setString(1, product.getpId());
-            pstmt.setString(2, product.getpName());
-            pstmt.setString(3, product.getpOption());
-            pstmt.setInt(4, product.getPrice());
-            pstmt.setInt(5, cQTY);
+            pstmt.setString(1, uId);
+            pstmt.setString(2, pId);
+            pstmt.setInt(3, cQTY);
 
             pstmt.execute();
 
