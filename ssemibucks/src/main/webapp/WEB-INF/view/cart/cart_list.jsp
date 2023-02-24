@@ -4,6 +4,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="ssemi.ssemibucks.CART.CartDao" %>
 <%@ page import="ssemi.ssemibucks.CART.Cart" %>
+<%@ page import="java.text.NumberFormat" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -67,6 +68,7 @@
     String uId = request.getParameter("uId");
     CartDao dao = new CartDao();
     Vector<Cart> list = dao.selectCart(uId);
+    NumberFormat nf = NumberFormat.getCurrencyInstance();
 %>
 
 <div id="navbar"></div>
@@ -77,21 +79,6 @@
     </h1>
 </header>
 
-<div class="py-0">
-    <div class="text-center " style="
-              background-image: linear-gradient(
-                  rgba(0, 0, 0, 0.3),
-                  rgba(0, 0, 0, 0.3)
-                ),
-                url(https://images.unsplash.com/photo-1580933073521-dc49ac0d4e6a?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=869&q=80);
-            ">
-        <img class="rounded-circle mt-sm-4" src="/img/user.JPG" alt="..." width="120px" height="120px"
-             style="margin-top: 2rem;"/>
-        <h1 class="text-white fs-3 fw-bolder" style="margin-top: 0px;">uId</h1>
-        <p class=" text-white-50 mb-0">uName님의 장바구니</p>
-    </div>
-</div>
-
 <!-- Content section-->
 <div class="container-fluid py-5 col-10">
     <div class="row">
@@ -99,7 +86,7 @@
             <div class="card my-4">
                 <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                     <div class="bg-primary shadow-primary border-radius-lg pt-4 pb-3">
-                        <h6 class="text-white text-capitalize ps-3">Cart table</h6>
+                        <h6 class="text-white ps-3"><%=uId%> 's CartList</h6>
                     </div>
                 </div>
                 <div class="card-body px-0 pb-2">
@@ -109,10 +96,14 @@
                             <tr>
                                 <th
                                         class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                    cId
+                                </th>
+                                <th
+                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                     category
                                 </th>
                                 <th
-                                    class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
+                                        class="text-center text-uppercase text-secondary text-xxs font-weight-bolder opacity-7">
                                     product
                                 </th>
                                 <th
@@ -142,14 +133,17 @@
                             %>
                             <tr>
                                 <td class="align-middle text-center text-sm">
+                                    <%= i + 1%>
+                                </td>
+                                <td class="align-middle text-center text-sm">
                                     <%= cart.getCategory()%>
                                 </td>
-                                <td>
+                                <td style="width: 280px">
                                     <a href="/product/product_detail?pId=<%=cart.getpId() %>">
                                         <div class=" d-flex px-2 py-1">
                                             <div>
-                                                <img src="<%=cart.getpImage() %>"
-                                                     class="img-thumbnail avatar avatar-sm me-3 border-radius-lg "
+                                                <img src="<%=cart.getpImage() %> "
+                                                     class="img-thumbnail avatar avatar-sm me-3 border-radius-lg"
                                                      alt="image" width="60px" height="60px">
                                             </div>
                                             <div class="d-flex flex-column justify-content-center">
@@ -164,7 +158,7 @@
                                     <span><%=cart.getpOption() %></span>
                                 </td>
                                 <td class="align-middle text-center text-sm">
-                                    <span><%=cart.getPrice() %></span>
+                                    <span><%=nf.format(cart.getPrice())%></span>
                                 </td>
                                 <td class="align-middle text-center text-sm">
                                     <button class="btn btn-outline-dark flex-shrink-0" type="button"
@@ -180,7 +174,7 @@
                                 </td>
                                 <td class="align-middle text-center text-sm">
                                     <button class="btn"
-                                            onclick="location.href='#'">
+                                            onclick="location.href='/cart/cart_delete?cId=<%=cart.getcId()%>'">
                                         <i class="bi bi-trash"></i>
                                         delete
                                     </button>
@@ -194,6 +188,11 @@
                         </table>
                     </div>
                 </div>
+            </div>
+            <div style="float:right;">
+                <button type="button" style="width: 100px; height: 45px;" class="btn btn-primary animated slideInLeft">
+                    ORDER
+                </button>
             </div>
         </div>
     </div>

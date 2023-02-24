@@ -24,9 +24,9 @@ public class AdminController {
         return "/admin/admin_uManagement";
     }
 
-    @RequestMapping("/admin/admin_alertKickout")
+    @RequestMapping("/alertnReferrer")
     public String admin_alertKickout() {
-        return "/admin/admin_alertKickout";
+        return "/alertnReferrer";
     }
 
     @RequestMapping(value = "/admin/admin_userKickoutAction", method = RequestMethod.GET)
@@ -36,6 +36,6 @@ public class AdminController {
         userDao.deleteUser(uId);
 
         model.addAttribute("msg", uId + "님을 탈퇴 처리했습니다.");
-        return "/admin/admin_alertKickout";
+        return "/alertnReferrer";
     }
 }
