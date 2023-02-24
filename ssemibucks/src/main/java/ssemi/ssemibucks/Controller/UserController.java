@@ -20,9 +20,25 @@ public class UserController {
         return "/user/user_login";
     }
 
-    @GetMapping("/user/user_logout")
-    public String logout() {
-        return "/user/user_logout";
+//    @GetMapping("/user/user_logout")
+//    public String logout() {
+//        return "/user/user_logout";
+//    }
+
+    @GetMapping(value = "/user/user_logout")
+   public String logout(Model model,HttpServletRequest request) {
+        HttpSession session = request.getSession();
+        String uId=(String) session.getAttribute("uId");
+
+        model.addAttribute("msg", uId+"님 로그아웃하셨습니다.");
+        model.addAttribute("url", "/user/user_sessioninval");
+
+        return "alert";
+   }
+
+    @GetMapping("/user/user_sessioninval")
+    public String user_sessioninval() {
+        return "/user/user_sessioninval";
     }
 
     @RequestMapping(value = "/user/user_loginAction", method = RequestMethod.POST)

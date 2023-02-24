@@ -21,15 +21,17 @@ public class CartDao {
     String sql = "";
 
     //장바구니 목록 조회
-    public Vector<Cart> selectCart() throws SQLException {
+    public Vector<Cart> selectCart(String uId) throws SQLException {
         Vector<Cart> list = new Vector<>();
 
         Connection conn = db.getConnection();
 
-        sql = "select * from CART C JOIN PRODUCT P ON C.pId=P.pId;";
+        sql = "select * from CART C JOIN PRODUCT P ON C.pId=P.pId where uId=?;";
 
         try {
             pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1,uId);
+
             rs = pstmt.executeQuery();
 
             while (rs.next()) {
