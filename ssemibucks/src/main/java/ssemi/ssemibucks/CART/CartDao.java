@@ -36,6 +36,7 @@ public class CartDao {
 
             while (rs.next()) {
                 Cart cart = new Cart();
+
                 cart.setcId(rs.getString("cId"));
                 cart.setuId(rs.getString("uId"));
                 cart.setpId(rs.getString("pId"));
@@ -80,41 +81,41 @@ public class CartDao {
         }
     }
 
-    // 장바구니 삭제
-    public void deleteCart(String pId, String pName) {
-        Connection conn = db.getConnection();
-
-        sql = "delete from CART where pId = ?";
-
-        try {
-            pstmt = conn.prepareStatement(sql);
-            pstmt.setString(1, pId);
-
-            pstmt.execute();
-            System.out.println("장바구니 - [" + pName + "] 삭제 완료\n\n");
-
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            db.dbClose(rs, pstmt, conn);
-        }
-    }
+//    // 장바구니 삭제
+//    public void deleteCart(String pId, String pName) {
+//        Connection conn = db.getConnection();
+//
+//        sql = "delete from CART where pId = ?";
+//
+//        try {
+//            pstmt = conn.prepareStatement(sql);
+//            pstmt.setString(1, pId);
+//
+//            pstmt.execute();
+//            System.out.println("장바구니 - [" + pName + "] 삭제 완료\n\n");
+//
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        } finally {
+//            db.dbClose(rs, pstmt, conn);
+//        }
+//    }
 
     // 장바구니 수정 - 수량
-    public void updateCart(String pId, String pName, int cQTY) {
+    public void updateCart(String cId, int cQTY) {
         Connection conn = db.getConnection();
 
-        sql = "update CART set cQTY =? where pId = ?";
+        sql = "update CART set cQTY =? where cId = ?";
 
         try {
             pstmt = conn.prepareStatement(sql);
 
             pstmt.setInt(1, cQTY);
-            pstmt.setString(2, pId);
+            pstmt.setString(2, cId);
 
             int n = pstmt.executeUpdate();
             if (n == 1)
-                System.out.println("장바구니 - [" + pName + "]의 수정 완료\n\n");
+                System.out.println("장바구니 수정 완료\n\n");
         } catch (SQLException e) {
             throw new RuntimeException(e);
         } finally {
@@ -123,20 +124,23 @@ public class CartDao {
     }
 
     // 상품 아이디 존재 여부 확인 - 중복 상품 등록 방지
-   /* public Cart findBypId(String pId) {
+   public Cart findBypId(String uId, String pId) {
         Connection conn = db.getConnection();
-        Cart cart = null;
+        Cart cart = new Cart();
 
-        sql = "select * from CART where pId = ?";
+        sql = "select * from CART C JOIN PRODUCT P ON C.pId = P.pId where uId = ? and C.pId = ?";
 
         try {
             pstmt = conn.prepareStatement(sql);
 
-            pstmt.setString(1, pId);
+            pstmt.setString(1, uId);
+            pstmt.setString(2, pId);
             rs = pstmt.executeQuery();
 
-            while (rs.next()) {
-                cart = new Cart(rs.getString("pId"), rs.getString("pName"), rs.getInt("cQTY"));
+            if(rs.next()) {
+                cart.setcId(rs.getString("cId"));
+                cart.setpName(rs.getString("pName"));
+                cart.setcQty(rs.getInt("cQTY"));
             }
         } catch (SQLException e) {
             throw new RuntimeException(e);
@@ -145,5 +149,5 @@ public class CartDao {
         }
 
         return cart;
-    }*/
+    }
 }

@@ -39,6 +39,7 @@
             $("#dataTable").DataTable({
                 ordering: false
             });
+
             $("#navbar").load("/navbar");
 
             var cQTY = parseInt($("#cQTY").val());
@@ -47,15 +48,16 @@
                 cQTY += 1;
 
                 $("#cQTY").attr("value", cQTY)
-            });
+             });
 
             $("#minus").click(function () {
                 cQTY -= 1;
 
                 if (cQTY < 0) {
-                    alert("수량을 다시 설정해주세요");
-                    cQTY = 0;
+                alert("수량을 다시 설정해주세요");
+                cQTY = 0;
                 }
+
                 $("#cQTY").attr("value", cQTY)
             });
         });
@@ -102,6 +104,7 @@
                         <h6 class="text-white text-capitalize ps-3">Cart table</h6>
                     </div>
                 </div>
+
                 <div class="card-body px-0 pb-2">
                     <div class="table-responsive p-3">
                         <table class="table align-items-center mb-0" id="dataTable" width="100%" cellspacing="0">
@@ -136,59 +139,64 @@
 
                             <tbody>
 
+                            <form action="/cart/cart_updateAction" method="post">
                             <%
                                 for (int i = 0; i < list.size(); i++) {
                                     Cart cart = list.get(i);
                             %>
-                            <tr>
-                                <td class="align-middle text-center text-sm">
-                                    <%= cart.getCategory()%>
-                                </td>
-                                <td>
-                                    <a href="/product/product_detail?pId=<%=cart.getpId() %>">
-                                        <div class=" d-flex px-2 py-1">
-                                            <div>
-                                                <img src="<%=cart.getpImage() %>"
-                                                     class="img-thumbnail avatar avatar-sm me-3 border-radius-lg "
-                                                     alt="image" width="60px" height="60px">
+                                <tr>
+                                    <td class="align-middle text-center text-sm">
+                                        <%= cart.getCategory()%>
+                                    </td>
+                                    <td>
+                                        <a href="/product/product_detail?pId=<%=cart.getpId() %>">
+                                            <div class=" d-flex px-2 py-1">
+                                                <div>
+                                                    <img src="<%=cart.getpImage() %>"
+                                                         class="img-thumbnail avatar avatar-sm me-3 border-radius-lg "
+                                                         alt="image" width="60px" height="60px">
+                                                </div>
+                                                <div class="d-flex flex-column justify-content-center">
+                                                    <h6 class="mb-0 text-sm"><%=cart.getpName() %>
+                                                    </h6>
+                                                </div>
                                             </div>
-                                            <div class="d-flex flex-column justify-content-center">
-                                                <h6 class="mb-0 text-sm"><%=cart.getpName() %>
-                                                </h6>
-                                            </div>
-                                        </div>
-                                    </a>
-                                </td>
+                                        </a>
+                                    </td>
 
-                                <td class="align-middle text-center text-uppercase text-sm">
-                                    <span><%=cart.getpOption() %></span>
-                                </td>
-                                <td class="align-middle text-center text-sm">
-                                    <span><%=cart.getPrice() %></span>
-                                </td>
-                                <td class="align-middle text-center text-sm">
-                                    <button class="btn btn-outline-dark flex-shrink-0" type="button"
-                                            style="margin-right: 5px; border-style: none; width: 35px; height: 35px;"
-                                            id="minus">-
-                                    </button>
-                                    <%=cart.getcQty()%>
-                                    <button class="btn btn-outline-dark flex-shrink-0" type="button"
-                                            style="margin-left: 5px; border-style: none; width: 35px; height: 35px;"
-                                            id="plus">+
-                                    </button>
-                                </td>
-                                <td class="align-middle text-center text-sm">
-                                    <button class="btn"
-                                            onclick="location.href='#'">
-                                        <i class="bi bi-trash"></i>
-                                        delete
-                                    </button>
-                                </td>
-                            </tr>
+                                    <td class="align-middle text-center text-uppercase text-sm">
+                                        <span><%=cart.getpOption() %></span>
+                                    </td>
+                                    <td class="align-middle text-center text-sm">
+                                        <span><%=cart.getPrice() %></span>
+                                    </td>
+
+                                    <td class="align-middle text-center text-sm" style="width: 300px;">
+                                        <div class="d-flex">
+                                            <button class="btn btn-outline-dark flex-shrink-0" type="button"
+                                                    style="margin-left: 90px; margin-right: 5px; border-style: none; width: 35px; height: 35px;"
+                                                    id="minus">-
+                                            </button>
+                                            <input type="text" class="form-control text-center" value="<%=cart.getcQty()%>" id="cQTY" name="cQTY" style="width: 50px;" readonly>
+                                            <button class="btn btn-outline-dark flex-shrink-0" type="button"
+                                                    style="margin-left: 5px; border-style: none; width: 35px; height: 35px;"
+                                                    id="plus">+
+                                            </button>
+                                        </div>
+                                    </td>
+                                    <td class="align-middle text-center text-sm" style="width: 300px;">
+                                        <button type="submit" class="btn"><i class="bi bi-pencil"></i>
+                                            update</button>
+
+                                        <button class="btn"><i class="bi bi-trash"></i>
+                                            delete</button>
+                                    </td>
+
+                                </tr>
+                            </form>
                             <%
                                 }
                             %>
-
                             </tbody>
                         </table>
                     </div>
