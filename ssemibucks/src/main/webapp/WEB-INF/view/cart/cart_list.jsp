@@ -4,6 +4,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="ssemi.ssemibucks.CART.CartDao" %>
 <%@ page import="ssemi.ssemibucks.CART.Cart" %>
+<%@ page import="java.text.DecimalFormat" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -42,25 +43,6 @@
 
             $("#navbar").load("/navbar");
 
-            // $("#plus").click(function () {
-            //     var cQTY = Number($("#cQTY").val());
-            //     cQTY += 1;
-            //
-            //     $("#cQTY").attr("value", cQTY)
-            //  });
-            //
-            // $("#minus").click(function () {
-            //     var cQTY = Number($("#cQTY").val());
-            //     cQTY -= 1;
-            //
-            //     if (cQTY < 1) {
-            //     alert("수량을 다시 설정해주세요");
-            //     cQTY = 1;
-            //     }
-            //
-            //     $("#cQTY").attr("value", cQTY)
-            // });
-
             $(".plus").click(function(){
                 var cQTY = $(this).parent("div").find("input").val();
                 $(this).parent("div").find("input").val(++cQTY);
@@ -72,11 +54,6 @@
                     $(this).parent("div").find("input").val(--cQTY);
                 }
             });
-
-
-
-
-
         });
     </script>
 </head>
@@ -86,6 +63,9 @@
     String uId = request.getParameter("uId");
     CartDao dao = new CartDao();
     Vector<Cart> list = dao.selectCart(uId);
+
+    DecimalFormat df = new DecimalFormat("###,###");
+    int tot = 0;
 %>
 
 <div id="navbar"></div>
@@ -214,6 +194,7 @@
                                 </tr>
 
                             <%
+                                    tot += cart.getcQty() * cart.getPrice();
                                 }
                             %>
                             </tbody>
@@ -223,6 +204,17 @@
             </div>
         </div>
     </div>
+
+    <div>
+        <button type="button" class="btn btn-primary" style="float: right; margin-left: 10px;"><i class="bi bi-credit-card"></i> order</button>
+    </div>
+    <div class="total text-center" style="float: right; width: 200px; height: 35px; border: 2px solid #e2e2e2; background-color: #e2e2e2">
+
+
+
+        <p><span><strong>Total : </strong></span><span>￦<%=df.format(tot) %></span></p>
+    </div>
+
 </div>
 </body>
 </html>
