@@ -47,8 +47,7 @@ public class CartController {
 
         Product product = productService.selectProduct(pId);
         Cart cart = cartService.getCart(uId, pId);
-
-        System.out.println(uId + ", //" + pId + "/");
+        String cId = cart.getcId();
 
         if(uId == null) {
             model.addAttribute("msg",  "로그인이 필요합니다");
@@ -56,14 +55,14 @@ public class CartController {
 
             return "/alert";
         } else {
-            if(cartService.getCart(uId, pId) == null) {
+            if(cId == null) {
                 cartService.registerCart(uId, pId, cQTY);
 
                 model.addAttribute("msg", "장바구니에 \\'" + product.getpName() + "\\'을/를 추가하였습니다");
-                model.addAttribute("url", "/cart/cart_list");
+                model.addAttribute("url", "/cart/cart_list?uId=" + uId);
             } else {
-                cQTY = cart.getcQty() + 1;
-                cartService.registerCart(uId, pId, cQTY);
+                cQTY = cart.getcQty() + cQTY;
+                cartService.modifyCart(cart.getcId(), cQTY);
 
                 model.addAttribute("msg", "장바구니에 \\'" + product.getpName() + "\\'을/를 추가하였습니다");
                 model.addAttribute("url", "/cart/cart_list?uId=" + uId);
@@ -74,13 +73,16 @@ public class CartController {
     }
 
     @RequestMapping(value = "/cart/cart_updateAction", method = RequestMethod.POST)
-    public String cartUpdate(String cId, String pName, int cQTY, Model model, HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        System.out.println(cId + ", " + pName + ", " + cQTY);
+    public String cartUpdate(String uId, String pId, int cQTY, Model model) throws SQLException {
+        Cart cart = cartService.getCart(uId, pId);
+        String cId = cart.getcId();
+
+        System.out.println(cId + ", " + cart.getpName() + ", " + cQTY);
+
         cartService.modifyCart(cId, cQTY);
 
-        model.addAttribute("msg", "\\'" + pName + "\\'의 수량을 변경하였습니다");
-        model.addAttribute("url", "/cart/cart_list?uId=" + (String)session.getAttribute("uId"));
+        model.addAttribute("msg", "\\'" + cart.getpName() + "\\'의 수량을 변경하였습니다");
+        model.addAttribute("url", "/cart/cart_list?uId=" + uId);
 
         return "/alert";
     }

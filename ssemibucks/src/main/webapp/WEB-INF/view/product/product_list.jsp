@@ -73,6 +73,8 @@
                             </div>
                             <!-- Product actions-->
                             <form action="/cart/cart_insertAction" method="post">
+                                <input type="hidden" name="uId" value="<%=session.getAttribute("uId") %>">
+                                <input type="hidden" name="pId" value="<%=product.getpId() %>">
                                 <input type="hidden" name="cQTY" value=1>
                                 <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                                     <div class="text-center"><button type="submit" class="btn btn-outline-dark mt-auto">Add to cart</button>

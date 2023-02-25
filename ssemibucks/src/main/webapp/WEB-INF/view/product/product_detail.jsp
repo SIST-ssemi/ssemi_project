@@ -25,22 +25,24 @@
     <script>
         $(function () {
 
-            var cQTY = 1;
+            var ccQTY = 1;
 
             $("#plus").click(function () {
-                cQTY += 1;
+                ccQTY += 1;
 
-                $("#cQTY").attr("value", cQTY)
+                $("#ccQTY").attr("value", ccQTY);
+                $("#ccQTY2").attr("value", ccQTY);
             });
 
             $("#minus").click(function () {
                 cQTY -= 1;
 
-                if (cQTY < 0) {
+                if (ccQTY < 1) {
                     alert("수량을 다시 설정해주세요");
-                    cQTY = 0;
+                    ccQTY = 1;
                 }
-                $("#cQTY").attr("value", cQTY)
+                $("#ccQTY").attr("value", ccQTY);
+                $("#ccQTY2").attr("value", ccQTY);
             });
         });
     </script>
@@ -152,11 +154,13 @@
                     <form action="/cart/cart_insertAction" method="post">
                         <input type="hidden" name="uId" value="<%=session.getAttribute("uId") %>">
                         <input type="hidden" name="pId" value="<%=product.getpId() %>">
-                        <div class="d-flex">
+
+                         <div class="d-flex">
                             <button class="btn btn-outline-dark flex-shrink-0" type="button" style="margin-right: 5px;"
                                 id="minus">-</button>
 
-                            <input type="text" class="form-control text-center" placeholder="1" name="cQTY" id="cQTY" style="text-align:center; width: 50px; margin-right: 5px;" readonly>
+                            <input type="text" class="form-control text-center" placeholder="1" id="ccQTY" style="text-align:center; width: 50px; margin-right: 5px;" readonly>
+                            <input type="hidden" name="cQTY" id="ccQTY2" name="cQTY" value="ccQTY">
 
                             <button class="btn btn-outline-dark flex-shrink-0" type="button" id="plus">+</button>
 
