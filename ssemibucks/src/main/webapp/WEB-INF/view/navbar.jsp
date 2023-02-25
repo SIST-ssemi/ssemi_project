@@ -34,7 +34,7 @@
     <link href="/css/style.css" rel="stylesheet"/>
 </head>
 <%
-String uId= (String)session.getAttribute("uId");
+    String uId = (String) session.getAttribute("uId");
 %>
 
 <body>
@@ -74,7 +74,8 @@ String uId= (String)session.getAttribute("uId");
             </div>
         </div>
         <% if (session.getAttribute("uId") == null) { %>
-        <a href="/user/user_login" class="btn btn-light-g py-4 px-lg-5 d-none d-lg-block" style="border-radius: 0px; font-size: 14pt;">Cart<i
+        <a href="/user/user_login" class="btn btn-light-g py-4 px-lg-5 d-none d-lg-block"
+           style="border-radius: 0px; font-size: 14pt;">Cart<i
                 class="fas fa-shopping-cart ms-3"></i></a>
         <%
         } else if (session.getAttribute("uId").equals("admin")) { %>
@@ -82,7 +83,8 @@ String uId= (String)session.getAttribute("uId");
         <%
         } else {
         %>
-        <a href="/cart/cart_list?uId=<%=uId%>" class="btn btn-light-g py-4 px-lg-5 d-none d-lg-block" style="border-radius: 0px; font-size: 14pt;">Cart<i
+        <a href="/cart/cart_list?uId=<%=uId%>" class="btn btn-light-g py-4 px-lg-5 d-none d-lg-block"
+           style="border-radius: 0px; font-size: 14pt;">Cart<i
                 class="fas fa-shopping-cart ms-3"></i></a>
         <%
             }

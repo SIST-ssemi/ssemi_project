@@ -44,14 +44,14 @@
 
             $("#navbar").load("/navbar");
 
-            $(".plus").click(function(){
+            $(".plus").click(function () {
                 var cQTY = $(this).parent("div").find("input").val();
                 $(this).parent("div").find("input").val(++cQTY);
             });
 
-            $(".minus").click(function(){
+            $(".minus").click(function () {
                 var cQTY = $(this).parent("div").find("input").val();
-                if(cQTY > 1){
+                if (cQTY > 1) {
                     $(this).parent("div").find("input").val(--cQTY);
                 }
             });
@@ -67,7 +67,7 @@
 
     DecimalFormat df = new DecimalFormat("###,###");
     int tot = 0;
-    
+
     NumberFormat nf = NumberFormat.getCurrencyInstance();
 %>
 
@@ -152,30 +152,7 @@
                                             <div class="d-flex flex-column justify-content-center">
                                                 <h6 class="mb-0 text-sm"><%=cart.getpName() %>
                                                 </h6>
-
                                             </div>
-                                        </a>
-                                    </td>
-
-                                    <td class="align-middle text-center text-uppercase text-sm">
-                                        <span><%=cart.getpOption() %></span>
-                                    </td>
-                                    <td class="align-middle text-center text-sm">
-                                        <span><%=cart.getPrice() %></span>
-                                    </td>
-                                    <form action="/cart/cart_updateAction" method="post">
-                                        <input type="hidden" value="<%=cart.getcQty()%>" name="pStock">
-                                        <input type="hidden" value="<%=cart.getpId()%>" name="pId">
-                                        <input type="hidden" value="<%=cart.getuId()%>" name="uId">
-                                    <td class="align-middle text-center text-sm" style="width: 300px;">
-                                        <div class="d-flex">
-                                            <button class="btn btn-outline-dark flex-shrink-0 minus" type="button"
-                                                    style="margin-left: 90px; margin-right: 5px; border-style: none; width: 35px; height: 35px;">-
-                                            </button>
-                                            <input type="text" class="form-control text-center" value="<%=cart.getcQty()%>" id="cQTY" name="cQTY" style="width: 50px;" readonly>
-                                            <button class="btn btn-outline-dark flex-shrink-0 plus" type="button"
-                                                    style="margin-left: 5px; border-style: none; width: 35px; height: 35px;">+
-                                            </button>
                                         </div>
                                     </a>
                                 </td>
@@ -186,30 +163,42 @@
                                 <td class="align-middle text-center text-sm">
                                     <span><%=nf.format(cart.getPrice())%></span>
                                 </td>
-                                <td class="align-middle text-center text-sm">
-                                    <button class="btn btn-outline-dark flex-shrink-0" type="button"
-                                            style="margin-right: 5px; border-style: none; width: 35px; height: 35px;"
-                                            id="minus">-
-                                    </button>
-                                    <%=cart.getcQty()%>
-                                    <button class="btn btn-outline-dark flex-shrink-0" type="button"
-                                            style="margin-left: 5px; border-style: none; width: 35px; height: 35px;"
-                                            id="plus">+
-                                    </button>
+
+                                <form action="/cart/cart_updateAction" method="post">
+                                    <input type="hidden" value="<%=cart.getcQty()%>" name="pStock">
+                                    <input type="hidden" value="<%=cart.getpId()%>" name="pId">
+                                    <input type="hidden" value="<%=cart.getuId()%>" name="uId">
+                                    <td class="align-middle text-center text-sm" style="width: 300px;">
+                                        <div class="d-flex">
+                                            <button class="btn btn-outline-dark flex-shrink-0 minus" type="button"
+                                                    style="margin-left: 90px; margin-right: 5px; border-style: none; width: 35px; height: 35px;">
+                                                -
+                                            </button>
+                                            <input type="text" class="form-control text-center"
+                                                   value="<%=cart.getcQty()%>" id="cQTY" name="cQTY"
+                                                   style="width: 50px;" readonly>
+                                            <button class="btn btn-outline-dark flex-shrink-0 plus" type="button"
+                                                    style="margin-left: 5px; border-style: none; width: 35px; height: 35px;">
+                                                +
+                                            </button>
+                                        </div>
+                                        </a>
+                                    </td>
+
+
+                                    <td class="align-middle text-center text-sm" style="width: 300px;">
+                                        <button type="submit" class="btn"><i class="bi bi-pencil"></i>
+                                            update
+                                        </button>
+                                </form>
+                                <button class="btn"
+                                        onclick="location.href='/cart/cart_delete?cId=<%=cart.getcId()%>'">
+                                    <i class="bi bi-trash"></i>
+                                    delete
+                                </button>
 
                                 </td>
-                                
-                                <td class="align-middle text-center text-sm" style="width: 300px;">
-                                        <button type="submit" class="btn"><i class="bi bi-pencil"></i>
-                                            update</button>
-                                    <button class="btn"
-                                            onclick="location.href='/cart/cart_delete?cId=<%=cart.getcId()%>'">
-                                        <i class="bi bi-trash"></i>
-                                        delete
-                                    </button>
-                                    
-                                </td>
-                                </form>
+
                             </tr>
 
                             <%
@@ -221,19 +210,16 @@
                     </div>
                 </div>
             </div>
-            <div style="float:right;">
-                <button type="button" style="width: 100px; height: 45px;" class="btn btn-primary animated slideInLeft">
-                    ORDER
-                </button>
-            </div>
         </div>
     </div>
 
     <div>
-        <button type="button" class="btn btn-primary" style="float: right; margin-left: 10px;"><i class="bi bi-credit-card"></i> order</button>
+        <button type="button" class="btn btn-primary" style="float: right; margin-left: 10px;"><i
+                class="bi bi-credit-card"></i> order
+        </button>
     </div>
-    <div class="total text-center" style="float: right; width: 200px; height: 35px; border: 2px solid #e2e2e2; background-color: #e2e2e2">
-
+    <div class="total text-center"
+         style="float: right; width: 200px; height: 35px; border: 2px solid #e2e2e2; background-color: #e2e2e2">
 
 
         <p><span><strong>Total : </strong></span><span>￦<%=df.format(tot) %></span></p>

@@ -10,7 +10,7 @@
 <body>
 <script>
     alert('${msg}');
-    window.location=document.referrer;
+    window.location = document.referrer;
 </script>
 </body>
 </html>

@@ -112,7 +112,7 @@
                                 type="button"
                                 class="btn btn-primary"
                                 onclick="location.href='/user/user_deleteAction?uId=<%=user.getuId()%>'"
-<%--                                onclick="location.href='/user/user_delete?uId=<%=user.getuId()%>'"--%>
+                        <%--                                onclick="location.href='/user/user_delete?uId=<%=user.getuId()%>'"--%>
                         >
                             회원탈퇴
                         </button>

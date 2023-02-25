@@ -48,19 +48,19 @@ public class CartController {
     @RequestMapping(value = "/cart/cart_insertAction", method = RequestMethod.POST)
     public String cartInsert(String pId, int cQTY, Model model, HttpServletRequest request) throws SQLException {
         HttpSession session = request.getSession();
-        String uId = (String)session.getAttribute("uId");
+        String uId = (String) session.getAttribute("uId");
 
         Product product = productService.selectProduct(pId);
         Cart cart = cartService.getCart(uId, pId);
         String cId = cart.getcId();
 
-        if(uId == null) {
-            model.addAttribute("msg",  "로그인이 필요합니다");
+        if (uId == null) {
+            model.addAttribute("msg", "로그인이 필요합니다");
             model.addAttribute("url", "/user/user_login");
 
             return "/alert";
         } else {
-            if(cId == null) {
+            if (cId == null) {
                 cartService.registerCart(uId, pId, cQTY);
 
                 model.addAttribute("msg", "장바구니에 \\'" + product.getpName() + "\\'을/를 추가하였습니다");
@@ -90,16 +90,17 @@ public class CartController {
         model.addAttribute("url", "/cart/cart_list?uId=" + uId);
 
         return "/alert";
+    }
 
 
     @RequestMapping(value = "/cart/cart_delete", method = RequestMethod.GET)
     public String cart_delete(@RequestParam String cId, Model model) {
         CartDao cartDao = new CartDao();
-        ProductDao productDao=new ProductDao();
+        ProductDao productDao = new ProductDao();
 
         Cart cart = cartDao.findByCart(cId);
 
-        Product product=productDao.findBypId(cart.getpId());
+        Product product = productDao.findBypId(cart.getpId());
 
         cartDao.deleteCart(cId);
 
