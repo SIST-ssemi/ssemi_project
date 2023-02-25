@@ -184,7 +184,6 @@
                                                 update</button>
                                             <button class="btn" style="margin-bottom: 20px;" onclick="location.href='/product/product_delete?pId=<%=product.getpId() %>'"><i class="bi bi-trash"></i>
                                                 delete</button>
-
                                         </td>
                                     </tr>
                                 <%

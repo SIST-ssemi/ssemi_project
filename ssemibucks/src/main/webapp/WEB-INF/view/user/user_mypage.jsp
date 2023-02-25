@@ -59,7 +59,7 @@
 <!-- Content section-->
 <div class="container my-5">
     <!-- <div class="row justify-content-center"> -->
-    <div class="col-lg-6">
+    <div class="col-lg text-xl-center">
         <h1>My Information</h1>
         <hr/>
         <form action="user_delete" method="post">
@@ -103,14 +103,14 @@
                     <td colspan="2" align="center">
                         <button
                                 type="button"
-                                class="btn mybtn btnmodify"
+                                class="btn btn-primary"
                                 onclick="location.href='/user/user_update?uId=<%=user.getuId()%>'"
                         >
                             정보수정
                         </button>
                         <button
                                 type="button"
-                                class="btn mybtn btndropout"
+                                class="btn btn-primary"
                                 onclick="location.href='/user/user_deleteAction?uId=<%=user.getuId()%>'"
 <%--                                onclick="location.href='/user/user_delete?uId=<%=user.getuId()%>'"--%>
                         >

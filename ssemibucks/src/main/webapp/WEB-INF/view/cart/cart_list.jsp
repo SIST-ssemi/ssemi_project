@@ -4,6 +4,7 @@
 <%@ page import="java.util.List" %>
 <%@ page import="ssemi.ssemibucks.CART.CartDao" %>
 <%@ page import="ssemi.ssemibucks.CART.Cart" %>
+<%@ page import="java.text.DecimalFormat" %>
 <%@ page import="java.text.NumberFormat" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
@@ -40,24 +41,19 @@
             $("#dataTable").DataTable({
                 ordering: false
             });
+
             $("#navbar").load("/navbar");
 
-            var cQTY = parseInt($("#cQTY").val());
-
-            $("#plus").click(function () {
-                cQTY += 1;
-
-                $("#cQTY").attr("value", cQTY)
+            $(".plus").click(function(){
+                var cQTY = $(this).parent("div").find("input").val();
+                $(this).parent("div").find("input").val(++cQTY);
             });
 
-            $("#minus").click(function () {
-                cQTY -= 1;
-
-                if (cQTY < 0) {
-                    alert("수량을 다시 설정해주세요");
-                    cQTY = 0;
+            $(".minus").click(function(){
+                var cQTY = $(this).parent("div").find("input").val();
+                if(cQTY > 1){
+                    $(this).parent("div").find("input").val(--cQTY);
                 }
-                $("#cQTY").attr("value", cQTY)
             });
         });
     </script>
@@ -68,6 +64,10 @@
     String uId = request.getParameter("uId");
     CartDao dao = new CartDao();
     Vector<Cart> list = dao.selectCart(uId);
+
+    DecimalFormat df = new DecimalFormat("###,###");
+    int tot = 0;
+    
     NumberFormat nf = NumberFormat.getCurrencyInstance();
 %>
 
@@ -89,6 +89,7 @@
                         <h6 class="text-white ps-3"><%=uId%> 's CartList</h6>
                     </div>
                 </div>
+
                 <div class="card-body px-0 pb-2">
                     <div class="table-responsive p-3">
                         <table class="table align-items-center mb-0" id="dataTable" width="100%" cellspacing="0">
@@ -127,10 +128,12 @@
 
                             <tbody>
 
+
                             <%
                                 for (int i = 0; i < list.size(); i++) {
                                     Cart cart = list.get(i);
                             %>
+
                             <tr>
                                 <td class="align-middle text-center text-sm">
                                     <%= i + 1%>
@@ -149,7 +152,30 @@
                                             <div class="d-flex flex-column justify-content-center">
                                                 <h6 class="mb-0 text-sm"><%=cart.getpName() %>
                                                 </h6>
+
                                             </div>
+                                        </a>
+                                    </td>
+
+                                    <td class="align-middle text-center text-uppercase text-sm">
+                                        <span><%=cart.getpOption() %></span>
+                                    </td>
+                                    <td class="align-middle text-center text-sm">
+                                        <span><%=cart.getPrice() %></span>
+                                    </td>
+                                    <form action="/cart/cart_updateAction" method="post">
+                                        <input type="hidden" value="<%=cart.getcQty()%>" name="pStock">
+                                        <input type="hidden" value="<%=cart.getpId()%>" name="pId">
+                                        <input type="hidden" value="<%=cart.getuId()%>" name="uId">
+                                    <td class="align-middle text-center text-sm" style="width: 300px;">
+                                        <div class="d-flex">
+                                            <button class="btn btn-outline-dark flex-shrink-0 minus" type="button"
+                                                    style="margin-left: 90px; margin-right: 5px; border-style: none; width: 35px; height: 35px;">-
+                                            </button>
+                                            <input type="text" class="form-control text-center" value="<%=cart.getcQty()%>" id="cQTY" name="cQTY" style="width: 50px;" readonly>
+                                            <button class="btn btn-outline-dark flex-shrink-0 plus" type="button"
+                                                    style="margin-left: 5px; border-style: none; width: 35px; height: 35px;">+
+                                            </button>
                                         </div>
                                     </a>
                                 </td>
@@ -172,18 +198,24 @@
                                     </button>
 
                                 </td>
-                                <td class="align-middle text-center text-sm">
+                                
+                                <td class="align-middle text-center text-sm" style="width: 300px;">
+                                        <button type="submit" class="btn"><i class="bi bi-pencil"></i>
+                                            update</button>
                                     <button class="btn"
                                             onclick="location.href='/cart/cart_delete?cId=<%=cart.getcId()%>'">
                                         <i class="bi bi-trash"></i>
                                         delete
                                     </button>
+                                    
                                 </td>
+                                </form>
                             </tr>
+
                             <%
+                                    tot += cart.getcQty() * cart.getPrice();
                                 }
                             %>
-
                             </tbody>
                         </table>
                     </div>
@@ -196,6 +228,17 @@
             </div>
         </div>
     </div>
+
+    <div>
+        <button type="button" class="btn btn-primary" style="float: right; margin-left: 10px;"><i class="bi bi-credit-card"></i> order</button>
+    </div>
+    <div class="total text-center" style="float: right; width: 200px; height: 35px; border: 2px solid #e2e2e2; background-color: #e2e2e2">
+
+
+
+        <p><span><strong>Total : </strong></span><span>￦<%=df.format(tot) %></span></p>
+    </div>
+
 </div>
 </body>
 </html>
