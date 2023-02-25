@@ -3,6 +3,7 @@ package ssemi.ssemibucks.CART;
 import org.springframework.stereotype.Repository;
 import ssemi.ssemibucks.DbConnection.DbConnect;
 import ssemi.ssemibucks.PRODUCT.Product;
+import ssemi.ssemibucks.USER.User;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -81,25 +82,55 @@ public class CartDao {
         }
     }
 
-//    // 장바구니 삭제
-//    public void deleteCart(String pId, String pName) {
-//        Connection conn = db.getConnection();
-//
-//        sql = "delete from CART where pId = ?";
-//
-//        try {
-//            pstmt = conn.prepareStatement(sql);
-//            pstmt.setString(1, pId);
-//
-//            pstmt.execute();
-//            System.out.println("장바구니 - [" + pName + "] 삭제 완료\n\n");
-//
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        } finally {
-//            db.dbClose(rs, pstmt, conn);
-//        }
-//    }
+    public Cart findByCart(String findcId) {
+        Connection conn = db.getConnection();
+        PreparedStatement pstmt = null;
+        ResultSet rs = null;
+
+        Cart cart = new Cart();
+
+        String sql = "select * from CART where cId=?";
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, findcId);
+
+            pstmt.execute();
+
+            rs = pstmt.executeQuery();
+
+            if (rs.next()) {
+                cart.setcId(rs.getString("cId"));
+                cart.setpId(rs.getString("pId"));
+            }
+
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        } finally {
+            db.dbClose(rs, pstmt, conn);
+        }
+        return cart;
+    }
+
+
+    // 장바구니 삭제
+    public void deleteCart(String cId) {
+        Connection conn = db.getConnection();
+
+        sql = "delete from CART where cId = ?";
+
+        try {
+            pstmt = conn.prepareStatement(sql);
+            pstmt.setString(1, cId);
+
+            pstmt.execute();
+            System.out.println(" 삭제 완료\n\n");
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            db.dbClose(pstmt, conn);
+        }
+    }
 
     // 장바구니 수정 - 수량
     public void updateCart(String cId, int cQTY) {
