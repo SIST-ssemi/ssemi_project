@@ -1,5 +1,10 @@
 package ssemi.ssemibucks.USER;
 
+import lombok.Data;
+import org.apache.ibatis.type.Alias;
+
+@Data
+@Alias("USER")
 public class User {
     private String uId;
     private String uName;
@@ -7,23 +12,24 @@ public class User {
     private String hp;
     private String addr;
 
-    public User(String uId, String uName, String pw, String hp, String addr) {
-        this.uId = uId;
-        this.uName = uName;
-        this.pw = pw;
-        this.hp = hp;
-        this.addr = addr;
-    }
+//    public User(String uId, String uName, String pw, String hp, String addr) {
+//        this.uId = uId;
+//        this.uName = uName;
+//        this.pw = pw;
+//        this.hp = hp;
+//        this.addr = addr;
+//    }
+//
+//    //로그인 용
+//    User(String uId, String pw) {
+//        this.uId = uId;
+//        this.pw = pw;
+//    }
+//
+//    public User() {
+//
+//    }
 
-    //로그인 용
-    User(String uId, String pw) {
-        this.uId = uId;
-        this.pw = pw;
-    }
-
-    public User() {
-
-    }
 
     public String getuId() {
         return uId;

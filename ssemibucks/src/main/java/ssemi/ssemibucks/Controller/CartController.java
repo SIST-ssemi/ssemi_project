@@ -14,8 +14,6 @@ import ssemi.ssemibucks.PRODUCT.Product;
 import ssemi.ssemibucks.PRODUCT.ProductService;
 import ssemi.ssemibucks.CART.CartDao;
 import ssemi.ssemibucks.PRODUCT.ProductDao;
-import ssemi.ssemibucks.USER.User;
-import ssemi.ssemibucks.USER.UserDao;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -27,14 +25,19 @@ import java.util.List;
 public class CartController {
     private final ProductService productService;
     private final CartService cartService;
-    private final UserDao userDao;
+    //private final UserDao userDao;
 
-    @Autowired
+/*    @Autowired
     public CartController(CartService cartService, ProductService productService, UserDao userDao) {
         this.cartService = cartService;
         this.productService = productService;
-        this.userDao = userDao;
-    }
+        //this.userDao = userDao;
+    }*/
+public CartController(CartService cartService, ProductService productService) {
+    this.cartService = cartService;
+    this.productService = productService;
+
+}
 
     @GetMapping("/cart/cart_list")
     public String cart_list(@RequestParam String uId, Model model) throws SQLException {

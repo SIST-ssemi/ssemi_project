@@ -13,6 +13,11 @@ repositories {
 }
 
 dependencies {
+	//lombok
+	compileOnly group: 'org.projectlombok', name: 'lombok', version: '1.18.24'
+	// mybatis-spring-boot-starter
+	implementation group: 'org.mybatis.spring.boot', name: 'mybatis-spring-boot-starter', version: '2.1.3'
+
 //	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation group: 'mysql', name: 'mysql-connector-java', version: '8.0.28'
