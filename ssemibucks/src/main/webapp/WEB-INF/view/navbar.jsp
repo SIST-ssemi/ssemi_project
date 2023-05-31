@@ -69,7 +69,7 @@ String uId= (String)session.getAttribute("uId");
                     <a href="/product/product_list" class="dropdown-item">All menu</a>
                     <a href="/product/product_categoryList?category=coffee" class="dropdown-item">Coffee</a>
                     <a href="/product/product_categoryList?category=non-coffee" class="dropdown-item">Non-Coffee</a>
-                    <a href="/product/product_categoryList?category=desserts" class="dropdown-item">Desserts</a>
+                    <a href="/product/product_categoryList?category=dessert" class="dropdown-item">Dessert</a>
                 </div>
             </div>
         </div>
