@@ -1,4 +1,4 @@
-<%@ page import="ssemi.ssemibucks.USER.UserDao" %>
+<%@ page import="ssemi.ssemibucks.USER.UserService" %>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <!DOCTYPE html>
 <html>
@@ -36,20 +36,20 @@
     })
 </script>
 <%
-UserDao dao=new UserDao();
+    UserService service = new UserService();
 %>
 <body>
 <form action="/user/user_chkIdAction" method="post">
-<table class="table" style="width: 100%; height: 100%; border-style: none">
-    <tr style="border-style: none">
-        <td align="center" style="border-style: none">
-            <h3 style="color: rgb(167, 193, 55); font-weight: bold">Press Check button</h3>
-            <br><br>
-            <input type="text" name="chkId" id="chkId" style="width: 100px" readonly>
-            <button type="submit" class="btn btn-sm mybtn">Check</button>
-        </td>
-    </tr>
-</table>
+    <table class="table" style="width: 100%; height: 100%; border-style: none">
+        <tr style="border-style: none">
+            <td align="center" style="border-style: none">
+                <h3 style="color: rgb(167, 193, 55); font-weight: bold">Press Check button</h3>
+                <br><br>
+                <input type="text" name="chkId" id="chkId" style="width: 100px" readonly>
+                <button type="submit" class="btn btn-sm mybtn">Check</button>
+            </td>
+        </tr>
+    </table>
 </form>
 </body>
 </html>

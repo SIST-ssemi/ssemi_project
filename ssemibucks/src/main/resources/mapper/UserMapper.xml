@@ -1,5 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTDMapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ssemi.ssemibucks.USER.UserMapperInter">
 
-<mapper namespace="boot.mvc.board_like.BoardLikeMapperInter"></mapper>
+    <select id="findByUser" resultType="USER" parameterType="String">
+        select * from USER where uId=#{uId}
+    </select>
+
+    <select id="selectAllUser" resultType="USER">
+        select * from USER order by uName
+    </select>
+
+    <select id="selectUser" resultType="USER" parameterType="String">
+        select * from USER where uId=#{uId}
+    </select>
+
+    <insert id="insertUser" parameterType="USER">
+        insert into USER values(#{uId},#{uName},#{pw},#{hp},#{addr})
+    </insert>
+
+    <delete id="deleteUser" parameterType="String">
+        delete from USER where uId=#{uId}
+    </delete>
+
+    <update id="updateUser" parameterType="USER">
+        update USER set pw=#{pw}, hp=#{hp}, addr=#{addr} where uId=#{uId}
+    </update>
+
+</mapper>

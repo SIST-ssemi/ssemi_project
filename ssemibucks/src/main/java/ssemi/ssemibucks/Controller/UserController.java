@@ -1,11 +1,11 @@
 package ssemi.ssemibucks.Controller;
 
-import org.springframework.boot.web.servlet.server.Session;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import ssemi.ssemibucks.USER.User;
-import ssemi.ssemibucks.USER.UserDao;
 import ssemi.ssemibucks.USER.UserService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,6 +14,9 @@ import java.io.IOException;
 
 @Controller
 public class UserController {
+
+    @Autowired
+    UserService service;
 
     @GetMapping("/user/user_login")
     public String login() {
@@ -50,21 +53,21 @@ public class UserController {
         user.setuId(uId);
         user.setPw(pw);
 
-        UserDao userDao = new UserDao();
+        //UserDao userDao = new UserDao();
 
-        UserService userService = new UserService(userDao);
-        if (userService.loginUser(user.getuId(), user.getPw()).equals("noId")) {
+        //UserService userService = new UserService(userDao);
+        if (service.loginUser(user.getuId(), user.getPw()).equals("noId")) {
             model.addAttribute("msg", "아이디를 다시 입력해주세요");
             model.addAttribute("url", "/user/user_login");
             session.setAttribute("uId", null);
             return "alert";
-        } else if (userService.loginUser(user.getuId(), user.getPw()).equals("noPw")) {
+        } else if (service.loginUser(user.getuId(), user.getPw()).equals("noPw")) {
             model.addAttribute("msg", "비밀번호를 다시 입력해주세요");
             model.addAttribute("url", "/user/user_login");
             session.setAttribute("uId", null);
             return "alert";
         } else {
-            System.out.println("userId = " + userService.loginUser(user.getuId(), user.getPw()));
+            System.out.println("userId = " + service.loginUser(user.getuId(), user.getPw()));
             model.addAttribute("msg", user.getuId() + "님, 환영합니다");
             model.addAttribute("url", "/index");
             session.setAttribute("uId", uId);
@@ -80,8 +83,8 @@ public class UserController {
     @RequestMapping(value = "/user/user_chkIdAction", method = RequestMethod.POST)
     public String chkIdAction(String chkId, Model model) {
 
-        UserDao dao = new UserDao();
-        String result = dao.idDuplication(chkId);
+        //UserDao dao = new UserDao();
+        String result = service.idDuplication(chkId);
 
         if (result.equals("중복아이디")) {
             model.addAttribute("msg", "중복된 아이디입니다. 다시 입력해주세요.");
@@ -101,9 +104,9 @@ public class UserController {
     @RequestMapping(value = "/user/user_registerAction", method = RequestMethod.POST)
     public String registerAction(String uId, String pw, String uName, String hp, String addr, Model model) {
 
-        UserDao userDao = new UserDao();
-        UserService userService = new UserService(userDao);
-        userService.registerUser(uId, pw, uName, hp, addr);
+        //UserDao userDao = new UserDao();
+        //UserService userService = new UserService(userDao);
+        service.registerUser(uId, pw, uName, hp, addr);
 
         model.addAttribute("msg", uId + "님, 환영합니다. 재로그인해주세요");
         model.addAttribute("url", "/user/user_login");
@@ -111,8 +114,15 @@ public class UserController {
     }
 
     @GetMapping("/user/user_mypage")
-    public String mypage() {
-        return "/user/user_mypage";
+    public ModelAndView mypage(HttpSession session) {
+        ModelAndView mview=new ModelAndView();
+
+        String uId = (String) session.getAttribute("uId");
+
+        mview.addObject("user",service.selectUser(uId));
+        mview.setViewName("/user/user_mypage");
+
+        return mview;
     }
 
     @RequestMapping("/user/user_signout")
@@ -123,8 +133,8 @@ public class UserController {
     @RequestMapping(value = "/user/user_deleteAction", method = RequestMethod.GET)
     public String deleteAction(@RequestParam String uId,Model model,HttpServletRequest request) {
         HttpSession session = request.getSession();
-        UserDao userDao = new UserDao();
-        userDao.deleteUser(uId);
+        //UserDao userDao = new UserDao();
+        service.deleteUser(uId);
 
         model.addAttribute("msg", uId + "님, 탈퇴 처리되었습니다.");
         model.addAttribute("url", "/user/user_signout");
@@ -137,20 +147,27 @@ public class UserController {
 //    }
 
     @GetMapping("/user/user_update")
-    public String userupdate() {
-        return "/user/user_update";
+    public ModelAndView userupdate(HttpSession session) {
+        ModelAndView mview=new ModelAndView();
+
+        String uId = (String) session.getAttribute("uId");
+
+        mview.addObject("user",service.selectUser(uId));
+        mview.setViewName("/user/user_update");
+
+        return mview;
     }
 
     @RequestMapping(value = "/user/user_updateAction", method = RequestMethod.POST)
     public String updateAction(@RequestParam String uId,String pw,String hp,String addr,Model model,HttpServletRequest request) {
         HttpSession session = request.getSession();
-        UserDao userDao = new UserDao();
-        User user= userDao.selectUser(uId);
+        //UserDao userDao = new UserDao();
+        User user= service.selectUser(uId);
         user.setPw(pw);
         user.setHp(hp);
         user.setAddr(addr);
 
-        userDao.updateUser(user);
+        service.updateUser(user);
 
         model.addAttribute("msg", uId + "님, 수정완료되었습니다.");
         model.addAttribute("url", "/user/user_mypage");

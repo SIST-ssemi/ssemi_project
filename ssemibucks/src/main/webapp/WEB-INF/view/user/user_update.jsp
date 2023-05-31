@@ -1,5 +1,5 @@
-<%@ page import="ssemi.ssemibucks.USER.UserDao" %>
 <%@ page import="ssemi.ssemibucks.USER.User" %>
+<%@ page import="ssemi.ssemibucks.USER.UserService" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -70,11 +70,6 @@
         }
     </style>
 </head>
-<%
-    String uId = request.getParameter("uId");
-    UserDao userDao = new UserDao();
-    User user = userDao.selectUser(uId);
-%>
 <body>
 <div class="title"><h1>Update User</h1></div>
 <form action="/user/user_updateAction" METHOD="post">
@@ -84,7 +79,8 @@
                 <div class="uId">
                     <th style="vertical-align: middle">UserID</th>
                     <td style="vertical-align: middle">
-                        <input type="text" style="color: rgba(0,0,0,0.3)" name="uId" id="uId" placeholder="Enter UserID" required="required" value="<%=user.getuId()%>" readonly/>
+                        <input type="text" style="color: rgba(0,0,0,0.3)" name="uId" id="uId" placeholder="Enter UserID"
+                               required="required" value="${user.getuId()}" readonly/>
                     </td>
                 </div>
             </form>
@@ -93,7 +89,8 @@
             <div class="pw">
                 <th style="vertical-align: middle">Password</th>
                 <td style="vertical-align: middle">
-                    <input type="password" name="pw" placeholder="Enter Password" value="<%=user.getPw()%>" required="required"/>
+                    <input type="password" name="pw" placeholder="Enter Password" value="${user.getPw()}"
+                           required="required"/>
                 </td>
             </div>
         </tr>
@@ -101,7 +98,8 @@
             <div class="uName">
                 <th style="vertical-align: middle">UserName</th>
                 <td style="vertical-align: middle">
-                    <input type="text" name="uName" style="color: rgba(0,0,0,0.3)" placeholder="Enter UserName" value="<%=user.getuName()%>" required="required" readonly/>
+                    <input type="text" name="uName" style="color: rgba(0,0,0,0.3)" placeholder="Enter UserName"
+                           value="${user.getuName()}" required="required" readonly/>
                 </td>
             </div>
         </tr>
@@ -111,7 +109,7 @@
                 <td style="vertical-align: middle">
                     <input
                             type="text" name="hp"
-                            placeholder="Enter HP (without ' - ')" required="required" value="<%=user.getHp()%>"
+                            placeholder="Enter HP (without ' - ')" required="required" value="${user.getHp()}"
                     />
                 </td>
             </div>
@@ -120,7 +118,8 @@
             <div class="addr">
                 <th style="vertical-align: middle">Address</th>
                 <td style="vertical-align: middle">
-                    <input type="text" name="addr" placeholder="Enter Address" value="<%=user.getAddr()%>" required="required"/>
+                    <input type="text" name="addr" placeholder="Enter Address" value="${user.getAddr()}"
+                           required="required"/>
                 </td>
             </div>
         </tr>

@@ -1,4 +1,3 @@
-<%@ page import="ssemi.ssemibucks.USER.UserDao" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
