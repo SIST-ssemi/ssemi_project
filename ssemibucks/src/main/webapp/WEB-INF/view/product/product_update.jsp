@@ -1,9 +1,11 @@
+<%@ page import="ssemi.ssemibucks.PRODUCT.ProductService" %>
 <%@ page import="ssemi.ssemibucks.PRODUCT.Product" %>
-<%@ page import="ssemi.ssemibucks.PRODUCT.ProductDao" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -35,12 +37,6 @@
 </head>
 
 <body>
-<%
-    String pId = request.getParameter("pId");
-
-    ProductDao dao = new ProductDao();
-    Product product = dao.selectProduct(pId);
-%>
 
 <!-- Navbar -->
 <div include-html="/navbar"></div>
@@ -56,7 +52,7 @@
     <div class="container px-4 px-lg-5 my-5">
         <form action="/product/produt_updateAction" method="post">
             <!-- hidden으로 표시 -->
-            <input type="hidden" name="pId" value="<%=pId %>">
+            <input type="hidden" name="pId" value="${product.getPId() }">
 
             <!-- btn -->
             <div>
@@ -65,7 +61,7 @@
                     back
                 </button>
                 <button type="button" class="btn" style="margin-bottom: 20px; float: right;"
-                        onclick="location.href='/product/product_delete?pId=<%=product.getpId() %>'"><i
+                        onclick="location.href='/product/product_delete?pId=${product.getPId() }'"><i
                         class="bi bi-trash"></i>
                     delete
                 </button>
@@ -79,7 +75,7 @@
                 <!-- pImage preview -->
                 <div class="col-md-6">
                     <img class="card-img-top mb-5 mb-md-0" id="preview"
-                         src="<%=product.getpImage() %>"
+                         src="${product.getPImage() }"
                          alt="...">
                 </div>
 
@@ -89,9 +85,9 @@
                     <div class="row mb-3">
                         <label class="col-sm-2 col-form-label l-fs">Product Id</label>
                         <div class="col-sm-10">
-                            <div class="form-floating mb-3">
+                            <div class="mb-3">
                                 <input type="text" class="form-control" id="pId" name="pId"
-                                       value="<%=product.getpName() %>" disabled>
+                                       value="${product.getPId() }" disabled>
                             </div>
                         </div>
                     </div>
@@ -102,7 +98,7 @@
                         <div class="col-sm-10">
                             <div class="mb-3">
                                 <input type="text" class="form-control" id="pName" name="pName"
-                                       value="<%=product.getpName() %>" disabled>
+                                       value="${product.getPName() }" disabled>
                             </div>
                         </div>
                     </div>
@@ -112,34 +108,17 @@
                         <legend class="col-form-label col-sm-2 pt-0">Option</legend>
                         <div class="col-sm-10">
 
-                            <%
-                                String[] pOption = {"hot", "ice", "none"};
+                            <c:set var="pOption" value="${['hot', 'ice', 'none']}" />
 
-                                for (int i = 0; i < pOption.length; i++) {
-                                    if (product.getpOption().equals(pOption[i])) {
-                            %>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="pOption" id="pOption"
-                                       value="<%=pOption[i] %>"
-                                       checked>
-                                <label class="form-check-label" for="pOption">
-                                    <%=pOption[i] %>
-                                </label>
-                            </div>
-                            <%
-                            } else {
-                            %>
-                            <div class="form-check form-check-inline">
-                                <input class="form-check-input" type="radio" name="pOption" id="pOption"
-                                       value="<%=pOption[i] %>" disabled>
-                                <label class="form-check-label" for="pOption">
-                                    <%=pOption[i] %>
-                                </label>
-                            </div>
-                            <%
-                                    }
-                                }
-                            %>
+                            <c:forEach var="option" items="${pOption}" varStatus="i">
+                                <div class="form-check form-check-inline">
+                                    <input class="form-check-input" type="radio" name="pOption" id="pOption${i.index + 1}"
+                                           value="${option}" ${product.POption eq option ? 'checked' : ''} disabled>
+                                    <label class="form-check-label" for="pOption${i.index + 1}">
+                                            ${option}
+                                    </label>
+                                </div>
+                            </c:forEach>
                         </div>
                     </fieldset>
 
@@ -150,7 +129,7 @@
 
                             <div class="mb-3">
                                 <input type="text" class="form-control" id="category" name="category"
-                                       placeholder="category" value="<%=product.getCategory() %>" disabled>
+                                       placeholder="category" value="${product.getCategory() }" disabled>
                             </div>
                         </div>
                     </div>
@@ -162,7 +141,7 @@
                             <div class="input-group mb-3">
                                 <span class="input-group-text">￦</span>
                                 <input type="text" class="form-control" aria-label="Price" name="price"
-                                       value="<%=product.getPrice() %>">
+                                       value="${product.getPrice() }">
                             </div>
                         </div>
                     </div>
@@ -173,7 +152,7 @@
                         <div class="col-sm-10">
                             <div class="mb-3">
                                 <input type="text" class="form-control" id="pStock" name="pStock"
-                                       value="<%=product.getpStock() + 100%>">
+                                       value="${product.getPStock()}">
                             </div>
                         </div>
                     </div>
@@ -184,7 +163,7 @@
                         <div class="col-sm-10">
                             <div class="form-floating">
                                 <textarea class="form-control" placeholder="Detail" name="pDetail"
-                                          style="height: 100px;"><%=product.getpDetail() %></textarea>
+                                          style="height: 100px;">${product.getPDetail() }</textarea>
                             </div>
                         </div>
                     </div>
@@ -195,7 +174,7 @@
                         <div class="col-sm-8">
                             <div class="form-floating mb-3">
                                 <input type="text" class="form-control" id="pImageUrl" name="pImage"
-                                       placeholder="pImage" value="<%=product.getpImage() %>">
+                                       placeholder="pImage" value="${product.getPImage() }">
                                 <label>Product Image URL</label>
                             </div>
 

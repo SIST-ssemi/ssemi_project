@@ -1,5 +1,6 @@
-<%@ page import="ssemi.ssemibucks.PRODUCT.ProductDao" %>
-<%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,9 +36,7 @@
         $("#chkId").val(chkId);
     })
 </script>
-<%
-    ProductDao dao = new ProductDao();
-%>
+
 <body>
 <form action="/product/product_chkIdAction" method="post">
     <table class="table" style="width: 100%; height: 100%; border-style: none">

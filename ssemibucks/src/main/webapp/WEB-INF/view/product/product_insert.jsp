@@ -1,4 +1,3 @@
-<%@ page import="ssemi.ssemibucks.USER.UserDao" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -136,23 +135,23 @@
                             <legend class="col-form-label col-sm-2 pt-0">Option</legend>
                             <div class="col-sm-10">
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="pOption" id="pOption" value="hot"
+                                    <input class="form-check-input" type="radio" name="pOption" id="pOption1" value="hot"
                                            checked>
-                                    <label class="form-check-label" for="pOption">
+                                    <label class="form-check-label" for="pOption1">
                                         hot
                                     </label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="pOption" id="pOption"
+                                    <input class="form-check-input" type="radio" name="pOption" id="pOption2"
                                            value="ice">
-                                    <label class="form-check-label" for="pOption">
+                                    <label class="form-check-label" for="pOption2">
                                         ice
                                     </label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="pOption" id="pOption"
+                                    <input class="form-check-input" type="radio" name="pOption" id="pOption3"
                                            value="none">
-                                    <label class="form-check-label" for="pOption">
+                                    <label class="form-check-label" for="pOption3">
                                         none
                                     </label>
                                 </div>
@@ -179,6 +178,16 @@
                                     <span class="input-group-text">￦</span>
                                     <input type="number" class="form-control" aria-label="Price" name="price"
                                            placeholder="0" required>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- pStock -->
+                        <div class="row mb-3">
+                            <label class="col-sm-2 col-form-label">Stock</label>
+                            <div class="col-sm-10">
+                                <div class="mb-3">
+                                    <input type="text" class="form-control" id="pStock" name="pStock" placeholder="100" required>
                                 </div>
                             </div>
                         </div>
@@ -211,9 +220,8 @@
                         </div>
                     </div>
                 </div>
-
+            </div>
         </form>
-    </div>
     </div>
 </section>
 </body>

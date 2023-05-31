@@ -12,7 +12,6 @@ import ssemi.ssemibucks.CART.Cart;
 import ssemi.ssemibucks.CART.CartService;
 import ssemi.ssemibucks.PRODUCT.Product;
 import ssemi.ssemibucks.PRODUCT.ProductService;
-import ssemi.ssemibucks.CART.CartDao;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -30,21 +29,21 @@ public class CartController {
     CartService cartService;
 
     @GetMapping("/cart/cart_list")
-    public String cart_list(@RequestParam String uId, Model model) throws SQLException {
-        List<Cart> carts = cartService.AllCart(uId);
+    public String cart_list(Model model, HttpSession session) {
+        String uId = (String)session.getAttribute("uId");
+        List<Cart> carts = cartService.selectCart(uId);
         model.addAttribute("carts", carts);
 
         return "/cart/cart_list";
     }
 
     @RequestMapping(value = "/cart/cart_insertAction", method = RequestMethod.POST)
-    public String cartInsert(String pId, int cQTY, Model model, HttpServletRequest request) throws SQLException {
+    public String cartInsert(String pId, int cQTY, Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
         String uId = (String)session.getAttribute("uId");
-
+        System.out.println(pId + ", " + cQTY);
         Product product = productService.selectProduct(pId);
-        Cart cart = cartService.getCart(uId, pId);
-        String cId = cart.getcId();
+        Cart cart = cartService.findBypId(uId, pId);
 
         if(uId == null) {
             model.addAttribute("msg",  "로그인이 필요합니다");
@@ -52,14 +51,20 @@ public class CartController {
 
             return "/alert";
         } else {
-            if(cId == null) {
-                cartService.registerCart(uId, pId, cQTY);
+            if(cart == null) {
+                Cart cart2 = new Cart();
+
+                cart2.setUId(uId);
+                cart2.setPId(pId);
+                cart2.setCQTY(cQTY);
+
+                cartService.insertCart(cart2);
 
                 model.addAttribute("msg", "장바구니에 \\'" + product.getPName() + "\\'을/를 추가하였습니다");
                 model.addAttribute("url", "/cart/cart_list?uId=" + uId);
             } else {
-                cQTY = cart.getcQty() + cQTY;
-                cartService.modifyCart(cart.getcId(), cQTY);
+                cQTY = cart.getCQTY() + cQTY;
+                cartService.updateCart(cart.getCId(), cQTY);
 
                 model.addAttribute("msg", "장바구니에 \\'" + product.getPName() + "\\'을/를 추가하였습니다");
                 model.addAttribute("url", "/cart/cart_list?uId=" + uId);
@@ -71,14 +76,14 @@ public class CartController {
 
     @RequestMapping(value = "/cart/cart_updateAction", method = RequestMethod.POST)
     public String cartUpdate(String uId, String pId, int cQTY, Model model) throws SQLException {
-        Cart cart = cartService.getCart(uId, pId);
-        String cId = cart.getcId();
+        Cart cart = cartService.findBypId(uId, pId);
+        String cId = cart.getCId();
 
-        System.out.println(cId + ", " + cart.getpName() + ", " + cQTY);
+        System.out.println(cId + ", " + cart.getPName() + ", " + cQTY);
 
-        cartService.modifyCart(cId, cQTY);
+        cartService.updateCart(cId, cQTY);
 
-        model.addAttribute("msg", "\\'" + cart.getpName() + "\\'의 수량을 변경하였습니다");
+        model.addAttribute("msg", "\\'" + cart.getPName() + "\\'의 수량을 변경하였습니다");
         model.addAttribute("url", "/cart/cart_list?uId=" + uId);
 
         return "/alert";
@@ -86,14 +91,10 @@ public class CartController {
 
     @RequestMapping(value = "/cart/cart_delete", method = RequestMethod.GET)
     public String cart_delete(@RequestParam String cId, Model model) {
-        CartDao cartDao = new CartDao();
-        // ProductDao productDao=new ProductDao();
+        Cart cart = cartService.findByCart(cId);
+        Product product=productService.findBypId(cart.getPId());
 
-        Cart cart = cartDao.findByCart(cId);
-
-        Product product=productService.findBypId(cart.getpId());
-
-        cartDao.deleteCart(cId);
+        cartService.deleteCart(cId);
 
         model.addAttribute("msg", product.getPName() + "이/가 장바구니에서 삭제되었습니다.");
         return "/alertnReferrer";

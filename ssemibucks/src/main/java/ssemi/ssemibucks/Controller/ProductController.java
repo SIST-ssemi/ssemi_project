@@ -69,19 +69,20 @@ public class ProductController {
 
     @GetMapping ("/product/product_update")
     public String productUpdate(@RequestParam String pId, Model model) {
+        System.out.println(pId);
         Product product = productService.selectProduct(pId);
         model.addAttribute("product", product);
 
         return "/product/product_update";
     }
     @RequestMapping(value="/product/produt_updateAction", method = RequestMethod.POST)
-    public String productUpdate(@RequestParam String pId, ProductForm form, Model model) {
+    public String productUpdate(@RequestParam String pId, @RequestParam int price, @RequestParam int pStock, @RequestParam String pDetail, @RequestParam String pImage, Model model) {
         Product product = productService.selectProduct(pId);
 
-        product.setPrice(form.getPrice());
-        product.setPStock(form.getpStock());
-        product.setPDetail(form.getpDetail());
-        product.setPImage(form.getpImage());
+        product.setPrice(price);
+        product.setPStock(pStock);
+        product.setPDetail(pDetail);
+        product.setPImage(pImage);
 
         productService.updateProduct(product);
         

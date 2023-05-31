@@ -2,13 +2,14 @@ package ssemi.ssemibucks.PRODUCT;
 
 import org.apache.ibatis.annotations.Mapper;
 
+import java.util.List;
 import java.util.Vector;
 
 @Mapper
 public interface ProductMapperInter {
 
-    public Vector<Product> selectAllProduct();
-    public Vector<Product> selectCategoryProduct(String category);
+    public List<Product> selectAllProduct();
+    public List<Product> selectCategoryProduct(String category);
     public Product selectProduct(String pId);
     public void insertProduct(Product product);
     public void deleteProduct(String pId);

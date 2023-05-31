@@ -1,7 +1,6 @@
-<%@ page import="ssemi.ssemibucks.PRODUCT.ProductDao" %>
-<%@ page import="ssemi.ssemibucks.PRODUCT.Product" %>
-<%@ page import="java.util.Vector" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -45,10 +44,6 @@
 </head>
 
 <body>
-<%
-    ProductDao dao = new ProductDao();
-    Vector<Product> list = dao.selectAllProduct();
-%>
 
 <div id="navbar"></div>
 
@@ -151,57 +146,54 @@
 
                             <tbody>
 
-                            <%
-                                for (int i = 0; i < list.size(); i++) {
-                                    Product product = list.get(i);
-                            %>
+                            <c:if test="${products.size() != 0 }">
+                            <c:forEach var="product" items="${products }">
                             <tr>
                                 <td>
-                                    <a href="/product/product_detail?pId=<%=product.getpId() %>">
+                                    <a href="/product/product_detail?pId=${product.getPId() }">
                                         <div class=" d-flex px-2 py-1">
                                             <div>
-                                                <img src="<%=product.getpImage() %>"
+                                                <img src="${product.getPImage() }"
                                                      class="avatar avatar-sm me-3 border-radius-lg"
                                                      alt="image" width="60px" height="60px">
                                             </div>
                                             <div class="d-flex flex-column justify-content-center">
-                                                <h6 class="mb-0 text-sm"><%=product.getpName() %>
+                                                <h6 class="mb-0 text-sm">${product.getPName() }
                                                 </h6>
                                                 <p class="text-xs text-secondary mb-0"
-                                                   id="productId"><%=product.getpId() %>
+                                                   id="productId">${product.getPId() }
                                                 </p>
                                             </div>
                                         </div>
                                     </a>
                                 </td>
                                 <td class="align-middle text-center text-sm">
-                                    <span><%=product.getpOption() %></span>
+                                    <span>${product.getPOption() }</span>
                                 </td>
                                 <td class="align-middle text-center text-sm">
-                                    <span><%=product.getCategory() %></span>
+                                    <span>${product.getCategory() }</span>
                                 </td>
                                 <td class="align-middle text-center text-sm">
-                                    <span>￦<%=product.getPrice() %></span>
+                                    <span>￦${product.getPrice() }</span>
                                 </td>
                                 <td class="align-middle text-center text-sm">
-                                    <span><%=product.getpStock() %></span>
+                                    <span>${product.getPStock() }</span>
                                 </td>
                                 <td class="align-middle text-center text-sm" style="width: 300px;">
                                     <button class="btn" style="margin-bottom: 20px;"
-                                            onclick="location.href='/product/product_update?pId=<%=product.getpId() %>'">
+                                            onclick="location.href='/product/product_update?pId=${product.getPId() }'">
                                         <i class="bi bi-pencil"></i>
                                         update
                                     </button>
                                     <button class="btn" style="margin-bottom: 20px;"
-                                            onclick="location.href='/product/product_delete?pId=<%=product.getpId() %>'">
+                                            onclick="location.href='/product/product_delete?pId=${product.getPId() }'">
                                         <i class="bi bi-trash"></i>
                                         delete
                                     </button>
                                 </td>
                             </tr>
-                            <%
-                                }
-                            %>
+                            </c:forEach>
+                            </c:if>
 
                             </tbody>
                         </table>

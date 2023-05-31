@@ -5,48 +5,62 @@ import org.springframework.stereotype.Service;
 import ssemi.ssemibucks.PRODUCT.Product;
 
 import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Scanner;
 import java.util.Vector;
 
 @Service
-public class CartService {
-
-    private final CartDao cartDao;
-    Scanner sc = new Scanner(System.in);
+public class CartService implements CartServiceInter {
 
     @Autowired
-    public CartService(CartDao cartDao) {
-        this.cartDao = cartDao;
-    }
+    CartMapperInter mapper;
 
     // 장바구니 조회
-    public Vector<Cart> AllCart(String uId) throws SQLException {
+    public List<Cart> selectCart(String uId)  {
         System.out.println("장바구니 조회\n");
-        return cartDao.selectCart(uId);
-    }
-
-    // 장바구니 상품 존재 여부 조회 - 수정
-    public Cart getCart(String uId, String pId) throws SQLException {
-        System.out.println("장바구니 상품 존재 여부 조회\n");
-        return cartDao.findBypId(uId, pId);
+        return mapper.selectCart(uId);
     }
 
     // 장바구니 등록
-    public void registerCart(String uId, String pId, int cQTY) {
+    public void insertCart(Cart cart) {
         System.out.println("장바구니 등록\n");
-        cartDao.insertCart(uId, pId, cQTY);
+        mapper.insertCart(cart);
     }
 
-//    // 장바구니 삭제
-//    public void removeCart() {
-//        System.out.println("장바구니 삭제\n");
-//            cartDao.deleteCart(pId);
-//    }
-//
+    @Override
+    public Cart findByCart(String cId) {
+        return mapper.findByCart(cId);
+    }
+
+    // 장바구니 삭제
+    @Override
+    public void deleteCart(String cId) {
+        System.out.println("장바구니 삭제\n");
+        mapper.deleteCart(cId);
+    }
 
     // 장바구니 수정
-    public void modifyCart(String cId, int cQTY) {
+    @Override
+    public void updateCart(String cId, int cQty) {
+        HashMap<String, Object> map = new HashMap<>();
+
+        map.put("cId", cId);
+        map.put("cQty", cQty);
+
         System.out.println("장바구니 수정\n");
-        cartDao.updateCart(cId, cQTY);
+        mapper.updateCart(map);
     }
+
+    // 장바구니 상품 존재 여부 조회
+    @Override
+    public Cart findBypId(String uId, String pId) {
+        HashMap<String, Object> map = new HashMap<>();
+
+        map.put("uId", uId);
+        map.put("pId", pId);
+
+        return mapper.findBypId(map);
+    }
+
 }

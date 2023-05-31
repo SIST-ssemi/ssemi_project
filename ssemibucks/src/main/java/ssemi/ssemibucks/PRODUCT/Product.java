@@ -6,12 +6,12 @@ import org.apache.ibatis.type.Alias;
 @Data
 @Alias("Product")
 public class Product {
-    private String pId;
-    private String pName;
-    private String pOption;
-    private String category;
-    private int price;
-    private int pStock;
-    private String pDetail;
-    private String pImage;
+    public String pId;
+    public String pName;
+    public String pOption;
+    public String category;
+    public int price;
+    public int pStock;
+    public String pDetail;
+    public String pImage;
 }

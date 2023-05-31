@@ -1,10 +1,9 @@
-<%@ page import="ssemi.ssemibucks.PRODUCT.ProductDao" %>
-<%@ page import="ssemi.ssemibucks.PRODUCT.Product" %>
-<%@ page import="java.util.Vector" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -14,6 +13,7 @@
 
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.5.0/font/bootstrap-icons.css" rel="stylesheet"/>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.3.js"></script>
 
     <!-- Customized Bootstrap Stylesheet -->
     <link href="/css/bootstrap.min.css" rel="stylesheet"/>
@@ -28,10 +28,6 @@
 </head>
 
 <body>
-<%
-    ProductDao dao = new ProductDao();
-    Vector<Product> list = dao.selectAllProduct();
-%>
 
 <!-- Navbar -->
 <div include-html="/navbar"></div>
@@ -55,29 +51,27 @@
 
         <div class="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"
              style="border: 2px solid white; margin-top: 80px;">
-            <%
-                for (int i = 0; i < list.size(); i++) {
-                    Product product = list.get(i);
-            %>
+            <c:if test="${products.size() != 0 }">
+            <c:forEach var="product" items="${products }">
             <div class="col mb-5">
                 <div class="card h-100" id="product" style="cursor: pointer;">
                     <!-- Product image-->
                     <img class="card-img-top"
-                         src="<%=product.getpImage() %>"
+                         src="${product.getPImage() }"
                          alt="..."
-                         onclick="location.href='/product/product_detail?pId=<%= product.getpId()%>'"/>
+                         onclick="location.href='/product/product_detail?pId=${product.getPId() }'"/>
                     <!-- Product details-->
                     <div class="card-body p-4">
                         <div class="text-center">
                             <!-- Product name-->
-                            <h5 class="fw-bolder"><%=product.getpName() %>
+                            <h5 class="fw-bolder">${product.getPName() }
                             </h5>
                         </div>
                     </div>
                     <!-- Product actions-->
                     <form action="/cart/cart_insertAction" method="post">
-                        <input type="hidden" name="uId" value="<%=session.getAttribute("uId") %>">
-                        <input type="hidden" name="pId" value="<%=product.getpId() %>">
+                        <input type="hidden" name="uId" value="${sessionScope.uId}">
+                        <input type="hidden" name="pId" value="${product.getPId() }">
                         <input type="hidden" name="cQTY" value=1>
                         <div class="card-footer p-4 pt-0 border-top-0 bg-transparent">
                             <div class="text-center">
@@ -87,10 +81,8 @@
                     </form>
                 </div>
             </div>
-            <%
-                }
-            %>
-
+            </c:forEach>
+            </c:if>
         </div>
     </div>
 </section>

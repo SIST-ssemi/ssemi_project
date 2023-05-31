@@ -35,7 +35,7 @@
 <%
     String uId = (String) session.getAttribute("uId");
     UserService service = new UserService();
-    User user = service.selectUser(uId);
+    //User user = service.selectUser(uId);
 %>
 <body>
 <!-- Navbar -->

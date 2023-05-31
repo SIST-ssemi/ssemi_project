@@ -3,6 +3,7 @@ package ssemi.ssemibucks.PRODUCT;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Scanner;
 import java.util.Vector;
 
@@ -13,13 +14,13 @@ public class ProductService implements ProductServiceInter{
     public ProductMapperInter mapper;
 
     // 전체 상품 조회
-    public Vector<Product> selectAllProduct() {
+    public List<Product> selectAllProduct() {
         System.out.println("전체 상품 조회\n");
         return mapper.selectAllProduct();
     }
 
     // 카테고리별 상품 조회
-    public Vector<Product> selectCategoryProduct(String category) {
+    public List<Product> selectCategoryProduct(String category) {
         System.out.println("카테고리별 상품 조회\n");
         return mapper.selectCategoryProduct(category);
     }

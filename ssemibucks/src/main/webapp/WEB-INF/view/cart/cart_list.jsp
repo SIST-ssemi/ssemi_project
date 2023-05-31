@@ -1,11 +1,7 @@
-<%@ page import="java.util.Vector" %>
-<%@ page import="ssemi.ssemibucks.USER.User" %>
-<%@ page import="java.util.List" %>
-<%@ page import="ssemi.ssemibucks.CART.CartDao" %>
-<%@ page import="ssemi.ssemibucks.CART.Cart" %>
-<%@ page import="java.text.DecimalFormat" %>
-<%@ page import="java.text.NumberFormat" %>
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
+<%@ taglib prefix="fmf" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -59,16 +55,6 @@
 </head>
 
 <body>
-<%
-    String uId = request.getParameter("uId");
-    CartDao dao = new CartDao();
-    Vector<Cart> list = dao.selectCart(uId);
-
-    DecimalFormat df = new DecimalFormat("###,###");
-    int tot = 0;
-
-    NumberFormat nf = NumberFormat.getCurrencyInstance();
-%>
 
 <div id="navbar"></div>
 
@@ -85,7 +71,7 @@
             <div class="card my-4">
                 <div class="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
                     <div class="bg-primary shadow-primary border-radius-lg pt-4 pb-3">
-                        <h6 class="text-white ps-3"><%=uId%> 's CartList</h6>
+                        <h6 class="text-white ps-3">${sessionScope.uId}'s CartList</h6>
                     </div>
                 </div>
 
@@ -127,29 +113,25 @@
 
                             <tbody>
 
-
-                            <%
-                                for (int i = 0; i < list.size(); i++) {
-                                    Cart cart = list.get(i);
-                            %>
+                            <c:forEach var="cart" items="${carts}" varStatus="i">
 
                             <tr>
                                 <td class="align-middle text-center text-sm">
-                                    <%= i + 1%>
+                                    ${i.index + 1}
                                 </td>
                                 <td class="align-middle text-center text-sm">
-                                    <%= cart.getCategory()%>
+                                        ${cart.getCategory() }
                                 </td>
                                 <td style="width: 280px">
-                                    <a href="/product/product_detail?pId=<%=cart.getpId() %>">
+                                    <a href="/product/product_detail?pId=${cart.getPId() }">
                                         <div class=" d-flex px-2 py-1">
                                             <div>
-                                                <img src="<%=cart.getpImage() %> "
+                                                <img src="${cart.getPImage() } "
                                                      class="img-thumbnail avatar avatar-sm me-3 border-radius-lg"
                                                      alt="image" width="60px" height="60px">
                                             </div>
                                             <div class="d-flex flex-column justify-content-center">
-                                                <h6 class="mb-0 text-sm"><%=cart.getpName() %>
+                                                <h6 class="mb-0 text-sm">${cart.getPName() }
                                                 </h6>
                                             </div>
                                         </div>
@@ -157,16 +139,16 @@
                                 </td>
 
                                 <td class="align-middle text-center text-uppercase text-sm">
-                                    <span><%=cart.getpOption() %></span>
+                                    <span>${cart.getPOption() }</span>
                                 </td>
                                 <td class="align-middle text-center text-sm">
-                                    <span><%=nf.format(cart.getPrice())%></span>
+                                    <span><fmt:formatNumber value="${cart.getPrice() }" type="number"/> </span>
                                 </td>
 
                                 <form action="/cart/cart_updateAction" method="post">
-                                    <input type="hidden" value="<%=cart.getcQty()%>" name="pStock">
-                                    <input type="hidden" value="<%=cart.getpId()%>" name="pId">
-                                    <input type="hidden" value="<%=cart.getuId()%>" name="uId">
+                                    <input type="hidden" value="${cart.getCQTY() }" name="pStock">
+                                    <input type="hidden" value="${cart.getPId() }" name="pId">
+                                    <input type="hidden" value="${cart.getUId() }" name="uId">
                                     <td class="align-middle text-center text-sm" style="width: 300px;">
                                         <div class="d-flex">
                                             <button class="btn btn-outline-dark flex-shrink-0 minus" type="button"
@@ -174,7 +156,7 @@
                                                 -
                                             </button>
                                             <input type="text" class="form-control text-center"
-                                                   value="<%=cart.getcQty()%>" id="cQTY" name="cQTY"
+                                                   value="${cart.getCQTY() }" id="cQTY" name="cQTY"
                                                    style="width: 50px;" readonly>
                                             <button class="btn btn-outline-dark flex-shrink-0 plus" type="button"
                                                     style="margin-left: 5px; border-style: none; width: 35px; height: 35px;">
@@ -190,8 +172,8 @@
                                             update
                                         </button>
                                 </form>
-                                <button class="btn"
-                                        onclick="location.href='/cart/cart_delete?cId=<%=cart.getcId()%>'">
+                                <button class="btn" type="button"
+                                        onclick="location.href='/cart/cart_delete?cId=${cart.getCId() }'">
                                     <i class="bi bi-trash"></i>
                                     delete
                                 </button>
@@ -200,10 +182,9 @@
 
                             </tr>
 
-                            <%
-                                    tot += cart.getcQty() * cart.getPrice();
-                                }
-                            %>
+                                <c:set var="subtotal" value="${cart.getCQTY() * cart.getPrice()}" />
+                                <c:set var="tot" value="${tot + subtotal}" />
+                            </c:forEach>
                             </tbody>
                         </table>
                     </div>
@@ -221,7 +202,7 @@
          style="float: right; width: 200px; height: 35px; border: 2px solid #e2e2e2; background-color: #e2e2e2">
 
 
-        <p><span><strong>Total : </strong></span><span>￦<%=df.format(tot) %></span></p>
+        <p><span><strong>Total : </strong></span><span>￦<fmf:formatNumber value="${tot}" type="number" /></span></p>
     </div>
 
 </div>

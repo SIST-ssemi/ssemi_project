@@ -1,9 +1,9 @@
-<%@ page import="ssemi.ssemibucks.PRODUCT.Product" %>
-<%@ page import="ssemi.ssemibucks.PRODUCT.ProductDao" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -49,12 +49,6 @@
 </head>
 
 <body>
-<%
-    String pId = request.getParameter("pId");
-
-    ProductDao dao = new ProductDao();
-    Product product = dao.selectProduct(pId);
-%>
 
 <!-- Navbar -->
 <div include-html="/navbar"></div>
@@ -74,14 +68,12 @@
                     class="bi bi-arrow-left-circle"></i>
                 back
             </button>
-            <%
-                if (session.getAttribute("uId") == null) {
-            %>
-            <span></span>
-            <%
-            } else if (session.getAttribute("uId").equals("admin")) {
-            %>
 
+            <c:if test="${sessionScope.uId == null}">
+                <span></span>
+            </c:if>
+
+            <c:if test="${sessionScope.uId == 'admin'}">
             <button class="btn" style="margin-bottom: 20px; float: right;" data-bs-toggle="modal"
                     data-bs-target="#staticBackdrop"><i class="bi bi-trash"></i>
                 delete
@@ -108,7 +100,7 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <button type="button" class="btn btn-primary"
-                                    onclick="location.href='/product/product_delete?pId=<%=product.getpId()%>';">Delete
+                                    onclick="location.href='/product/product_delete?pId=${product.getPId() }'">Delete
                             </button>
                         </div>
                     </div>
@@ -132,36 +124,34 @@
                         <div class="modal-footer">
                             <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                             <button type="button" class="btn btn-primary"
-                                    onclick="location.href='/product/product_update?pId=<%= product.getpId()%>';">Update
+                                    onclick="location.href='/product/product_update?pId=${product.getPId() }'">Update
                             </button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <%
-                }
-            %>
+            </c:if>
         </div>
 
         <div class="row gx-4 gx-lg-5 align-items-center">
             <div class="col-md-6"><img class="card-img-top mb-5 mb-md-0"
-                                       src="<%=product.getpImage() %>"
+                                       src="${product.getPImage() }"
                                        alt="..."/></div>
             <div class="col-md-6">
-                <div class="small mb-1"><%=product.getpOption().toUpperCase() %>
+                <div class="small mb-1">${product.getPOption().toUpperCase() }
                 </div>
-                <h1 class="display-5 fw-bolder"><%=product.getpName() %>
+                <h1 class="display-5 fw-bolder">${product.getPName() }
                 </h1>
                 <div class="fs-5 mb-5">
-                    <span>￦<%=product.getPrice() %></span>
+                    <span>￦${product.getPrice() }</span>
                 </div>
-                <p class="lead"><%=product.getpDetail() %>
+                <p class="lead">${product.getPDetail() }
                 </p><br>
 
                 <form action="/cart/cart_insertAction" method="post">
-                    <input type="hidden" name="uId" value="<%=session.getAttribute("uId") %>">
-                    <input type="hidden" name="pId" value="<%=product.getpId() %>">
+                    <input type="hidden" name="uId" value="${sessionScope.uId }">
+                    <input type="hidden" name="pId" value="${product.getPId() }">
 
                     <div class="d-flex">
                         <button class="btn btn-outline-dark flex-shrink-0" type="button" style="margin-right: 5px;"
@@ -169,8 +159,7 @@
                         </button>
 
                         <input type="text" class="form-control text-center" placeholder="1" id="ccQTY"
-                               style="text-align:center; width: 50px; margin-right: 5px;" readonly>
-                        <input type="hidden" name="cQTY" id="ccQTY2" name="cQTY" value="ccQTY">
+                               style="text-align:center; width: 50px; margin-right: 5px;" name="cQTY" readonly>
 
                         <button class="btn btn-outline-dark flex-shrink-0" type="button" id="plus">+</button>
 

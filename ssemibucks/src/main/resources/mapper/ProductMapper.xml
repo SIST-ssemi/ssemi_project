@@ -2,7 +2,7 @@
 
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTDMapper3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="ssemi.ssemibucks.ProductMapperInter">
+<mapper namespace="ssemi.ssemibucks.PRODUCT.ProductMapperInter">
 
     <!-- 전체 상품 목록 -->
     <select id="selectAllProduct" resultType="Product">
@@ -16,7 +16,7 @@
 
     <!-- 상품 상세페이지 -->
     <select id="selectProduct" resultType="Product" parameterType="String">
-        select * from PRODUCT where category=#{category}
+        select * from PRODUCT where pId=#{pId}
     </select>
 
     <!-- 상품 추가 -->
@@ -31,7 +31,7 @@
 
     <!-- 상품 수정 -->
     <update id="updateProduct" parameterType="Product">
-        update PRODUCT set price=#{price},pStock=#{pStock},pDetail=#{pDetail},pImage=#{pImage} where pId=#{pId}?
+        update PRODUCT set price=#{price},pStock=#{pStock},pDetail=#{pDetail},pImage=#{pImage} where pId=#{pId}
     </update>
 
     <!-- 상품 아이디 존재 여부 확인 - 중복 상품 등록 방지 -->

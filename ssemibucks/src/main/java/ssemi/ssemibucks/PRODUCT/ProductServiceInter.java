@@ -1,11 +1,11 @@
 package ssemi.ssemibucks.PRODUCT;
 
-import java.util.Vector;
+import java.util.List;
 
 public interface ProductServiceInter {
 
-    public Vector<Product> selectAllProduct();
-    public Vector<Product> selectCategoryProduct(String category);
+    public List<Product> selectAllProduct();
+    public List<Product> selectCategoryProduct(String category);
     public Product selectProduct(String pId);
     public void insertProduct(Product product);
     public void deleteProduct(String pId);
