@@ -5,7 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ssemi.ssemibucks.PRODUCT.Product;
-import ssemi.ssemibucks.PRODUCT.ProductDao;
 import ssemi.ssemibucks.PRODUCT.ProductService;
 
 import javax.servlet.http.HttpServletRequest;
@@ -14,16 +13,13 @@ import java.util.List;
 
 @Controller
 public class ProductController {
-    private final ProductService productService;
 
     @Autowired
-    public ProductController(ProductService productService) {
-        this.productService = productService;
-    }
+    ProductService productService;
 
     @GetMapping("/product/product_list")
     public String productList(Model model) {
-        List<Product> products = productService.allProduct();
+        List<Product> products = productService.selectAllProduct();
         model.addAttribute("products", products);
 
         return "/product/product_list";
@@ -32,7 +28,7 @@ public class ProductController {
     @GetMapping("/admin/admin_pManagement")
     public String admin_pManagement(Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
-        List<Product> products = productService.allProduct();
+        List<Product> products = productService.selectAllProduct();
         model.addAttribute("products", products);
         session.setAttribute("uId", "admin");
 
@@ -61,20 +57,11 @@ public class ProductController {
     }
     
     @PostMapping ("/product/product_insertAction")
-    public String productInsert(ProductForm form, Model model) {
-        Product product = new Product();
-        product.setpId(form.getpId());
-        product.setpName(form.getpName());
-        product.setpOption(form.getpOption());
-        product.setCategory(form.getCategory());
-        product.setPrice(form.getPrice());
-        product.setpStock(form.getpStock());
-        product.setpDetail(form.getpDetail());
-        product.setpImage(form.getpImage());
+    public String productInsert(Product product, Model model) {
 
-        productService.registerProduct(product);
+        productService.insertProduct(product);
 
-        model.addAttribute("msg",  "\\'" + product.getpName() + "\\'을/를 추가하였습니다");
+        model.addAttribute("msg",  "\\'" + product.getPName() + "\\'을/를 추가하였습니다");
         model.addAttribute("url", "/admin/admin_pManagement");
 
         return "/alert";
@@ -92,13 +79,13 @@ public class ProductController {
         Product product = productService.selectProduct(pId);
 
         product.setPrice(form.getPrice());
-        product.setpStock(form.getpStock());
-        product.setpDetail(form.getpDetail());
-        product.setpImage(form.getpImage());
+        product.setPStock(form.getpStock());
+        product.setPDetail(form.getpDetail());
+        product.setPImage(form.getpImage());
 
-        productService.modifyProduct(product);
+        productService.updateProduct(product);
         
-        model.addAttribute("msg", "\\'" + product.getpName() + "\\'을/를 수정하였습니다");
+        model.addAttribute("msg", "\\'" + product.getPName() + "\\'을/를 수정하였습니다");
         model.addAttribute("url", "/admin/admin_pManagement");
 
         return "/alert";
@@ -107,9 +94,9 @@ public class ProductController {
     @GetMapping ("/product/product_delete")
     public String productDelete(@RequestParam String pId, Model model) {
         Product product = productService.selectProduct(pId);
-        productService.removeProduct(product);
+        productService.deleteProduct(pId);
 
-        model.addAttribute("msg", "\\'" + product.getpName() + "\\'을/를 삭제하였습니다");
+        model.addAttribute("msg", "\\'" + product.getPName() + "\\'을/를 삭제하였습니다");
         model.addAttribute("url", "/admin/admin_pManagement");
 
         return "/alert";
@@ -123,8 +110,7 @@ public class ProductController {
     @RequestMapping(value = "/product/product_chkIdAction", method = RequestMethod.POST)
     public String chkIdAction(String chkId, Model model) {
 
-        ProductDao dao = new ProductDao();
-        String result = dao.idDuplication(chkId);
+        String result = productService.idDuplication(chkId);
 
         if (result.equals("중복아이디")) {
             model.addAttribute("msg", "중복된 아이디입니다. 다시 입력해주세요.");

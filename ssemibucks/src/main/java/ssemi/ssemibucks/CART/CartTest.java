@@ -1,7 +1,5 @@
 package ssemi.ssemibucks.CART;
 
-import ssemi.ssemibucks.PRODUCT.ProductDao;
-
 import java.util.Scanner;
 
 //public class CartTest {

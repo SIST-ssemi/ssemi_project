@@ -13,7 +13,6 @@ import ssemi.ssemibucks.CART.CartService;
 import ssemi.ssemibucks.PRODUCT.Product;
 import ssemi.ssemibucks.PRODUCT.ProductService;
 import ssemi.ssemibucks.CART.CartDao;
-import ssemi.ssemibucks.PRODUCT.ProductDao;
 import ssemi.ssemibucks.USER.User;
 import ssemi.ssemibucks.USER.UserDao;
 
@@ -25,16 +24,15 @@ import java.util.List;
 
 @Controller
 public class CartController {
-    private final ProductService productService;
-    private final CartService cartService;
-    private final UserDao userDao;
 
     @Autowired
-    public CartController(CartService cartService, ProductService productService, UserDao userDao) {
-        this.cartService = cartService;
-        this.productService = productService;
-        this.userDao = userDao;
-    }
+    ProductService productService;
+
+    @Autowired
+    CartService cartService;
+
+    @Autowired
+    UserDao userDao;
 
     @GetMapping("/cart/cart_list")
     public String cart_list(@RequestParam String uId, Model model) throws SQLException {
@@ -63,13 +61,13 @@ public class CartController {
             if(cId == null) {
                 cartService.registerCart(uId, pId, cQTY);
 
-                model.addAttribute("msg", "장바구니에 \\'" + product.getpName() + "\\'을/를 추가하였습니다");
+                model.addAttribute("msg", "장바구니에 \\'" + product.getPName() + "\\'을/를 추가하였습니다");
                 model.addAttribute("url", "/cart/cart_list?uId=" + uId);
             } else {
                 cQTY = cart.getcQty() + cQTY;
                 cartService.modifyCart(cart.getcId(), cQTY);
 
-                model.addAttribute("msg", "장바구니에 \\'" + product.getpName() + "\\'을/를 추가하였습니다");
+                model.addAttribute("msg", "장바구니에 \\'" + product.getPName() + "\\'을/를 추가하였습니다");
                 model.addAttribute("url", "/cart/cart_list?uId=" + uId);
             }
         }
@@ -90,20 +88,20 @@ public class CartController {
         model.addAttribute("url", "/cart/cart_list?uId=" + uId);
 
         return "/alert";
-
+    }
 
     @RequestMapping(value = "/cart/cart_delete", method = RequestMethod.GET)
     public String cart_delete(@RequestParam String cId, Model model) {
         CartDao cartDao = new CartDao();
-        ProductDao productDao=new ProductDao();
+        // ProductDao productDao=new ProductDao();
 
         Cart cart = cartDao.findByCart(cId);
 
-        Product product=productDao.findBypId(cart.getpId());
+        Product product=productService.findBypId(cart.getpId());
 
         cartDao.deleteCart(cId);
 
-        model.addAttribute("msg", product.getpName() + "이/가 장바구니에서 삭제되었습니다.");
+        model.addAttribute("msg", product.getPName() + "이/가 장바구니에서 삭제되었습니다.");
         return "/alertnReferrer";
 
     }

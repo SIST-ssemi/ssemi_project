@@ -163,7 +163,7 @@
                                         <select class="form-select" aria-label="Category" name="category">
                                             <option value="coffee" selected>coffee</option>
                                             <option value="non-coffee">non-coffee</option>
-                                            <option value="desserts">desserts</option>
+                                            <option value="dessert">dessert</option>
                                         </select>
                                     </div>
                                 </div>
@@ -208,9 +208,8 @@
                                 </div>
                             </div>
                         </div>
-
-                    </form>
-                </div>
+                    </div>
+                </form>
             </div>
         </section>
 </body>

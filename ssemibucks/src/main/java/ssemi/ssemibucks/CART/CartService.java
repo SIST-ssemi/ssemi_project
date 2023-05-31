@@ -3,7 +3,6 @@ package ssemi.ssemibucks.CART;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ssemi.ssemibucks.PRODUCT.Product;
-import ssemi.ssemibucks.PRODUCT.ProductDao;
 
 import java.sql.SQLException;
 import java.util.Scanner;
