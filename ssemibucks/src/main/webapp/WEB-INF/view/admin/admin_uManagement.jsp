@@ -4,6 +4,7 @@
 <%@ page import="ssemi.ssemibucks.USER.UserDao" %>
 <%@ page import="ssemi.ssemibucks.USER.User" %>
 <%@ page import="java.util.List" %>
+<%@ page import="ssemi.ssemibucks.USER.UserService" %>
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8" %>
 <!DOCTYPE html>
 <html lang="en">
@@ -46,8 +47,8 @@
 
 <body>
 <%
-    UserDao dao = new UserDao();
-    Vector<User> list = dao.selectAllUser();
+    UserService service = new UserService();
+    List<User> list = service.findAllUsers();
 %>
 
 <div id="navbar"></div>

@@ -1,5 +1,5 @@
-<%@ page import="ssemi.ssemibucks.USER.UserDao" %>
 <%@ page import="ssemi.ssemibucks.USER.User" %>
+<%@ page import="ssemi.ssemibucks.USER.UserService" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -34,8 +34,8 @@
 </style>
 <%
     String uId = (String) session.getAttribute("uId");
-    UserDao dao = new UserDao();
-    User user = dao.selectUser(uId);
+    UserService service = new UserService();
+    User user = service.selectUser(uId);
 %>
 <body>
 <!-- Navbar -->

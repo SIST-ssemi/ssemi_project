@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.servlet.ModelAndView;
 import ssemi.ssemibucks.USER.User;
 import ssemi.ssemibucks.USER.UserService;
 
@@ -113,8 +114,15 @@ public class UserController {
     }
 
     @GetMapping("/user/user_mypage")
-    public String mypage() {
-        return "/user/user_mypage";
+    public ModelAndView mypage(HttpSession session) {
+        ModelAndView mview=new ModelAndView();
+
+        String uId = (String) session.getAttribute("uId");
+
+        mview.addObject("user",service.selectUser(uId));
+        mview.setViewName("/user/user_mypage");
+
+        return mview;
     }
 
     @RequestMapping("/user/user_signout")
@@ -139,8 +147,15 @@ public class UserController {
 //    }
 
     @GetMapping("/user/user_update")
-    public String userupdate() {
-        return "/user/user_update";
+    public ModelAndView userupdate(HttpSession session) {
+        ModelAndView mview=new ModelAndView();
+
+        String uId = (String) session.getAttribute("uId");
+
+        mview.addObject("user",service.selectUser(uId));
+        mview.setViewName("/user/user_update");
+
+        return mview;
     }
 
     @RequestMapping(value = "/user/user_updateAction", method = RequestMethod.POST)

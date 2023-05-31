@@ -1,5 +1,4 @@
 <%@ page import="java.util.Vector" %>
-<%@ page import="ssemi.ssemibucks.USER.UserDao" %>
 <%@ page import="ssemi.ssemibucks.USER.User" %>
 <%@ page import="java.util.List" %>
 <%@ page import="ssemi.ssemibucks.CART.CartDao" %>

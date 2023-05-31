@@ -3,6 +3,7 @@ package ssemi.ssemibucks.USER;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
@@ -78,7 +79,7 @@ public class UserService implements UserServiceInter {
     }
 
     @Override
-    public User selectUser(String uId) {
+    public User selectUser(@RequestParam String uId) {
         return mapperInter.selectUser(uId);
     }
 

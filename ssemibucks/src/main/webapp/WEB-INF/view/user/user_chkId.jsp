@@ -1,4 +1,4 @@
-<%@ page import="ssemi.ssemibucks.USER.UserDao" %>
+<%@ page import="ssemi.ssemibucks.USER.UserService" %>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8" %>
 <!DOCTYPE html>
 <html>
@@ -36,7 +36,7 @@
     })
 </script>
 <%
-    UserDao dao = new UserDao();
+    UserService service = new UserService();
 %>
 <body>
 <form action="/user/user_chkIdAction" method="post">
