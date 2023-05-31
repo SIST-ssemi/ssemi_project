@@ -5,8 +5,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.Scanner;
 import java.util.Vector;
+
 @Service
-public class ProductService {
+public class ProductService implements ProductServiceInter{
 
     @Autowired
     public ProductMapperInter mapper;

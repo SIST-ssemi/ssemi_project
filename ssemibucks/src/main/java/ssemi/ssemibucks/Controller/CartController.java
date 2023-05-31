@@ -13,8 +13,6 @@ import ssemi.ssemibucks.CART.CartService;
 import ssemi.ssemibucks.PRODUCT.Product;
 import ssemi.ssemibucks.PRODUCT.ProductService;
 import ssemi.ssemibucks.CART.CartDao;
-import ssemi.ssemibucks.USER.User;
-import ssemi.ssemibucks.USER.UserDao;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -31,9 +29,6 @@ public class CartController {
     @Autowired
     CartService cartService;
 
-    @Autowired
-    UserDao userDao;
-
     @GetMapping("/cart/cart_list")
     public String cart_list(@RequestParam String uId, Model model) throws SQLException {
         List<Cart> carts = cartService.AllCart(uId);
@@ -41,7 +36,6 @@ public class CartController {
 
         return "/cart/cart_list";
     }
-
 
     @RequestMapping(value = "/cart/cart_insertAction", method = RequestMethod.POST)
     public String cartInsert(String pId, int cQTY, Model model, HttpServletRequest request) throws SQLException {

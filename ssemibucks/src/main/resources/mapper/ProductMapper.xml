@@ -10,7 +10,7 @@
     </select>
 
     <!-- 카테고리별 상품 목록 -->
-    <select id="selectCategoryProduct" resultType="Product" parameterType="category">
+    <select id="selectCategoryProduct" resultType="Product" parameterType="String">
         select * from PRODUCT where category=#{category}
     </select>
 
