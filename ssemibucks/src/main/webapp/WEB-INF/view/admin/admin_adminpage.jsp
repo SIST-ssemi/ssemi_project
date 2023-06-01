@@ -32,11 +32,6 @@
         height: 100px;
     }
 </style>
-<%
-    String uId = (String) session.getAttribute("uId");
-    UserService service = new UserService();
-    //User user = service.selectUser(uId);
-%>
 <body>
 <!-- Navbar -->
 <div include-html="/navbar"></div>

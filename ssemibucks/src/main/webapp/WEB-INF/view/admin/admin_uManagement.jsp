@@ -1,7 +1,5 @@
-<%@ page import="ssemi.ssemibucks.PRODUCT.ProductDao" %>
 <%@ page import="ssemi.ssemibucks.PRODUCT.Product" %>
 <%@ page import="java.util.Vector" %>
-<%@ page import="ssemi.ssemibucks.USER.UserDao" %>
 <%@ page import="ssemi.ssemibucks.USER.User" %>
 <%@ page import="java.util.List" %>
 <%@ page import="ssemi.ssemibucks.USER.UserService" %>
@@ -46,10 +44,6 @@
 </head>
 
 <body>
-<%
-    UserService service = new UserService();
-    List<User> list = service.findAllUsers();
-%>
 
 <div id="navbar"></div>
 
@@ -119,6 +113,7 @@
                             <tbody>
 
                             <%
+                                List<User> list=(List<User>)request.getAttribute("userList");
                                 for (int i = 0; i < list.size(); i++) {
                                     User user = list.get(i);
                             %>

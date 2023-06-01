@@ -6,7 +6,7 @@
         select * from USER where uId=#{uId}
     </select>
 
-    <select id="selectAllUser" resultType="USER">
+    <select id="findAllUsers" resultType="USER">
         select * from USER order by uName
     </select>
 
