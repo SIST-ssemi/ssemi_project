@@ -8,11 +8,11 @@ import java.util.List;
 @Mapper
 public interface CartMapperInter {
 
-    public List<Cart> selectCart(String uId);
-    public void insertCart(Cart cart);
+    public List<Cart> getAllCartsOfUser(String uId);
+    public void insertOfCart(Cart cart);
     public Cart findByCart(String cId);
-    public void deleteCart(String cId);
-    public void updateCart(HashMap<String, Object> map);
-    public Cart findBypId(HashMap<String, Object> map);
+    public void deleteOfCart(String cId);
+    public void updateOfCart(HashMap<String, Object> map);
+    public Cart isDuplicationProduct(HashMap<String, Object> map);
 
 }

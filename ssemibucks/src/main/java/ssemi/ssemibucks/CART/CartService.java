@@ -17,15 +17,13 @@ public class CartService implements CartServiceInter {
     CartMapperInter mapper;
 
     // 장바구니 조회
-    public List<Cart> selectCart(String uId)  {
-        System.out.println("장바구니 조회\n");
-        return mapper.selectCart(uId);
+    public List<Cart> getAllCartsOfUser(String uId)  {
+        return mapper.getAllCartsOfUser(uId);
     }
 
     // 장바구니 등록
-    public void insertCart(Cart cart) {
-        System.out.println("장바구니 등록\n");
-        mapper.insertCart(cart);
+    public void insertOfCart(Cart cart) {
+        mapper.insertOfCart(cart);
     }
 
     @Override
@@ -35,32 +33,30 @@ public class CartService implements CartServiceInter {
 
     // 장바구니 삭제
     @Override
-    public void deleteCart(String cId) {
-        System.out.println("장바구니 삭제\n");
-        mapper.deleteCart(cId);
+    public void deleteOfCart(String cId) {
+        mapper.deleteOfCart(cId);
     }
 
     // 장바구니 수정
     @Override
-    public void updateCart(String cId, int cQty) {
+    public void updateOfCart(String cId, int cQTY) {
         HashMap<String, Object> map = new HashMap<>();
 
         map.put("cId", cId);
-        map.put("cQty", cQty);
+        map.put("cQTY", cQTY);
 
-        System.out.println("장바구니 수정\n");
-        mapper.updateCart(map);
+        mapper.updateOfCart(map);
     }
 
     // 장바구니 상품 존재 여부 조회
     @Override
-    public Cart findBypId(String uId, String pId) {
+    public Cart isDuplicationProduct(String uId, String pId) {
         HashMap<String, Object> map = new HashMap<>();
 
         map.put("uId", uId);
         map.put("pId", pId);
 
-        return mapper.findBypId(map);
+        return mapper.isDuplicationProduct(map);
     }
 
 }

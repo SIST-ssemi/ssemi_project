@@ -31,7 +31,6 @@
                 ccQTY += 1;
 
                 $("#ccQTY").attr("value", ccQTY);
-                $("#ccQTY2").attr("value", ccQTY);
             });
 
             $("#minus").click(function () {
@@ -42,7 +41,6 @@
                     ccQTY = 1;
                 }
                 $("#ccQTY").attr("value", ccQTY);
-                $("#ccQTY2").attr("value", ccQTY);
             });
         });
     </script>
@@ -159,7 +157,7 @@
                         </button>
 
                         <input type="text" class="form-control text-center" placeholder="1" id="ccQTY"
-                               style="text-align:center; width: 50px; margin-right: 5px;" name="cQTY" readonly>
+                               style="text-align:center; width: 50px; margin-right: 5px;" name="cQTY" value="1" readonly>
 
                         <button class="btn btn-outline-dark flex-shrink-0" type="button" id="plus">+</button>
 
