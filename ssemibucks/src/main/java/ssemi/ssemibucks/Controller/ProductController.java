@@ -30,7 +30,6 @@ public class ProductController {
         HttpSession session = request.getSession();
         List<Product> products = productService.selectAllProduct();
         model.addAttribute("products", products);
-        session.setAttribute("uId", "admin");
 
         return "/admin/admin_pManagement";
     }
