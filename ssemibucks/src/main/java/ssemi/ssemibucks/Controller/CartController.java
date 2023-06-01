@@ -59,16 +59,16 @@ public class CartController {
                 cart2.setCQTY(cQTY);
 
                 cartService.insertCart(cart2);
-
-                model.addAttribute("msg", "장바구니에 \\'" + product.getPName() + "\\'을/를 추가하였습니다");
-                model.addAttribute("url", "/cart/cart_list?uId=" + uId);
             } else {
                 cQTY = cart.getCQTY() + cQTY;
+                System.out.println(cart.getCId());
+                System.out.println(cart.getCQTY());
+                System.out.println(cQTY);
                 cartService.updateCart(cart.getCId(), cQTY);
-
-                model.addAttribute("msg", "장바구니에 \\'" + product.getPName() + "\\'을/를 추가하였습니다");
-                model.addAttribute("url", "/cart/cart_list?uId=" + uId);
             }
+
+            model.addAttribute("msg", "장바구니에 \\'" + product.getPName() + "\\'을/를 추가하였습니다");
+            model.addAttribute("url", "/cart/cart_list?uId=" + uId);
         }
 
         return "/alert";

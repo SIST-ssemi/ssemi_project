@@ -9,7 +9,7 @@ public interface CartServiceInter {
     public void insertCart(Cart cart);
     public Cart findByCart(String cId);
     public void deleteCart(String cId);
-    public void updateCart(String cId, int cQty);
+    public void updateCart(String cId, int cQTY);
     public Cart findBypId(String uId, String pId);
 
 }

@@ -42,11 +42,11 @@ public class CartService implements CartServiceInter {
 
     // 장바구니 수정
     @Override
-    public void updateCart(String cId, int cQty) {
+    public void updateCart(String cId, int cQTY) {
         HashMap<String, Object> map = new HashMap<>();
 
         map.put("cId", cId);
-        map.put("cQty", cQty);
+        map.put("cQTY", cQTY);
 
         System.out.println("장바구니 수정\n");
         mapper.updateCart(map);
