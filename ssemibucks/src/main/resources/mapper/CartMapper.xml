@@ -5,12 +5,12 @@
 <mapper namespace="ssemi.ssemibucks.CART.CartMapperInter">
 
     <!-- 장바구니 목록 조회 -->
-    <select id="selectCart" parameterType="String" resultType="Cart">
+    <select id="getAllCartsOfUser" parameterType="String" resultType="Cart">
         select * from CART C JOIN PRODUCT P ON C.pId=P.pId where uId=#{uId}
     </select>
 
     <!-- 장바구니 추가 -->
-    <insert id="insertCart" parameterType="Cart">
+    <insert id="insertOfCart" parameterType="Cart">
         insert into CART values(null, #{uId}, #{pId}, #{cQTY})
     </insert>
 
@@ -19,17 +19,17 @@
     </select>
 
     <!-- 장바구니 삭제 -->
-    <delete id="deleteCart" parameterType="String">
+    <delete id="deleteOfCart" parameterType="String">
         delete from CART where cId=#{cId}
     </delete>
 
     <!-- 장바구니 수정 - 수량 -->
-    <update id="updateCart" parameterType="Map">
+    <update id="updateOfCart" parameterType="Map">
         update CART set cQTY=#{cQTY} where cId=#{cId}
     </update>
 
     <!-- 상품 아이디 존재 여부 확인 - 중복 상품 등록 방지 -->
-    <select id="findBypId" parameterType="Map" resultType="Cart">
+    <select id="isDuplicationProduct" parameterType="Map" resultType="Cart">
         select * from CART C JOIN PRODUCT P ON C.pId = P.pId where uId=#{uId} and C.pId=#{pId}
     </select>
 </mapper>

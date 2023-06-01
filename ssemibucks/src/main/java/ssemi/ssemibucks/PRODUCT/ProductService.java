@@ -14,45 +14,45 @@ public class ProductService implements ProductServiceInter{
     public ProductMapperInter mapper;
 
     // 전체 상품 조회
-    public List<Product> selectAllProduct() {
-        System.out.println("전체 상품 조회\n");
-        return mapper.selectAllProduct();
+    public List<Product> getAllProducts() {
+        // System.out.println("전체 상품 조회\n");
+        return mapper.getAllProducts();
     }
 
     // 카테고리별 상품 조회
-    public List<Product> selectCategoryProduct(String category) {
-        System.out.println("카테고리별 상품 조회\n");
-        return mapper.selectCategoryProduct(category);
+    public List<Product> getAllProductsOfCategory(String category) {
+        // System.out.println("카테고리별 상품 조회\n");
+        return mapper.getAllProductsOfCategory(category);
     }
 
     // 상세 상품 조회
-    public Product selectProduct(String pId) {
-        System.out.println("상세 상품 조회\n");
-        return mapper.selectProduct(pId);
+    public Product getProductByPId(String pId) {
+        // System.out.println("상세 상품 조회\n");
+        return mapper.getProductByPId(pId);
     }
 
     // 상품 등록
-    public void insertProduct(Product product) {
-        System.out.println("상품 등록\n");
-        mapper.insertProduct(product);
+    public void insertOfProduct(Product product) {
+        // System.out.println("상품 등록\n");
+        mapper.insertOfProduct(product);
     }
 
     // 상품 삭제
-    public void deleteProduct(String pId) {
-        System.out.println("상품 삭제\n");
-        mapper.deleteProduct(pId);
+    public void deleteOfProduct(String pId) {
+        // System.out.println("상품 삭제\n");
+        mapper.deleteOfProduct(pId);
     }
 
     // 상품 수정
-    public void updateProduct(Product product) {
-        System.out.println("상품 수정\n");
-        mapper.updateProduct(product);
+    public void updateOfProduct(Product product) {
+        // System.out.println("상품 수정\n");
+        mapper.updateOfProduct(product);
     }
 
     // 상품 아이디 존재 여부 확인 - 중복 상품 등록 방지
-    public Product findBypId(String pId) {
-        System.out.println("상품 아이디 존재 여부 확인\n");
-        return mapper.findBypId(pId);
+    public Product isDuplicationPId(String pId) {
+        // System.out.println("상품 아이디 존재 여부 확인\n");
+        return mapper.isDuplicationPId(pId);
     }
 
     // 상품 아이디 무조건 p + 숫자 4자리
@@ -60,14 +60,14 @@ public class ProductService implements ProductServiceInter{
         return pId.matches("^p[0-9]{4}");
     }
 
-    public String idDuplication(String pId) {
-        if(mapper.findBypId(pId) == null) {
-            System.out.println("이미 존재하는 상품 아이디\n\n");
+    public String idDuplicationCheck(String pId) {
+        if(mapper.isDuplicationPId(pId) == null) {
+            // System.out.println("이미 존재하는 상품 아이디\n\n");
             return "already";
         } else {
             // 상품 아이디 p + 숫자 4자리 체크
             if (!pIdCheck(pId)) {
-                System.out.println("상품 아이디는 p + 숫자 4자리로 생성 가능합니다.\n");
+                // System.out.println("상품 아이디는 p + 숫자 4자리로 생성 가능합니다.\n");
                 return "false";
             }
             else

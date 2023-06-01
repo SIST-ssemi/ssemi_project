@@ -5,11 +5,11 @@ import java.util.List;
 
 public interface CartServiceInter {
 
-    public List<Cart> selectCart(String uId);
-    public void insertCart(Cart cart);
+    public List<Cart> getAllCartsOfUser(String uId);
+    public void insertOfCart(Cart cart);
     public Cart findByCart(String cId);
-    public void deleteCart(String cId);
-    public void updateCart(String cId, int cQTY);
-    public Cart findBypId(String uId, String pId);
+    public void deleteOfCart(String cId);
+    public void updateOfCart(String cId, int cQTY);
+    public Cart isDuplicationProduct(String uId, String pId);
 
 }

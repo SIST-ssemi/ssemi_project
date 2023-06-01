@@ -19,7 +19,7 @@ public class ProductController {
 
     @GetMapping("/product/product_list")
     public String productList(Model model) {
-        List<Product> products = productService.selectAllProduct();
+        List<Product> products = productService.getAllProducts();
         model.addAttribute("products", products);
 
         return "/product/product_list";
@@ -28,7 +28,7 @@ public class ProductController {
     @GetMapping("/admin/admin_pManagement")
     public String admin_pManagement(Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
-        List<Product> products = productService.selectAllProduct();
+        List<Product> products = productService.getAllProducts();
         model.addAttribute("products", products);
 
         return "/admin/admin_pManagement";
@@ -36,7 +36,7 @@ public class ProductController {
 
     @GetMapping("product/product_categoryList")
     public String productList_desserts(@RequestParam String category, Model model) {
-        List<Product> products = productService.selectCategoryProduct(category);
+        List<Product> products = productService.getAllProductsOfCategory(category);
         model.addAttribute("products", products);
 
         return "/product/product_categoryList";
@@ -44,7 +44,7 @@ public class ProductController {
 
     @RequestMapping(value="/product/product_detail", method = RequestMethod.GET)
     public String productDetail(@RequestParam String pId, Model model) {
-        Product product = productService.selectProduct(pId);
+        Product product = productService.getProductByPId(pId);
         model.addAttribute("product", product);
 
         return "/product/product_detail";
@@ -58,7 +58,7 @@ public class ProductController {
     @PostMapping ("/product/product_insertAction")
     public String productInsert(Product product, Model model) {
 
-        productService.insertProduct(product);
+        productService.insertOfProduct(product);
 
         model.addAttribute("msg",  "\\'" + product.getPName() + "\\'을/를 추가하였습니다");
         model.addAttribute("url", "/admin/admin_pManagement");
@@ -68,8 +68,7 @@ public class ProductController {
 
     @GetMapping ("/product/product_update")
     public String productUpdate(@RequestParam String pId, Model model) {
-        // System.out.println(pId);
-        Product product = productService.selectProduct(pId);
+        Product product = productService.getProductByPId(pId);
         model.addAttribute("product", product);
 
         return "/product/product_update";
@@ -77,14 +76,14 @@ public class ProductController {
     
     @RequestMapping(value="/product/produt_updateAction", method = RequestMethod.POST)
     public String productUpdate(@RequestParam String pId, @RequestParam int price, @RequestParam int pStock, @RequestParam String pDetail, @RequestParam String pImage, Model model) {
-        Product product = productService.selectProduct(pId);
+        Product product = productService.getProductByPId(pId);
 
         product.setPrice(price);
         product.setPStock(pStock);
         product.setPDetail(pDetail);
         product.setPImage(pImage);
 
-        productService.updateProduct(product);
+        productService.updateOfProduct(product);
         
         model.addAttribute("msg", "\\'" + product.getPName() + "\\'을/를 수정하였습니다");
         model.addAttribute("url", "/admin/admin_pManagement");
@@ -94,8 +93,8 @@ public class ProductController {
 
     @GetMapping ("/product/product_delete")
     public String productDelete(@RequestParam String pId, Model model) {
-        Product product = productService.selectProduct(pId);
-        productService.deleteProduct(pId);
+        Product product = productService.getProductByPId(pId);
+        productService.deleteOfProduct(pId);
 
         model.addAttribute("msg", "\\'" + product.getPName() + "\\'을/를 삭제하였습니다");
         model.addAttribute("url", "/admin/admin_pManagement");
@@ -111,7 +110,7 @@ public class ProductController {
     @RequestMapping(value = "/product/product_chkIdAction", method = RequestMethod.POST)
     public String chkIdAction(String chkId, Model model) {
 
-        String result = productService.idDuplication(chkId);
+        String result = productService.idDuplicationCheck(chkId);
 
         if (result.equals("중복아이디")) {
             model.addAttribute("msg", "중복된 아이디입니다. 다시 입력해주세요.");

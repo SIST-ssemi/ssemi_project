@@ -31,7 +31,7 @@ public class CartController {
     @GetMapping("/cart/cart_list")
     public String cart_list(Model model, HttpSession session) {
         String uId = (String)session.getAttribute("uId");
-        List<Cart> carts = cartService.selectCart(uId);
+        List<Cart> carts = cartService.getAllCartsOfUser(uId);
         model.addAttribute("carts", carts);
 
         return "/cart/cart_list";
@@ -41,9 +41,9 @@ public class CartController {
     public String cartInsert(String pId, int cQTY, Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
         String uId = (String)session.getAttribute("uId");
-        System.out.println(pId + ", " + cQTY);
-        Product product = productService.selectProduct(pId);
-        Cart cart = cartService.findBypId(uId, pId);
+
+        Product product = productService.getProductByPId(pId);
+        Cart cart = cartService.isDuplicationProduct(uId, pId);
 
         if(uId == null) {
             model.addAttribute("msg",  "로그인이 필요합니다");
@@ -58,13 +58,10 @@ public class CartController {
                 cart2.setPId(pId);
                 cart2.setCQTY(cQTY);
 
-                cartService.insertCart(cart2);
+                cartService.insertOfCart(cart2);
             } else {
                 cQTY = cart.getCQTY() + cQTY;
-                System.out.println(cart.getCId());
-                System.out.println(cart.getCQTY());
-                System.out.println(cQTY);
-                cartService.updateCart(cart.getCId(), cQTY);
+                cartService.updateOfCart(cart.getCId(), cQTY);
             }
 
             model.addAttribute("msg", "장바구니에 \\'" + product.getPName() + "\\'을/를 추가하였습니다");
@@ -76,12 +73,10 @@ public class CartController {
 
     @RequestMapping(value = "/cart/cart_updateAction", method = RequestMethod.POST)
     public String cartUpdate(String uId, String pId, int cQTY, Model model) throws SQLException {
-        Cart cart = cartService.findBypId(uId, pId);
+        Cart cart = cartService.isDuplicationProduct(uId, pId);
         String cId = cart.getCId();
 
-        System.out.println(cId + ", " + cart.getPName() + ", " + cQTY);
-
-        cartService.updateCart(cId, cQTY);
+        cartService.updateOfCart(cId, cQTY);
 
         model.addAttribute("msg", "\\'" + cart.getPName() + "\\'의 수량을 변경하였습니다");
         model.addAttribute("url", "/cart/cart_list?uId=" + uId);
@@ -92,9 +87,9 @@ public class CartController {
     @RequestMapping(value = "/cart/cart_delete", method = RequestMethod.GET)
     public String cart_delete(@RequestParam String cId, Model model) {
         Cart cart = cartService.findByCart(cId);
-        Product product=productService.findBypId(cart.getPId());
+        Product product = productService.isDuplicationPId(cart.getPId());
 
-        cartService.deleteCart(cId);
+        cartService.deleteOfCart(cId);
 
         model.addAttribute("msg", product.getPName() + "이/가 장바구니에서 삭제되었습니다.");
         return "/alertnReferrer";
