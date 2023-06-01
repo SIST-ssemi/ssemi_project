@@ -14,7 +14,6 @@ import java.io.IOException;
 
 @Controller
 public class UserController {
-
     @Autowired
     UserService service;
 
@@ -23,21 +22,16 @@ public class UserController {
         return "/user/user_login";
     }
 
-//    @GetMapping("/user/user_logout")
-//    public String logout() {
-//        return "/user/user_logout";
-//    }
-
     @GetMapping(value = "/user/user_logout")
-   public String logout(Model model,HttpServletRequest request) {
+    public String logout(Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
-        String uId=(String) session.getAttribute("uId");
+        String uId = (String) session.getAttribute("uId");
 
-        model.addAttribute("msg", uId+"님 로그아웃하셨습니다.");
+        model.addAttribute("msg", uId + "님 로그아웃하셨습니다.");
         model.addAttribute("url", "/user/user_sessioninval");
 
         return "alert";
-   }
+    }
 
     @GetMapping("/user/user_sessioninval")
     public String user_sessioninval() {
@@ -53,9 +47,6 @@ public class UserController {
         user.setuId(uId);
         user.setPw(pw);
 
-        //UserDao userDao = new UserDao();
-
-        //UserService userService = new UserService(userDao);
         if (service.loginUser(user.getuId(), user.getPw()).equals("noId")) {
             model.addAttribute("msg", "아이디를 다시 입력해주세요");
             model.addAttribute("url", "/user/user_login");
@@ -83,7 +74,6 @@ public class UserController {
     @RequestMapping(value = "/user/user_chkIdAction", method = RequestMethod.POST)
     public String chkIdAction(String chkId, Model model) {
 
-        //UserDao dao = new UserDao();
         String result = service.idDuplication(chkId);
 
         if (result.equals("중복아이디")) {
@@ -104,8 +94,6 @@ public class UserController {
     @RequestMapping(value = "/user/user_registerAction", method = RequestMethod.POST)
     public String registerAction(String uId, String pw, String uName, String hp, String addr, Model model) {
 
-        //UserDao userDao = new UserDao();
-        //UserService userService = new UserService(userDao);
         service.registerUser(uId, pw, uName, hp, addr);
 
         model.addAttribute("msg", uId + "님, 환영합니다. 재로그인해주세요");
@@ -115,11 +103,11 @@ public class UserController {
 
     @GetMapping("/user/user_mypage")
     public ModelAndView mypage(HttpSession session) {
-        ModelAndView mview=new ModelAndView();
+        ModelAndView mview = new ModelAndView();
 
         String uId = (String) session.getAttribute("uId");
 
-        mview.addObject("user",service.selectUser(uId));
+        mview.addObject("user", service.findByUser(uId));
         mview.setViewName("/user/user_mypage");
 
         return mview;
@@ -131,9 +119,7 @@ public class UserController {
     }
 
     @RequestMapping(value = "/user/user_deleteAction", method = RequestMethod.GET)
-    public String deleteAction(@RequestParam String uId,Model model,HttpServletRequest request) {
-        HttpSession session = request.getSession();
-        //UserDao userDao = new UserDao();
+    public String deleteAction(@RequestParam String uId, Model model) {
         service.deleteUser(uId);
 
         model.addAttribute("msg", uId + "님, 탈퇴 처리되었습니다.");
@@ -141,28 +127,23 @@ public class UserController {
         return "alert";
     }
 
-//    @GetMapping("/user/user_delete")
-//    public String user_delete() {
-//        return "/user/user_delete";
-//    }
-
     @GetMapping("/user/user_update")
     public ModelAndView userupdate(HttpSession session) {
-        ModelAndView mview=new ModelAndView();
+        ModelAndView mview = new ModelAndView();
 
         String uId = (String) session.getAttribute("uId");
 
-        mview.addObject("user",service.selectUser(uId));
+        mview.addObject("user", service.findByUser(uId));
         mview.setViewName("/user/user_update");
 
         return mview;
     }
 
     @RequestMapping(value = "/user/user_updateAction", method = RequestMethod.POST)
-    public String updateAction(@RequestParam String uId,String pw,String hp,String addr,Model model,HttpServletRequest request) {
+    public String updateAction(@RequestParam String uId, String pw, String hp, String addr, Model model, HttpServletRequest request) {
         HttpSession session = request.getSession();
-        //UserDao userDao = new UserDao();
-        User user= service.selectUser(uId);
+
+        User user = service.findByUser(uId);
         user.setPw(pw);
         user.setHp(hp);
         user.setAddr(addr);

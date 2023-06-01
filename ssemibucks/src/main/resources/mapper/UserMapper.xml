@@ -10,10 +10,6 @@
         select * from USER order by uName
     </select>
 
-    <select id="selectUser" resultType="USER" parameterType="String">
-        select * from USER where uId=#{uId}
-    </select>
-
     <insert id="insertUser" parameterType="USER">
         insert into USER values(#{uId},#{uName},#{pw},#{hp},#{addr})
     </insert>

@@ -14,34 +14,26 @@ import java.util.Scanner;
 
 @Service
 public class UserService implements UserServiceInter {
-    Scanner sc = new Scanner(System.in);
-    //private final UserDao userDao;
-
-   /* @Autowired
-    public UserService(UserDao userDao) {
-        this.userDao = userDao;
-    }*/
-
     @Autowired
     UserMapperInter mapperInter;
 
     //로그인
     public String loginUser(String uId, String pw) throws IOException {
         boolean flag = false;
-        User user=new User();
+        User user = new User();
         String str = "";
 
         user.setuId(uId);
         user.setPw(pw);
 
         if (mapperInter.findByUser(uId) == null) {
-            System.out.println("아이디가 존재하지 않습니다.\n");
+            //System.out.println("아이디가 존재하지 않습니다.\n");
             str = "noId";
         } else if (mapperInter.findByUser(uId).getuId().equals(user.getuId()) && !mapperInter.findByUser(uId).getPw().equals(user.getPw())) {
-            System.out.println("비밀번호가 일치하지 않습니다.\n");
+            //System.out.println("비밀번호가 일치하지 않습니다.\n");
             str = "noPw";
         } else {
-            System.out.println(user.getuId() + "님 환영합니다.\n");
+            //System.out.println(user.getuId() + "님 환영합니다.\n");
             flag = true;
             str = user.getuId();
         }
@@ -51,7 +43,7 @@ public class UserService implements UserServiceInter {
 
     //회원가입
     public void registerUser(String uId, String pw, String uName, String hp, String addr) {
-        User user=new User();
+        User user = new User();
 
         user.setuId(uId);
         user.setAddr(addr);
@@ -64,7 +56,7 @@ public class UserService implements UserServiceInter {
 
     //마이페이지
     public void myPage(String uId) {
-        mapperInter.selectUser(uId);
+        mapperInter.findByUser(uId);
 
     }
 
@@ -76,11 +68,6 @@ public class UserService implements UserServiceInter {
     @Override
     public List<User> findAllUsers() {
         return mapperInter.findAllUsers();
-    }
-
-    @Override
-    public User selectUser(@RequestParam String uId) {
-        return mapperInter.selectUser(uId);
     }
 
     @Override
@@ -107,32 +94,5 @@ public class UserService implements UserServiceInter {
         }
         return str;
     }
-
-
-    //회원관리
-//    public void management() {
-//        while (true) {
-//            System.out.println("[관리자 페이지]");
-//            System.out.println("1. 회원목록확인\t2. 회원 강제탈퇴\t0. 종료");
-//            System.out.print("입력 >> ");
-//
-//            int num = Integer.parseInt(sc.nextLine());
-//            switch (num) {
-//                case 1:
-//                    userDao.selectAllUser();
-//                    break;
-//                case 2:
-//                    userDao.deleteUser();
-//                    break;
-//                case 0:
-//                    System.out.println("관리자 모드 종료");
-//                    System.exit(0);
-//                default:
-//                    System.out.println("재입력하세요");
-//            }
-//        }
-//
-//
-//    }
 
 }
