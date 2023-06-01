@@ -58,7 +58,7 @@ public class UserController {
             session.setAttribute("uId", null);
             return "alert";
         } else {
-            System.out.println("userId = " + service.loginUser(user.getuId(), user.getPw()));
+            //System.out.println("userId = " + service.loginUser(user.getuId(), user.getPw()));
             model.addAttribute("msg", user.getuId() + "님, 환영합니다");
             model.addAttribute("url", "/index");
             session.setAttribute("uId", uId);
