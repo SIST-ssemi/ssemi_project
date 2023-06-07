@@ -38,6 +38,7 @@ public class ProductController {
     public String productList_desserts(@RequestParam String category, Model model) {
         List<Product> products = productService.getAllProductsOfCategory(category);
         model.addAttribute("products", products);
+        model.addAttribute("category", category);
 
         return "/product/product_categoryList";
     }
