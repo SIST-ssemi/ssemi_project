@@ -41,6 +41,7 @@ import Button from "@mui/material/Button";
 import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import FreeBreakfastIcon from "@mui/icons-material/FreeBreakfast";
+import { ToggleButton, ToggleButtonGroup } from "@mui/material";
 
 const pages = [
   { name: "상품목록", url: "/product" },
@@ -48,7 +49,13 @@ const pages = [
   { name: "장바구니", url: "/cart" },
   { name: "어드민", url: "/admin" },
 ];
-const settings = ["Profile", "Account", "Dashboard", "Logout"];
+
+const categories = [
+  { name: "All Menu", url: "/product" },
+  { name: "Coffee", url: "/product/coffee" },
+  { name: "Non-Coffee", url: "/product/non-coffee" },
+  { name: "Dessert", url: "/product/dessert" },
+];
 
 function Navbar() {
   const [anchorElNav, setAnchorElNav] = React.useState("/");
@@ -93,7 +100,6 @@ function Navbar() {
           >
             SsemiBucks
           </Typography>
-
           <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
             <IconButton
               size="large"
@@ -152,46 +158,91 @@ function Navbar() {
             LOGO
           </Typography>
           <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page) => (
-              <Button
-                href={page.url}
-                key={page.name}
-                onClick={handleCloseNavMenu}
-                sx={{ my: 2, color: "white", display: "block" }}
-              >
-                {page.name}
-              </Button>
+            {pages.map((page, index) => (
+              <React.Fragment key={page.name}>
+                {index === 0 ? (
+                  <ToggleButtonGroup
+                    value={anchorElUser ? "menu" : null}
+                    exclusive
+                    onChange={handleOpenUserMenu}
+                    aria-label="상품목록"
+                    sx={{
+                      my: 2,
+                      display: "block",
+                      "&:hover": {
+                        backgroundColor: "transparent",
+                      },
+                      "& .MuiToggleButton-root": {
+                        border: "none",
+                      },
+                      "& .Mui-selected": {
+                        backgroundColor: "transparent",
+                        color: "white",
+                        "&:hover": {
+                          backgroundColor: "transparent",
+                        },
+                      },
+                    }}
+                  >
+                    <ToggleButton
+                      value="menu"
+                      aria-label="상품목록 메뉴"
+                      aria-haspopup="true"
+                      sx={{
+                        color: "white",
+                      }}
+                    >
+                      상품목록
+                    </ToggleButton>
+                    <Menu
+                      sx={{ mt: "45px" }}
+                      id="menu-appbar"
+                      anchorEl={anchorElUser}
+                      anchorOrigin={{
+                        vertical: "top",
+                        horizontal: "right",
+                      }}
+                      keepMounted
+                      transformOrigin={{
+                        vertical: "top",
+                        horizontal: "right",
+                      }}
+                      open={Boolean(anchorElUser)}
+                      onClose={handleCloseUserMenu}
+                    >
+                      {categories.map((category) => (
+                        <MenuItem
+                          key={category.name}
+                          component="a" // 변경된 부분: a 태그로 설정하여 클릭 시 페이지 이동
+                          href={category.url}
+                          onClick={handleCloseUserMenu}
+                        >
+                          <Typography textAlign="center">
+                            {category.name}
+                          </Typography>
+                        </MenuItem>
+                      ))}
+                    </Menu>
+                  </ToggleButtonGroup>
+                ) : (
+                  <Button
+                    href={page.url}
+                    onClick={handleCloseNavMenu}
+                    sx={{
+                      my: 2,
+                      color: "white",
+                      display: "block",
+                      "&:hover": {
+                        color: "white",
+                      },
+                      marginTop: "22px",
+                    }}
+                  >
+                    {page.name}
+                  </Button>
+                )}
+              </React.Fragment>
             ))}
-          </Box>
-
-          <Box sx={{ flexGrow: 0 }}>
-            <Tooltip title="Open settings">
-              <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg" />
-              </IconButton>
-            </Tooltip>
-            <Menu
-              sx={{ mt: "45px" }}
-              id="menu-appbar"
-              anchorEl={anchorElUser}
-              anchorOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "right",
-              }}
-              open={Boolean(anchorElUser)}
-              onClose={handleCloseUserMenu}
-            >
-              {settings.map((setting) => (
-                <MenuItem key={setting} onClick={handleCloseUserMenu}>
-                  <Typography textAlign="center">{setting}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
           </Box>
         </Toolbar>
       </Container>

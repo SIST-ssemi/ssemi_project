@@ -16,6 +16,7 @@ function RouterMain(props) {
         <Route path="/" element={<Main />} />
         <Route path="/admin" element={<Admin_adminPage />} />
         <Route path="/product" element={<Product_productList />} />
+        <Route path="/product/:category" element={<Product_productList />} />
         <Route path="/user" element={<User_myPage />} />
         <Route path="/cart" element={<Cart_cartList />} />
         <Route path="*" element={<h1>잘못된 주ㅗ여</h1>} />
