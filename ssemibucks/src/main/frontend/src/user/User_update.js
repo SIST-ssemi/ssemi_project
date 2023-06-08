@@ -1,6 +1,6 @@
 import React from "react";
 
-function User_register(props) {
+function User_update(props) {
   return (
     <div>
       <div className="title">
@@ -87,7 +87,7 @@ function User_register(props) {
           <tr>
             <td colspan="2" align="center">
               <button type="submit" id="signup" className="btn mybtn">
-                Sign Up
+                회원정보 수정
               </button>
               <button
                 type="button"
@@ -104,4 +104,4 @@ function User_register(props) {
   );
 }
 
-export default User_register;
+export default User_update;

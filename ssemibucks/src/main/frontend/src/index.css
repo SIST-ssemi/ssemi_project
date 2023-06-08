@@ -9,3 +9,57 @@
 .header h4 {
   font-size: 2em;
 }
+
+.title {
+  background-color: rgb(167, 193, 55);
+  color: white;
+  text-align: center;
+  height: 125px;
+}
+
+.title h1 {
+  line-height: 125px;
+}
+
+.table {
+  width: 800px;
+  height: 400px;
+  margin-top: 50px;
+}
+
+th {
+  width: 150px;
+  text-align: center;
+}
+
+td {
+  width: 600px;
+  padding: 20px;
+}
+
+input {
+  width: 300px;
+  height: 30px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  border-radius: 3px;
+}
+
+.mybtn {
+  background-color: rgb(167, 193, 55);
+  border: rgb(167, 193, 55);
+  color: white;
+  margin: 10px;
+}
+
+.mybtn:hover,
+.mybtn:active,
+.mybtn:focus {
+  background-color: white;
+  color: rgb(167, 193, 55);
+  border: 1px solid rgb(167, 193, 55);
+}
+
+.btnmodify {
+  width: 600px;
+  height: 100px;
+}
