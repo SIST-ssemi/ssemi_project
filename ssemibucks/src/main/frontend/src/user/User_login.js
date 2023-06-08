@@ -1,44 +1,46 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 function User_login(props) {
+  const navi = useNavigate();
   return (
     <div>
-      <div class="content">
-        <div class="header" style={{ padding: "15px 50px" }}>
+      <div className="content">
+        <div className="header" style={{ padding: "15px 50px" }}>
           <h4>
-            <span class="glyphicon glyphicon-lock"></span> Login
+            <span className="glyphicon glyphicon-lock"></span> Login
           </h4>
         </div>
-        <div class="body" style={{ padding: "20px 50px" }}>
+        <div className="body" style={{ padding: "20px 50px" }}>
           <form action="/user/user_loginAction" method="post">
-            <div class="form-group">
+            <div className="form-group">
               <label for="username">
-                <span class="glyphicon glyphicon-user"></span> UserID
+                <span className="glyphicon glyphicon-user"></span> UserID
               </label>
               <input
                 name="uId"
                 type="text"
-                class="form-control"
+                className="form-control"
                 id="username"
                 placeholder="Enter userID"
               />
             </div>
-            <div class="form-group">
+            <div className="form-group">
               <label for="psw">
-                <span class="glyphicon glyphicon-eye-open"></span>
+                <span className="glyphicon glyphicon-eye-open"></span>
                 &nbsp;Password
               </label>
               <input
                 name="pw"
                 type="password"
-                class="form-control"
+                className="form-control"
                 id="psw"
                 placeholder="Enter password"
               />
             </div>
             <button
               type="submit"
-              class="btn btn-success btn-block"
+              className="btn btn-success btn-block"
               style={{
                 marginTop: "30px",
                 padding: "10px 0 10px 0",
@@ -50,7 +52,7 @@ function User_login(props) {
             </button>
           </form>
         </div>
-        <div class="footer">
+        <div className="footer">
           <p style={{ marginLeft: "50px" }}>
             Not a member? <a href="/user/register">Sign Up</a>
           </p>
@@ -58,8 +60,10 @@ function User_login(props) {
         <div style={{ float: "right" }}>
           <button
             type="button"
-            class="btn mybtn"
-            onclick="history.back()"
+            className="btn mybtn"
+            onClick={() => {
+              navi(-1);
+            }}
             style={{ marginRight: "50px" }}
           >
             Back

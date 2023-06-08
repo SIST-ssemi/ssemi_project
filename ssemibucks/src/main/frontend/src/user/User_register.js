@@ -1,6 +1,8 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 function User_register(props) {
+  const navi = useNavigate();
   return (
     <div>
       <div className="title">
@@ -92,7 +94,9 @@ function User_register(props) {
               <button
                 type="button"
                 className="btn mybtn"
-                onclick="history.back()"
+                onClick={() => {
+                  navi(-1);
+                }}
               >
                 Cancel
               </button>

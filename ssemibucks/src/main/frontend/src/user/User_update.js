@@ -1,10 +1,12 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 
 function User_update(props) {
+  const navi = useNavigate();
   return (
     <div>
       <div className="title">
-        <h1>Sign Up</h1>
+        <h1>마이페이지 정보수정</h1>
       </div>
       <form action="/user/user_registerAction" METHOD="post">
         <table className="table table-stripped" align="center">
@@ -92,7 +94,9 @@ function User_update(props) {
               <button
                 type="button"
                 className="btn mybtn"
-                onclick="history.back()"
+                onClick={() => {
+                  navi(-1);
+                }}
               >
                 Cancel
               </button>
