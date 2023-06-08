@@ -63,8 +63,8 @@ function Product_productList() {
             </CardContent>
             <CardActions style={{ justifyContent: "center" }}>
               <Button size="large">
-                <ShoppingCartIcon />
-                add a cart
+                <ShoppingCartIcon style={{ marginRight: "5px" }} />
+                cart
               </Button>
             </CardActions>
           </Card>
