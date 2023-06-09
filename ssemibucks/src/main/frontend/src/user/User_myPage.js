@@ -1,8 +1,31 @@
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
 import { useNavigate } from "react-router";
 
 function User_myPage(props) {
   const navi = useNavigate();
+
+  let userDataUrl = "http://localhost:8080/user/userdata";
+
+  const [uId, setUId] = useState("");
+  const [uName, setUName] = useState("");
+  const [pw, setPw] = useState("");
+  const [hp, setHp] = useState("");
+  const [addr, setAddr] = useState("");
+
+  axios
+    .get(userDataUrl, { uId, uName, pw, hp, addr }) //원래는 key값:value값인데 spring과 동일하게 해놔서 value만 써도 됨
+    .then((res) => {
+      setUId(res.data.uId);
+      setUName(res.data.uName);
+      setPw(res.data.pw);
+      setHp(res.data.hp);
+      setAddr(res.data.addr);
+    })
+    .catch((err) => {
+      alert("오류");
+    });
+
   return (
     <div>
       <header
@@ -22,9 +45,9 @@ function User_myPage(props) {
           <br />
           <br />
           <h1 class="text-white fs-3 fw-bolder" style={{ marginTop: "0px" }}>
-            유저아이디
+            {uId}
           </h1>
-          <p class=" text-white-50 mb-0">유저이름님, 환영합니다</p>
+          <p class=" text-white-50 mb-0">{uName}님, 환영합니다</p>
         </div>
       </div>
       <div class="container my-5">
@@ -36,31 +59,31 @@ function User_myPage(props) {
               <tr>
                 <div class="uId">
                   <th style={{ verticalAlign: "middle" }}>아이디</th>
-                  <td style={{ verticalAlign: "middle" }}>유저아이디</td>
+                  <td style={{ verticalAlign: "middle" }}>{uId}</td>
                 </div>
               </tr>
               <tr>
                 <div class="pw">
                   <th style={{ verticalAlign: "middle" }}>비밀번호</th>
-                  <td style={{ verticalAlign: "middle" }}>유저비밀번호</td>
+                  <td style={{ verticalAlign: "middle" }}>{pw}</td>
                 </div>
               </tr>
               <tr>
                 <div class="uName">
                   <th style={{ verticalAlign: "middle" }}>이름</th>
-                  <td style={{ verticalAlign: "middle" }}>유저이름</td>
+                  <td style={{ verticalAlign: "middle" }}>{uName}</td>
                 </div>
               </tr>
               <tr>
                 <div class="hp">
                   <th style={{ verticalAlign: "middle" }}>전화번호</th>
-                  <td style={{ verticalAlign: "middle" }}>유저전화번호</td>
+                  <td style={{ verticalAlign: "middle" }}>{hp}</td>
                 </div>
               </tr>
               <tr>
                 <div class="addr">
                   <th style={{ verticalAlign: "middle" }}>주소</th>
-                  <td style={{ verticalAlign: "middle" }}>유저주소</td>
+                  <td style={{ verticalAlign: "middle" }}>{addr}</td>
                 </div>
               </tr>
               <tr>
