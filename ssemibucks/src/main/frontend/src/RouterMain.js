@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "./components/Navbar";
-import { Route, Router, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Main from "./Main";
 import Admin_adminPage from "./admin/Admin_adminPage";
 import Product_productList from "./product/Product_productList";
