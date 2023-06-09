@@ -1,15 +1,8 @@
 import React from "react";
 import "../style.css";
 import "../bootStrap.css";
-import { useNavigate } from "react-router-dom";
 
-function Product_productInsert(props) {
-  const navi = useNavigate();
-
-  const onBack = (e) => {
-    navi("/admin/pmanagement");
-  };
-
+function Product_productUpdate(props) {
   return (
     <div>
       <header
@@ -29,9 +22,8 @@ function Product_productInsert(props) {
           <form action="/product/product_insertAction" method="post">
             <div>
               <button
-                type="button"
                 className="btn"
-                onClick={onBack}
+                onclick="location.href='/admin/admin_pManagement'"
                 style={{ marginBottom: "20px" }}
               >
                 <i className="bi bi-arrow-left-circle"></i>
@@ -266,4 +258,4 @@ function Product_productInsert(props) {
   );
 }
 
-export default Product_productInsert;
+export default Product_productUpdate;

@@ -1,8 +1,31 @@
-import * as React from "react";
+import React, { useState } from "react";
 import { useParams } from "react-router";
+import { useNavigate } from "react-router-dom";
+import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
+import axios from "axios";
+import "../style.css";
 
 function Product_productList() {
   const { category } = useParams();
+
+  const navi = useNavigate();
+  const onBack = (e) => {
+    navi(-1);
+  };
+
+  let pListUrl = "http://localhost:8080/product/getplist";
+
+  const [cnt, setCnt] = useState("");
+  const [products, setProducts] = useState([]);
+
+  axios
+    .get(pListUrl) //원래는 key값:value값인데 spring과 동일하게 해놔서 value만 써도 됨
+    .then((res) => {
+      if (res != null) {
+        setCnt("not null");
+        setProducts(res.data);
+      } else setCnt("null");
+    });
 
   return (
     <div>
@@ -29,60 +52,56 @@ function Product_productList() {
         >
           <button
             className="btn"
-            onclick="location.href='javascript:history.back();'"
+            onClick={onBack}
             style={{ marginBottom: "20px" }}
           >
-            <i className="bi bi-arrow-left-circle"></i> back
+            <ArrowCircleLeftIcon /> back
           </button>
 
           <div
             className="row gx-4 gx-lg-5 row-cols-2 row-cols-md-3 row-cols-xl-4 justify-content-center"
             style={{ border: "2px solid white", marginTop: "80px" }}
           >
-            {/* <c:if test="${products.size() != 0 }">
-            <c:forEach var="product" items="${products }"> */}
-            <div className="col mb-5">
-              <div
-                className="card h-100"
-                id="product"
-                style={{ cursor: "pointer" }}
-              >
-                <img
-                  className="card-img-top"
-                  src="${product.getPImage() }"
-                  alt="..."
-                  onclick="location.href='/product/product_detail?pId=${product.getPId() }'"
-                />
-
-                <div className="card-body p-4">
-                  <div className="text-center">
-                    <h5 className="fw-bolder">카페아메리카노</h5>
-                  </div>
-                </div>
-
-                <form action="/cart/cart_insertAction" method="post">
-                  <input type="hidden" name="uId" value="${sessionScope.uId}" />
-                  <input
-                    type="hidden"
-                    name="pId"
-                    value="${product.getPId() }"
-                  />
-                  <input type="hidden" name="cQTY" value="1" />
-                  <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
-                    <div className="text-center">
-                      <button
-                        type="submit"
-                        className="btn btn-outline-dark mt-auto"
-                      >
-                        Add to cart
-                      </button>
+            {cnt !== "null" && (
+              <div>
+                {products.map((product) => (
+                  <div className="col mb-5">
+                    <div
+                      className="card"
+                      id="product"
+                      style={{ cursor: "pointer" }}
+                    >
+                      <img
+                        className="card-img-top"
+                        src={product.pImage}
+                        alt="..."
+                        onClick=""
+                      />
+                      <div className="card-body p-4">
+                        <div className="text-center">
+                          <h5 className="fw-bolder">{product.pName}</h5>
+                        </div>
+                      </div>
+                      <form action="/cart/insert" method="post">
+                        <input type="hidden" name="uId" value="sessionUId" />
+                        <input type="hidden" name="pId" value={product.pId} />
+                        <input type="hidden" name="cQTY" value="1" />
+                        <div className="card-footer p-4 pt-0 border-top-0 bg-transparent">
+                          <div className="text-center">
+                            <button
+                              type="submit"
+                              className="btn btn-outline-dark mt-auto"
+                            >
+                              Add to cart
+                            </button>
+                          </div>
+                        </div>
+                      </form>
                     </div>
                   </div>
-                </form>
+                ))}
               </div>
-            </div>
-            {/* </c:forEach>
-          </c:if> */}
+            )}
           </div>
         </div>
       </section>
