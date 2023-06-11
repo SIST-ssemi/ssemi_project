@@ -1,10 +1,7 @@
 package ssemi.ssemibucks.Controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.CrossOrigin;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 import ssemi.ssemibucks.USER.User;
 import ssemi.ssemibucks.USER.UserService;
@@ -20,17 +17,25 @@ public class UserRestController {
     @GetMapping("/user/userdata")
     public User mypage(HttpSession session) {
 
-        String uId = (String) session.getAttribute("uId");
+        String loginId = (String) session.getAttribute("loginId");
 
-        return service.findByUser(uId);
+        return service.findByUser(loginId);
 
     }
 
     @PostMapping("/user/loginaction")
-    public void loginaction(String uId, String pw, HttpSession session){
+    public String loginaction(@RequestParam String uId, HttpSession session) {
+        //System.out.println(uId);
+        session.setAttribute("loginId", uId);
+        session.getAttribute("loginId");
 
-        session.setAttribute("uId",uId);
-
+        return uId;
     }
+
+    @PostMapping("/user/registeraction")
+    public void registeraction(@RequestBody User newUser) {
+        service.registerUser(newUser);
+    }
+
 
 }

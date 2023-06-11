@@ -91,7 +91,7 @@ public class UserController {
         return "/user/user_register";
     }
 
-    @RequestMapping(value = "/user/user_registerAction", method = RequestMethod.POST)
+    /*@RequestMapping(value = "/user/user_registerAction", method = RequestMethod.POST)
     public String registerAction(String uId, String pw, String uName, String hp, String addr, Model model) {
 
         service.registerUser(uId, pw, uName, hp, addr);
@@ -99,7 +99,7 @@ public class UserController {
         model.addAttribute("msg", uId + "님, 환영합니다. 재로그인해주세요");
         model.addAttribute("url", "/user/user_login");
         return "alert";
-    }
+    }*/
 
     @GetMapping("/user/user_mypage")
     public ModelAndView mypage(HttpSession session) {

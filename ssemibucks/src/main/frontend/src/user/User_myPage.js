@@ -1,9 +1,11 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
+import { useParams } from "react-router";
 
 function User_myPage(props) {
   const navi = useNavigate();
+  const { loginId } = useParams();
 
   let userDataUrl = "http://localhost:8080/user/userdata";
 
@@ -14,7 +16,11 @@ function User_myPage(props) {
   const [addr, setAddr] = useState("");
 
   axios
-    .get(userDataUrl, { uId, uName, pw, hp, addr }) //원래는 key값:value값인데 spring과 동일하게 해놔서 value만 써도 됨
+    .get(userDataUrl, {
+      params: {
+        uId: loginId,
+      },
+    }) //원래는 key값:value값인데 spring과 동일하게 해놔서 value만 써도 됨
     .then((res) => {
       setUId(res.data.uId);
       setUName(res.data.uName);

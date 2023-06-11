@@ -42,16 +42,8 @@ public class UserService implements UserServiceInter {
     }
 
     //회원가입
-    public void registerUser(String uId, String pw, String uName, String hp, String addr) {
-        User user = new User();
-
-        user.setuId(uId);
-        user.setAddr(addr);
-        user.setHp(hp);
-        user.setuName(uName);
-        user.setPw(pw);
-
-        mapperInter.insertUser(user);
+    public void registerUser(User newUser) {
+        mapperInter.insertUser(newUser);
     }
 
     //마이페이지

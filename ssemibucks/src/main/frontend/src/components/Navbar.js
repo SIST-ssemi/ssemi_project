@@ -42,13 +42,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import FreeBreakfastIcon from "@mui/icons-material/FreeBreakfast";
 import { ToggleButton, ToggleButtonGroup } from "@mui/material";
-
-const pages = [
-  { name: "상품목록", url: "/product" },
-  { name: "마이페이지", url: "/user" },
-  { name: "장바구니", url: "/cart" },
-  { name: "어드민", url: "/admin" },
-];
+import { useParams } from "react-router-dom";
 
 const categories = [
   { name: "All Menu", url: "/product" },
@@ -58,6 +52,18 @@ const categories = [
 ];
 
 function Navbar() {
+  const { loginId } = useParams();
+
+  const pages = [
+    { name: "상품목록", url: "/product" },
+    {
+      name: "마이페이지",
+      url: loginId == null ? "/user/login" : "/user/" + loginId,
+    },
+    { name: "장바구니", url: "/cart" },
+    { name: "어드민", url: "/admin" },
+  ];
+
   const [anchorElNav, setAnchorElNav] = React.useState("/");
   const [anchorElUser, setAnchorElUser] = React.useState(null);
 

@@ -10,16 +10,23 @@ function User_login(props) {
   const [uId, setUId] = useState("");
   const [pw, setPw] = useState("");
 
+  const loginInfo = new FormData();
+  loginInfo.append("uId", uId);
+  loginInfo.append("pw", pw);
+
   const LoginAction = () => {
-    axios
-      .post(loginUrl, { uId, pw }) //원래는 key값:value값인데 spring과 동일하게 해놔서 value만 써도 됨
+    axios({
+      method: "post",
+      url: loginUrl,
+      data: loginInfo,
+    })
       .then((res) => {
-        //인서트 성공 후 처리 할 코드 (목록으로 이동)
-        alert(res.data.uId);
-        navi("/user");
+        setUId(res.data.uId);
+        alert("로그인 성공");
+        navi("/");
       })
       .catch((err) => {
-        alert("로그인 오류");
+        alert(err + "로그인 오류");
       });
   };
 

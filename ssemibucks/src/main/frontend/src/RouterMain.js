@@ -21,7 +21,7 @@ function RouterMain(props) {
         <Route path="/admin/pmanagement" element={<Pmanagement />} />
         <Route path="/product" element={<Product_productList />} />
         <Route path="/product/:category" element={<Product_productList />} />
-        <Route path="/user" element={<User_myPage />} />
+        <Route path="/user/:loginId" element={<User_myPage />} />
         <Route path="/user/login" element={<Login />} />
         <Route path="/user/register" element={<Register />} />
         <Route path="/user/update" element={<Update />} />
