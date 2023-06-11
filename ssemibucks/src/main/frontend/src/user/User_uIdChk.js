@@ -16,9 +16,9 @@ function User_uIdChk(props) {
       data: chkUid,
     })
       .then((res) => {
-        const result = res.data == "중복아이디" ? "사용 불가" : "사용 가능";
+        const result = res.data == "중복아이디" ? "사용불가" : "사용가능";
         alert(result);
-        window.opener.postMessage(result, "*");
+        window.parent.postMessage(result, "*");
         window.close();
       })
       .catch((err) => {

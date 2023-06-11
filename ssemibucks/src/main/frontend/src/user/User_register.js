@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 function User_register(props) {
@@ -12,20 +12,29 @@ function User_register(props) {
   const [pw, setPw] = useState("");
   const [hp, setHp] = useState("");
   const [addr, setAddr] = useState("");
+  const [chkId, setChkID] = useState("");
+
+  const [message, setMessage] = useState("");
 
   const registerAction = () => {
-    axios({
-      method: "post",
-      url: registerUrl,
-      data: { uId, pw, uName, hp, addr },
-    })
-      .then((res) => {
-        alert("회원가입 완료");
-        navi("/");
+    if (uId == "" || pw == "" || uName == "" || hp == "" || addr == "") {
+      alert("모든 항목을 입력해주세요.");
+    } else if (chkId == "") {
+      alert("아이디 중복확인을 해주세요.");
+    } else {
+      axios({
+        method: "post",
+        url: registerUrl,
+        data: { uId, pw, uName, hp, addr },
       })
-      .catch((err) => {
-        alert(err);
-      });
+        .then((res) => {
+          alert("회원가입 완료");
+          navi("/");
+        })
+        .catch((err) => {
+          alert(err);
+        });
+    }
   };
 
   const OpenUIdChk = () => {
@@ -41,12 +50,23 @@ function User_register(props) {
     }
   };
 
-  const handleMessage = (event) => {
-    const result = event.data;
-    if (result == "중복아이디") {
-      setUId("");
-    }
-  };
+  useEffect(() => {
+    console.log(uId);
+  }, [uId]);
+
+  const handleMessage = useCallback(
+    (e) => {
+      const result = e.data;
+      if (result == "사용불가") {
+        setMessage("중복 아이디");
+        setUId("");
+      } else {
+        setMessage("사용가능 아이디");
+        setChkID("ok");
+      }
+    },
+    [setUId]
+  );
 
   return (
     <div>
@@ -64,7 +84,12 @@ function User_register(props) {
                 id="uId"
                 placeholder="Enter UserID"
                 required="required"
-                onChange={(e) => setUId(e.target.value)}
+                value={uId}
+                onChange={(e) => {
+                  setUId(e.target.value);
+                  setChkID("");
+                  setMessage("");
+                }}
               />
               <button
                 type="button"
@@ -75,7 +100,8 @@ function User_register(props) {
               >
                 Check
               </button>
-              <input type="hidden" name="checked_id" value="" />
+              {message}
+              <input type="hidden" name="checked_id" value={chkId} />
             </td>
           </div>
         </tr>
