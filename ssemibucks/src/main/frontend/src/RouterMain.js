@@ -1,6 +1,6 @@
 import React from "react";
 import Navbar from "./components/Navbar";
-import { Route, Router, Routes } from "react-router-dom";
+import { Route, Routes } from "react-router-dom";
 import Main from "./Main";
 import Admin_adminPage from "./admin/Admin_adminPage";
 import Product_productList from "./product/Product_productList";
@@ -8,12 +8,12 @@ import User_myPage from "./user/User_myPage";
 import Cart_cartList from "./cart/Cart_cartList";
 import { Login, Register, Update } from "./user";
 import { Pmanagement, Umanagement } from "./admin";
+import { AddProduct, ChkPid, UpdateProduct } from "./product";
 
 function RouterMain(props) {
   return (
     <div>
       <Navbar />
-      <hr />
       <Routes>
         <Route path="/" element={<Main />} />
         <Route path="/admin" element={<Admin_adminPage />} />
@@ -22,6 +22,10 @@ function RouterMain(props) {
         <Route path="/product" element={<Product_productList />} />
         <Route path="/product/:category" element={<Product_productList />} />
         <Route path="/user/:loginId" element={<User_myPage />} />
+        <Route path="/product/add" element={<AddProduct />} />
+        <Route path="/product/pIdchk" element={<ChkPid />} />
+        <Route path="/product/update" element={<UpdateProduct />} />
+        <Route path="/user" element={<User_myPage />} />
         <Route path="/user/login" element={<Login />} />
         <Route path="/user/register" element={<Register />} />
         <Route path="/user/update" element={<Update />} />

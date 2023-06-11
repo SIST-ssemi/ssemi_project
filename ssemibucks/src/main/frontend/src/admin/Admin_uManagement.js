@@ -22,6 +22,9 @@ import Switch from "@mui/material/Switch";
 import DeleteIcon from "@mui/icons-material/Delete";
 import FilterListIcon from "@mui/icons-material/FilterList";
 import { visuallyHidden } from "@mui/utils";
+import { useNavigate } from "react-router-dom";
+import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
 
 function createData(name, calories, fat, carbs, protein) {
   return {
@@ -305,90 +308,137 @@ export default function Admin_uManagement() {
     [order, orderBy, page, rowsPerPage]
   );
 
-  return (
-    <Box sx={{ width: "100%" }}>
-      <Paper sx={{ width: "100%", mb: 2 }}>
-        <EnhancedTableToolbar numSelected={selected.length} />
-        <TableContainer>
-          <Table
-            sx={{ minWidth: 750 }}
-            aria-labelledby="tableTitle"
-            size={dense ? "small" : "medium"}
-          >
-            <EnhancedTableHead
-              numSelected={selected.length}
-              order={order}
-              orderBy={orderBy}
-              onSelectAllClick={handleSelectAllClick}
-              onRequestSort={handleRequestSort}
-              rowCount={rows.length}
-            />
-            <TableBody>
-              {visibleRows.map((row, index) => {
-                const isItemSelected = isSelected(row.name);
-                const labelId = `enhanced-table-checkbox-${index}`;
+  const navi = useNavigate();
+  const onBack = (e) => {
+    navi("/admin");
+  };
 
-                return (
-                  <TableRow
-                    hover
-                    onClick={(event) => handleClick(event, row.name)}
-                    role="checkbox"
-                    aria-checked={isItemSelected}
-                    tabIndex={-1}
-                    key={row.name}
-                    selected={isItemSelected}
-                    sx={{ cursor: "pointer" }}
-                  >
-                    <TableCell padding="checkbox">
-                      <Checkbox
-                        color="primary"
-                        checked={isItemSelected}
-                        inputProps={{
-                          "aria-labelledby": labelId,
-                        }}
-                      />
-                    </TableCell>
-                    <TableCell
-                      component="th"
-                      id={labelId}
-                      scope="row"
-                      padding="none"
-                    >
-                      {row.name}
-                    </TableCell>
-                    <TableCell align="right">{row.calories}</TableCell>
-                    <TableCell align="right">{row.fat}</TableCell>
-                    <TableCell align="right">{row.carbs}</TableCell>
-                    <TableCell align="right">{row.protein}</TableCell>
-                  </TableRow>
-                );
-              })}
-              {emptyRows > 0 && (
-                <TableRow
-                  style={{
-                    height: (dense ? 33 : 53) * emptyRows,
-                  }}
-                >
-                  <TableCell colSpan={6} />
-                </TableRow>
-              )}
-            </TableBody>
-          </Table>
-        </TableContainer>
-        <TablePagination
-          rowsPerPageOptions={[5, 10, 25]}
-          component="div"
-          count={rows.length}
-          rowsPerPage={rowsPerPage}
-          page={page}
-          onPageChange={handleChangePage}
-          onRowsPerPageChange={handleChangeRowsPerPage}
-        />
-      </Paper>
-      <FormControlLabel
-        control={<Switch checked={dense} onChange={handleChangeDense} />}
-        label="Dense padding"
-      />
-    </Box>
+  return (
+    <div>
+      <header
+        className="py-5"
+        style={{ backgroundColor: "rgb(167, 193, 55)", height: "100px" }}
+      >
+        <h1
+          className=" display-4 fw-bolder"
+          style={{ lineHeight: "0px", textAlign: "center", color: "white" }}
+        >
+          User Management
+        </h1>
+      </header>
+
+      <div className="container-fluid py-5 col-10">
+        <button
+          type="button"
+          className="btn"
+          onClick={onBack}
+          style={{ marginBottom: "20px" }}
+        >
+          <ArrowCircleLeftIcon /> back
+        </button>
+
+        <div className="row">
+          <div className="col-12">
+            <div className="card my-4">
+              <div className="card-header p-0 position-relative mt-n4 mx-3 z-index-2">
+                <div className="bg-primary shadow-primary border-radius-lg pt-4 pb-3">
+                  <h6 className="text-white text-capitalize ps-3">
+                    Users table
+                  </h6>
+                </div>
+              </div>
+              <div className="card-body px-0 pb-2">
+                <Box sx={{ width: "100%" }}>
+                  <Paper sx={{ width: "100%", mb: 2 }}>
+                    <EnhancedTableToolbar numSelected={selected.length} />
+                    <TableContainer>
+                      <Table
+                        sx={{ minWidth: 750 }}
+                        aria-labelledby="tableTitle"
+                        size={dense ? "small" : "medium"}
+                      >
+                        <EnhancedTableHead
+                          numSelected={selected.length}
+                          order={order}
+                          orderBy={orderBy}
+                          onSelectAllClick={handleSelectAllClick}
+                          onRequestSort={handleRequestSort}
+                          rowCount={rows.length}
+                        />
+                        <TableBody>
+                          {visibleRows.map((row, index) => {
+                            const isItemSelected = isSelected(row.name);
+                            const labelId = `enhanced-table-checkbox-${index}`;
+
+                            return (
+                              <TableRow
+                                hover
+                                onClick={(event) =>
+                                  handleClick(event, row.name)
+                                }
+                                role="checkbox"
+                                aria-checked={isItemSelected}
+                                tabIndex={-1}
+                                key={row.name}
+                                selected={isItemSelected}
+                                sx={{ cursor: "pointer" }}
+                              >
+                                <TableCell padding="checkbox">
+                                  <Checkbox
+                                    color="primary"
+                                    checked={isItemSelected}
+                                    inputProps={{
+                                      "aria-labelledby": labelId,
+                                    }}
+                                  />
+                                </TableCell>
+                                <TableCell
+                                  component="th"
+                                  id={labelId}
+                                  scope="row"
+                                  padding="none"
+                                >
+                                  {row.name}
+                                </TableCell>
+                                <TableCell align="right">
+                                  {row.calories}
+                                </TableCell>
+                                <TableCell align="right">{row.fat}</TableCell>
+                                <TableCell align="right">{row.carbs}</TableCell>
+                                <TableCell align="right">
+                                  {row.protein}
+                                </TableCell>
+                              </TableRow>
+                            );
+                          })}
+                          {emptyRows > 0 && (
+                            <TableRow
+                              style={{
+                                height: (dense ? 33 : 53) * emptyRows,
+                              }}
+                            >
+                              <TableCell colSpan={6} />
+                            </TableRow>
+                          )}
+                        </TableBody>
+                      </Table>
+                    </TableContainer>
+                    <TablePagination
+                      rowsPerPageOptions={[5, 10, 25]}
+                      component="div"
+                      count={rows.length}
+                      rowsPerPage={rowsPerPage}
+                      page={page}
+                      onPageChange={handleChangePage}
+                      onRowsPerPageChange={handleChangeRowsPerPage}
+                    />
+                  </Paper>
+                </Box>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }
