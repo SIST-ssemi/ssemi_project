@@ -62,9 +62,9 @@ function User_myPage(props) {
       >
         <h1
           class="display-4 fw-bolder"
-          style={{ lineHeight: "100px", textAlign: "center", color: "white" }}
+          style={{ lineHeight: "0px", textAlign: "center", color: "white" }}
         >
-          MY PAGE
+          {loginId}'s Page
         </h1>
       </header>
 
