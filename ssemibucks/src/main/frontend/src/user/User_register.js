@@ -20,12 +20,32 @@ function User_register(props) {
       data: { uId, pw, uName, hp, addr },
     })
       .then((res) => {
-        alert("회원가입 완료"); //백엔드에서 보낸 변경된 이미지명을 photo변수에 넣음
+        alert("회원가입 완료");
         navi("/");
       })
       .catch((err) => {
         alert(err);
       });
+  };
+
+  const OpenUIdChk = () => {
+    if (uId != "") {
+      const newWindow = window.open(
+        "/user/uIdchk/" + uId,
+        "_blank",
+        "width=500, height=200"
+      );
+      newWindow.addEventListener("message", handleMessage);
+    } else {
+      alert("아이디를 입력해주세요.");
+    }
+  };
+
+  const handleMessage = (event) => {
+    const result = event.data;
+    if (result == "중복아이디") {
+      setUId("");
+    }
   };
 
   return (
@@ -46,12 +66,12 @@ function User_register(props) {
                 required="required"
                 onChange={(e) => setUId(e.target.value)}
               />
-              {uId}
               <button
                 type="button"
                 className="btn btn-sm mybtn"
                 id="chkbtn"
                 style={{ marginLeft: "20px" }}
+                onClick={OpenUIdChk}
               >
                 Check
               </button>
@@ -70,7 +90,6 @@ function User_register(props) {
                 required="required"
                 onChange={(e) => setPw(e.target.value)}
               />
-              {pw}
             </td>
           </div>
         </tr>
@@ -85,7 +104,6 @@ function User_register(props) {
                 required="required"
                 onChange={(e) => setUName(e.target.value)}
               />
-              {uName}
             </td>
           </div>
         </tr>
@@ -100,7 +118,6 @@ function User_register(props) {
                 required="required"
                 onChange={(e) => setHp(e.target.value)}
               />
-              {hp}
             </td>
           </div>
         </tr>
@@ -115,7 +132,6 @@ function User_register(props) {
                 required="required"
                 onChange={(e) => setAddr(e.target.value)}
               />
-              {addr}
             </td>
           </div>
         </tr>

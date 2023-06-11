@@ -6,7 +6,7 @@ import Admin_adminPage from "./admin/Admin_adminPage";
 import Product_productList from "./product/Product_productList";
 import User_myPage from "./user/User_myPage";
 import Cart_cartList from "./cart/Cart_cartList";
-import { Login, Register, Update } from "./user";
+import { ChkUid, Login, Register, Update } from "./user";
 import { Pmanagement, Umanagement } from "./admin";
 import { AddProduct, ChkPid, UpdateProduct } from "./product";
 
@@ -28,6 +28,7 @@ function RouterMain(props) {
         <Route path="/user" element={<User_myPage />} />
         <Route path="/user/login" element={<Login />} />
         <Route path="/user/register" element={<Register />} />
+        <Route path="/user/uIdchk/:chkuId" element={<ChkUid />} />
         <Route path="/user/update" element={<Update />} />
         <Route path="/cart/:loginId" element={<Cart_cartList />} />
         <Route path="*" element={<h1>404 Error</h1>} />

@@ -14,8 +14,9 @@ public class UserRestController {
 
     @Autowired
     UserService service;
+
     @GetMapping("/user/userdata")
-    public User mypage(@RequestParam String uId) {
+    public User userdata(@RequestParam String uId) {
         return service.findByUser(uId);
 
     }
@@ -23,12 +24,12 @@ public class UserRestController {
     @PostMapping("/user/loginaction")
     public String loginaction(@RequestParam String uId, @RequestParam String pw) {
 
-        String msg="";
+        String msg = "";
 
-        if(service.findByUser(uId)!=null&&service.findByUser(uId).getPw().equals(pw)){
-            msg= "ok";
-        } else{
-            msg= "no";
+        if (service.findByUser(uId) != null && service.findByUser(uId).getPw().equals(pw)) {
+            msg = "ok";
+        } else {
+            msg = "no";
         }
 
         return msg;
@@ -37,6 +38,14 @@ public class UserRestController {
     @PostMapping("/user/registeraction")
     public void registeraction(@RequestBody User newUser) {
         service.registerUser(newUser);
+    }
+
+    @PostMapping("/user/duplicateUidChk")
+    public String duplicateUidChk(@RequestParam String uId) {
+
+        String msg = service.idDuplication(uId);
+
+        return msg;
     }
 
     @PostMapping("/user/updateaction")
