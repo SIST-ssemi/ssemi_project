@@ -73,8 +73,8 @@ public class UserService implements UserServiceInter {
     }
 
     @Override
-    public void updateUser(User user) {
-        mapperInter.updateUser(user);
+    public void updateUser(User updateUser) {
+        mapperInter.updateUser(updateUser);
     }
 
     public String idDuplication(String uId) {

@@ -19,7 +19,7 @@
     </delete>
 
     <update id="updateUser" parameterType="USER">
-        update USER set pw=#{pw}, hp=#{hp}, addr=#{addr} where uId=#{uId}
+        update USER set uName=#{uName}, pw=#{pw}, hp=#{hp}, addr=#{addr} where uId=#{uId}
     </update>
 
 </mapper>

@@ -16,19 +16,16 @@ public class UserRestController {
     UserService service;
     @GetMapping("/user/userdata")
     public User mypage(@RequestParam String uId) {
-        //System.out.println(uId);
-
-        //String loginId = (String) session.getAttribute("loginId");
-
         return service.findByUser(uId);
 
     }
 
     @PostMapping("/user/loginaction")
-    public String loginaction(@RequestParam String uId) {
+    public String loginaction(@RequestParam String uId, @RequestParam String pw) {
 
         String msg="";
-        if(service.findByUser(uId)!=null){
+
+        if(service.findByUser(uId)!=null&&service.findByUser(uId).getPw().equals(pw)){
             msg= "ok";
         } else{
             msg= "no";
@@ -40,6 +37,20 @@ public class UserRestController {
     @PostMapping("/user/registeraction")
     public void registeraction(@RequestBody User newUser) {
         service.registerUser(newUser);
+    }
+
+    @PostMapping("/user/updateaction")
+    public void updateaction(@RequestBody User updateUser) {
+        System.out.println(updateUser.getuId());
+        service.updateUser(updateUser);
+    }
+
+    @PostMapping("/user/deleteaction")
+    public String deleteaction(@RequestParam String uId) {
+        System.out.println(uId);
+        service.deleteUser(uId);
+
+        return uId;
     }
 
 

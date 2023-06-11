@@ -29,6 +29,31 @@ function User_myPage(props) {
       alert(err);
     });
 
+  const UserDelete = () => {
+    if (window.confirm("정말 탈퇴하시겠습니까?")) {
+      let DeleteUrl = "http://localhost:8080/user/deleteaction";
+
+      const deleteAccount = new FormData();
+      deleteAccount.append("uId", loginId);
+
+      axios({
+        method: "post",
+        url: DeleteUrl,
+        data: deleteAccount,
+      })
+        .then((res) => {
+          alert(res.data + "님, 탈퇴 완료되었습니다.");
+          sessionStorage.removeItem("loginId");
+          navi("/");
+        })
+        .catch((err) => {
+          alert(err);
+        });
+    } else {
+      alert("탈퇴를 취소합니다.");
+    }
+  };
+
   return (
     <div>
       <header
@@ -100,13 +125,7 @@ function User_myPage(props) {
                   >
                     정보수정
                   </button>
-                  <button
-                    type="button"
-                    class="btn mybtn"
-                    onClick={() => {
-                      navi("/user/delete");
-                    }}
-                  >
+                  <button type="button" class="btn mybtn" onClick={UserDelete}>
                     회원탈퇴
                   </button>
                 </td>
