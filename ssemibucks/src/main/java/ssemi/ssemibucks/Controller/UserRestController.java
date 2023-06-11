@@ -16,7 +16,7 @@ public class UserRestController {
     UserService service;
     @GetMapping("/user/userdata")
     public User mypage(@RequestParam String uId) {
-        System.out.println(uId);
+        //System.out.println(uId);
 
         //String loginId = (String) session.getAttribute("loginId");
 
