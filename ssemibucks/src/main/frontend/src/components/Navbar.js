@@ -42,6 +42,7 @@ import Tooltip from "@mui/material/Tooltip";
 import MenuItem from "@mui/material/MenuItem";
 import FreeBreakfastIcon from "@mui/icons-material/FreeBreakfast";
 import { ToggleButton, ToggleButtonGroup } from "@mui/material";
+import { useLocation } from "react-router-dom";
 
 const pages = [
   { name: "상품목록", url: "/product" },
@@ -76,177 +77,192 @@ function Navbar() {
     setAnchorElUser(null);
   };
 
+  // 현재 경로를 가져옵니다.
+  const location = useLocation();
+
+  // ChkPid 페이지인지 확인하는 함수
+  const isChkPidPage = () => {
+    return location.pathname.startsWith("/product/pIdchk");
+  };
+
   return (
-    <AppBar position="static" style={{ backgroundColor: "rgb(167, 193, 55)" }}>
-      <Container maxWidth="xl">
-        <Toolbar disableGutters>
-          <FreeBreakfastIcon
-            sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
-          />
-          <Typography
-            variant="h6"
-            noWrap
-            component="a"
-            href="/"
-            sx={{
-              mr: 2,
-              display: { xs: "none", md: "flex" },
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            SsemiBucks
-          </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
-            <IconButton
-              size="large"
-              aria-label="account of current user"
-              aria-controls="menu-appbar"
-              aria-haspopup="true"
-              onClick={handleOpenNavMenu}
-              color="inherit"
-            >
-              <MenuIcon />
-            </IconButton>
-            <Menu
-              id="menu-appbar"
-              anchorEl={anchorElNav}
-              anchorOrigin={{
-                vertical: "bottom",
-                horizontal: "left",
-              }}
-              keepMounted
-              transformOrigin={{
-                vertical: "top",
-                horizontal: "left",
-              }}
-              open={Boolean(anchorElNav)}
-              onClose={handleCloseNavMenu}
-              sx={{
-                display: { xs: "block", md: "none" },
-              }}
-            >
-              {pages.map((page) => (
-                <MenuItem key={page.name} onClick={handleCloseNavMenu}>
-                  <Typography textAlign="center">{page.name}</Typography>
-                </MenuItem>
-              ))}
-            </Menu>
-          </Box>
-          <FreeBreakfastIcon
-            sx={{ display: { xs: "flex", md: "none" }, mr: 1 }}
-          />
-          <Typography
-            variant="h5"
-            noWrap
-            component="a"
-            href=""
-            sx={{
-              mr: 2,
-              display: { xs: "flex", md: "none" },
-              flexGrow: 1,
-              fontFamily: "monospace",
-              fontWeight: 700,
-              letterSpacing: ".3rem",
-              color: "inherit",
-              textDecoration: "none",
-            }}
-          >
-            LOGO
-          </Typography>
-          <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
-            {pages.map((page, index) => (
-              <React.Fragment key={page.name}>
-                {index === 0 ? (
-                  <ToggleButtonGroup
-                    value={anchorElUser ? "menu" : null}
-                    exclusive
-                    onChange={handleOpenUserMenu}
-                    aria-label="상품목록"
-                    sx={{
-                      my: 2,
-                      display: "block",
-                      "&:hover": {
-                        backgroundColor: "transparent",
-                      },
-                      "& .MuiToggleButton-root": {
-                        border: "none",
-                      },
-                      "& .Mui-selected": {
-                        backgroundColor: "transparent",
-                        color: "white",
-                        "&:hover": {
-                          backgroundColor: "transparent",
-                        },
-                      },
-                    }}
-                  >
-                    <ToggleButton
-                      value="menu"
-                      aria-label="상품목록 메뉴"
-                      aria-haspopup="true"
-                      sx={{
-                        color: "white",
-                      }}
-                    >
-                      상품목록
-                    </ToggleButton>
-                    <Menu
-                      sx={{ mt: "45px" }}
-                      id="menu-appbar"
-                      anchorEl={anchorElUser}
-                      anchorOrigin={{
-                        vertical: "top",
-                        horizontal: "right",
-                      }}
-                      keepMounted
-                      transformOrigin={{
-                        vertical: "top",
-                        horizontal: "right",
-                      }}
-                      open={Boolean(anchorElUser)}
-                      onClose={handleCloseUserMenu}
-                    >
-                      {categories.map((category) => (
-                        <MenuItem
-                          key={category.name}
-                          component="a" // 변경된 부분: a 태그로 설정하여 클릭 시 페이지 이동
-                          href={category.url}
-                          onClick={handleCloseUserMenu}
+    <React.Fragment>
+      {isChkPidPage() ? null : (
+        <AppBar
+          position="static"
+          style={{ backgroundColor: "rgb(167, 193, 55)" }}
+        >
+          <Container maxWidth="xl">
+            <Toolbar disableGutters>
+              <FreeBreakfastIcon
+                sx={{ display: { xs: "none", md: "flex" }, mr: 1 }}
+              />
+              <Typography
+                variant="h6"
+                noWrap
+                component="a"
+                href="/"
+                sx={{
+                  mr: 2,
+                  display: { xs: "none", md: "flex" },
+                  fontFamily: "monospace",
+                  fontWeight: 700,
+                  letterSpacing: ".3rem",
+                  color: "inherit",
+                  textDecoration: "none",
+                }}
+              >
+                SsemiBucks
+              </Typography>
+              <Box sx={{ flexGrow: 1, display: { xs: "flex", md: "none" } }}>
+                <IconButton
+                  size="large"
+                  aria-label="account of current user"
+                  aria-controls="menu-appbar"
+                  aria-haspopup="true"
+                  onClick={handleOpenNavMenu}
+                  color="inherit"
+                >
+                  <MenuIcon />
+                </IconButton>
+                <Menu
+                  id="menu-appbar"
+                  anchorEl={anchorElNav}
+                  anchorOrigin={{
+                    vertical: "bottom",
+                    horizontal: "left",
+                  }}
+                  keepMounted
+                  transformOrigin={{
+                    vertical: "top",
+                    horizontal: "left",
+                  }}
+                  open={Boolean(anchorElNav)}
+                  onClose={handleCloseNavMenu}
+                  sx={{
+                    display: { xs: "block", md: "none" },
+                  }}
+                >
+                  {pages.map((page) => (
+                    <MenuItem key={page.name} onClick={handleCloseNavMenu}>
+                      <Typography textAlign="center">{page.name}</Typography>
+                    </MenuItem>
+                  ))}
+                </Menu>
+              </Box>
+              <FreeBreakfastIcon
+                sx={{ display: { xs: "flex", md: "none" }, mr: 1 }}
+              />
+              <Typography
+                variant="h5"
+                noWrap
+                component="a"
+                href=""
+                sx={{
+                  mr: 2,
+                  display: { xs: "flex", md: "none" },
+                  flexGrow: 1,
+                  fontFamily: "monospace",
+                  fontWeight: 700,
+                  letterSpacing: ".3rem",
+                  color: "inherit",
+                  textDecoration: "none",
+                }}
+              >
+                LOGO
+              </Typography>
+              <Box sx={{ flexGrow: 1, display: { xs: "none", md: "flex" } }}>
+                {pages.map((page, index) => (
+                  <React.Fragment key={page.name}>
+                    {index === 0 ? (
+                      <ToggleButtonGroup
+                        value={anchorElUser ? "menu" : null}
+                        exclusive
+                        onChange={handleOpenUserMenu}
+                        aria-label="상품목록"
+                        sx={{
+                          my: 2,
+                          display: "block",
+                          "&:hover": {
+                            backgroundColor: "transparent",
+                          },
+                          "& .MuiToggleButton-root": {
+                            border: "none",
+                          },
+                          "& .Mui-selected": {
+                            backgroundColor: "transparent",
+                            color: "white",
+                            "&:hover": {
+                              backgroundColor: "transparent",
+                            },
+                          },
+                        }}
+                      >
+                        <ToggleButton
+                          value="menu"
+                          aria-label="상품목록 메뉴"
+                          aria-haspopup="true"
+                          sx={{
+                            color: "white",
+                          }}
                         >
-                          <Typography textAlign="center">
-                            {category.name}
-                          </Typography>
-                        </MenuItem>
-                      ))}
-                    </Menu>
-                  </ToggleButtonGroup>
-                ) : (
-                  <Button
-                    href={page.url}
-                    onClick={handleCloseNavMenu}
-                    sx={{
-                      my: 2,
-                      color: "white",
-                      display: "block",
-                      "&:hover": {
-                        color: "white",
-                      },
-                      marginTop: "22px",
-                    }}
-                  >
-                    {page.name}
-                  </Button>
-                )}
-              </React.Fragment>
-            ))}
-          </Box>
-        </Toolbar>
-      </Container>
-    </AppBar>
+                          상품목록
+                        </ToggleButton>
+                        <Menu
+                          sx={{ mt: "45px" }}
+                          id="menu-appbar"
+                          anchorEl={anchorElUser}
+                          anchorOrigin={{
+                            vertical: "top",
+                            horizontal: "right",
+                          }}
+                          keepMounted
+                          transformOrigin={{
+                            vertical: "top",
+                            horizontal: "right",
+                          }}
+                          open={Boolean(anchorElUser)}
+                          onClose={handleCloseUserMenu}
+                        >
+                          {categories.map((category) => (
+                            <MenuItem
+                              key={category.name}
+                              component="a" // 변경된 부분: a 태그로 설정하여 클릭 시 페이지 이동
+                              href={category.url}
+                              onClick={handleCloseUserMenu}
+                            >
+                              <Typography textAlign="center">
+                                {category.name}
+                              </Typography>
+                            </MenuItem>
+                          ))}
+                        </Menu>
+                      </ToggleButtonGroup>
+                    ) : (
+                      <Button
+                        href={page.url}
+                        onClick={handleCloseNavMenu}
+                        sx={{
+                          my: 2,
+                          color: "white",
+                          display: "block",
+                          "&:hover": {
+                            color: "white",
+                          },
+                          marginTop: "22px",
+                        }}
+                      >
+                        {page.name}
+                      </Button>
+                    )}
+                  </React.Fragment>
+                ))}
+              </Box>
+            </Toolbar>
+          </Container>
+        </AppBar>
+      )}{" "}
+    </React.Fragment>
   );
 }
 export default Navbar;

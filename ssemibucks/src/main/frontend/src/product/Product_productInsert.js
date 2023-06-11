@@ -1,13 +1,67 @@
-import React from "react";
+import React, { useState } from "react";
 import "../style.css";
 import "../bootStrap.css";
 import { useNavigate } from "react-router-dom";
+import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
+import AddCircleIcon from "@mui/icons-material/AddCircle";
+import axios from "axios";
 
 function Product_productInsert(props) {
   const navi = useNavigate();
 
   const onBack = (e) => {
-    navi("/admin/pmanagement");
+    navi(-1);
+  };
+
+  const [pId, setPId] = useState("");
+  const [pName, setPName] = useState("");
+  const [pOption, setPOption] = useState("hot");
+  const [category, setCategory] = useState("coffee");
+  const [price, setPrice] = useState("");
+  const [pStock, setPStock] = useState("");
+  const [pDetail, setPDetail] = useState("");
+  const [pImage, setPImage] = useState("");
+
+  const onCheck = () => {
+    if (pId !== "") {
+      if (/^p\d{4}$/.test(pId)) {
+        window.open("/product/pIdchk/" + pId, "chk", "width=500, height=300");
+        setPId(pId);
+      } else {
+        alert("올바른 아이디 형식이 아닙니다. 아이디를 다시 입력해주세요.");
+      }
+    } else {
+      alert("아이디를 입력해주세요.");
+    }
+  };
+
+  const [previewUrl, setPreviewUrl] = useState(
+    "https://cdn11.bigcommerce.com/s-4f830/stencil/21634b10-fa2b-013a-00f1-62a1dd733893/e/4a0532a0-6207-013b-8ab2-261f9b1f5b00/icons/icon-no-image.svg"
+  );
+
+  const handlePreview = () => {
+    setPreviewUrl(pImage);
+    setPImage(pImage);
+  };
+
+  let insertUrl = "http://localhost:8080/product/insert";
+
+  const onInsert = () => {
+    axios
+      .post(insertUrl, {
+        pId,
+        pName,
+        pOption,
+        category,
+        price,
+        pStock,
+        pDetail,
+        pImage,
+      })
+      .then((res) => {
+        alert("'" + pName + "' 추가 완료");
+        navi("/admin/pmanagement");
+      });
   };
 
   return (
@@ -26,7 +80,7 @@ function Product_productInsert(props) {
 
       <section className="py-5">
         <div className="container px-4 px-lg-5 my-5">
-          <form action="/product/product_insertAction" method="post">
+          <form>
             <div>
               <button
                 type="button"
@@ -34,17 +88,16 @@ function Product_productInsert(props) {
                 onClick={onBack}
                 style={{ marginBottom: "20px" }}
               >
-                <i className="bi bi-arrow-left-circle"></i>
-                back
+                <ArrowCircleLeftIcon /> back
               </button>
               <button
-                type="submit"
+                type="button"
                 className="btn"
                 style={{ marginBottom: "20px", float: "right" }}
                 id="add"
+                onClick={onInsert}
               >
-                <i className="bi bi-plus-circle"></i>
-                add
+                <AddCircleIcon /> add
               </button>
               {/* <script>
                     $("#add").click(function () {
@@ -59,7 +112,7 @@ function Product_productInsert(props) {
                   <img
                     className="card-img-top mb-5 mb-md-0"
                     id="preview"
-                    src="https://cdn11.bigcommerce.com/s-4f830/stencil/21634b10-fa2b-013a-00f1-62a1dd733893/e/4a0532a0-6207-013b-8ab2-261f9b1f5b00/icons/icon-no-image.svg"
+                    src={previewUrl}
                     alt="..."
                   />
                 </div>
@@ -76,8 +129,9 @@ function Product_productInsert(props) {
                           className="form-control"
                           id="pId"
                           name="pId"
+                          value={pId}
+                          onChange={(e) => setPId(e.target.value)}
                           placeholder="Product Id"
-                          pattern="^p[0-9]{4}"
                           required
                         />
                         <label>start with p and 4 digits</label>
@@ -87,23 +141,12 @@ function Product_productInsert(props) {
                       <button
                         type="button"
                         className="btn btn-primary"
-                        id="chkbtn"
+                        onClick={onCheck}
                       >
                         Check
                       </button>
                     </div>
                   </div>
-
-                  <input type="hidden" name="checked_id" value="" />
-                  {/* <script>
-                            $("#chkbtn").click(function () {
-                                if ($('#pId').val() != '') {
-                                    window.open("product_chkId", "chk", "width=500, height=200");
-                                    $("input[name=checked_id]").val("check");
-                                } else
-                                    alert("아이디를 입력해주세요.")
-                            })
-                        </script> */}
 
                   <div className="row mb-3">
                     <label className="col-sm-2 col-form-label">Name</label>
@@ -115,6 +158,8 @@ function Product_productInsert(props) {
                           id="pName"
                           name="pName"
                           placeholder="Product Name"
+                          value={pName}
+                          onChange={(e) => setPName(e.target.value)}
                           required
                         />
                         <label>Product Name</label>
@@ -132,7 +177,8 @@ function Product_productInsert(props) {
                           name="pOption"
                           id="pOption1"
                           value="hot"
-                          checked
+                          checked={pOption === "hot"}
+                          onChange={(e) => setPOption(e.target.value)}
                         />
                         <label className="form-check-label" for="pOption1">
                           hot
@@ -145,6 +191,8 @@ function Product_productInsert(props) {
                           name="pOption"
                           id="pOption2"
                           value="ice"
+                          checked={pOption === "ice"}
+                          onChange={(e) => setPOption(e.target.value)}
                         />
                         <label className="form-check-label" for="pOption2">
                           ice
@@ -157,6 +205,8 @@ function Product_productInsert(props) {
                           name="pOption"
                           id="pOption3"
                           value="none"
+                          checked={pOption === "none"}
+                          onChange={(e) => setPOption(e.target.value)}
                         />
                         <label className="form-check-label" for="pOption3">
                           none
@@ -172,10 +222,10 @@ function Product_productInsert(props) {
                         className="form-select"
                         aria-label="Category"
                         name="category"
+                        value={category}
+                        onChange={(e) => setCategory(e.target.value)}
                       >
-                        <option value="coffee" selected>
-                          coffee
-                        </option>
+                        <option value="coffee">coffee</option>
                         <option value="non-coffee">non-coffee</option>
                         <option value="dessert">dessert</option>
                       </select>
@@ -193,6 +243,8 @@ function Product_productInsert(props) {
                           aria-label="Price"
                           name="price"
                           placeholder="0"
+                          value={price}
+                          onChange={(e) => setPrice(e.target.value)}
                           required
                         />
                       </div>
@@ -208,6 +260,8 @@ function Product_productInsert(props) {
                           className="form-control"
                           id="pStock"
                           name="pStock"
+                          value={pStock}
+                          onChange={(e) => setPStock(e.target.value)}
                           placeholder="100"
                           required
                         />
@@ -224,6 +278,8 @@ function Product_productInsert(props) {
                           placeholder="pDetail"
                           name="pDetail"
                           style={{ height: "100px" }}
+                          value={pDetail}
+                          onChange={(e) => setPDetail(e.target.value)}
                           required
                         ></textarea>
                         <label>product detail</label>
@@ -238,9 +294,10 @@ function Product_productInsert(props) {
                         <input
                           type="text"
                           className="form-control"
-                          id="pImageUrl"
                           name="pImage"
                           placeholder="pImage"
+                          value={pImage}
+                          onChange={(e) => setPImage(e.target.value)}
                           required
                         />
                         <label>Product Image URL</label>
@@ -250,7 +307,7 @@ function Product_productInsert(props) {
                       <button
                         type="button"
                         className="btn btn-primary"
-                        id="previewBtn"
+                        onClick={handlePreview}
                       >
                         preview
                       </button>

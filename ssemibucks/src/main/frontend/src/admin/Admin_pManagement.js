@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 import PropTypes from "prop-types";
 import { alpha } from "@mui/material/styles";
@@ -25,32 +25,19 @@ import { visuallyHidden } from "@mui/utils";
 import { useNavigate } from "react-router-dom";
 import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
+import EditIcon from "@mui/icons-material/Edit";
+import axios from "axios";
 
-function createData(name, calories, fat, carbs, protein) {
+function createData(product, category, price, pStock) {
   return {
-    name,
-    calories,
-    fat,
-    carbs,
-    protein,
+    product,
+    category,
+    price,
+    pStock,
   };
 }
 
-const rows = [
-  createData("Cupcake", 305, 3.7, 67, 4.3),
-  createData("Donut", 452, 25.0, 51, 4.9),
-  createData("Eclair", 262, 16.0, 24, 6.0),
-  createData("Frozen yoghurt", 159, 6.0, 24, 4.0),
-  createData("Gingerbread", 356, 16.0, 49, 3.9),
-  createData("Honeycomb", 408, 3.2, 87, 6.5),
-  createData("Ice cream sandwich", 237, 9.0, 37, 4.3),
-  createData("Jelly Bean", 375, 0.0, 94, 0.0),
-  createData("KitKat", 518, 26.0, 65, 7.0),
-  createData("Lollipop", 392, 0.2, 98, 0.0),
-  createData("Marshmallow", 318, 0, 81, 2.0),
-  createData("Nougat", 360, 19.0, 9, 37.0),
-  createData("Oreo", 437, 18.0, 63, 4.0),
-];
+const rows = [createData("Cupcake", 305, 3.7, 67)];
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -86,34 +73,28 @@ function stableSort(array, comparator) {
 
 const headCells = [
   {
-    id: "uId",
+    id: "pId",
     numeric: false,
     disablePadding: true,
-    label: "회원 아이디",
+    label: "Product",
   },
   {
-    id: "uName",
+    id: "category",
     numeric: true,
     disablePadding: false,
-    label: "회원명",
+    label: "Category",
   },
   {
-    id: "uPw",
+    id: "price",
     numeric: true,
     disablePadding: false,
-    label: "회원비밀번호",
+    label: "Price",
   },
   {
-    id: "uHp",
+    id: "pStock",
     numeric: true,
     disablePadding: false,
-    label: "회원전화번호",
-  },
-  {
-    id: "uAddr",
-    numeric: true,
-    disablePadding: false,
-    label: "회원주소",
+    label: "Stock",
   },
 ];
 
@@ -212,16 +193,23 @@ function EnhancedTableToolbar(props) {
           id="tableTitle"
           component="div"
         >
-          회원리스트
+          상품 리스트
         </Typography>
       )}
 
       {numSelected > 0 ? (
-        <Tooltip title="Delete">
-          <IconButton>
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
+        <>
+          <Tooltip title="Update">
+            <IconButton>
+              <EditIcon />
+            </IconButton>
+          </Tooltip>
+          <Tooltip title="Delete">
+            <IconButton>
+              <DeleteIcon />
+            </IconButton>
+          </Tooltip>
+        </>
       ) : (
         <Tooltip title="Filter list">
           <IconButton>
@@ -309,9 +297,28 @@ export default function Admin_pManagement() {
   );
 
   const navi = useNavigate();
+
   const onBack = (e) => {
-    navi("/admin");
+    navi(-1);
   };
+
+  const goAddpage = () => {
+    if (window.confirm("상품을 추가하시겠습니까?")) navi("/product/add");
+  };
+
+  let pListUrl = "http://localhost:8080/product/getplist";
+
+  const [cnt, setCnt] = useState("");
+  const [products, setProducts] = useState([]);
+
+  // axios
+  //   .get(pListUrl)
+  //   .then((res) => {
+  //     if (res != null) {
+  //       setCnt("not null");
+  //       setProducts(res.data);
+  //     } else setCnt("null");
+  //   });
 
   return (
     <div>
@@ -339,54 +346,10 @@ export default function Admin_pManagement() {
         <button
           className="btn"
           style={{ marginBottom: "20px", float: "right" }}
-          data-bs-toggle="modal"
-          data-bs-target="#staticBackdrop"
+          onClick={goAddpage}
         >
           <AddCircleIcon /> add
         </button>
-
-        <div
-          className="modal fade"
-          id="staticBackdrop"
-          data-bs-backdrop="static"
-          data-bs-keyboard="false"
-          tabindex="-1"
-          aria-labelledby="staticBackdropLabel"
-          aria-hidden="true"
-        >
-          <div className="modal-dialog">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h1 className="modal-title fs-5" id="staticBackdropLabel">
-                  add
-                </h1>
-                <button
-                  type="button"
-                  className="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
-              </div>
-              <div className="modal-body">상품을 추가하시겠습니까?</div>
-              <div className="modal-footer">
-                <button
-                  type="button"
-                  className="btn btn-secondary"
-                  data-bs-dismiss="modal"
-                >
-                  Close
-                </button>
-                <button
-                  type="button"
-                  className="btn btn-primary"
-                  onclick="location.href='/product/product_insert';"
-                >
-                  Add
-                </button>
-              </div>
-            </div>
-          </div>
-        </div>
 
         <div className="row">
           <div className="col-12">
@@ -449,15 +412,14 @@ export default function Admin_pManagement() {
                                   scope="row"
                                   padding="none"
                                 >
-                                  {row.name}
+                                  {row.product}
                                 </TableCell>
                                 <TableCell align="right">
-                                  {row.calories}
+                                  {row.category}
                                 </TableCell>
-                                <TableCell align="right">{row.fat}</TableCell>
-                                <TableCell align="right">{row.carbs}</TableCell>
+                                <TableCell align="right">{row.price}</TableCell>
                                 <TableCell align="right">
-                                  {row.protein}
+                                  {row.pStock}
                                 </TableCell>
                               </TableRow>
                             );

@@ -8,7 +8,7 @@ import User_myPage from "./user/User_myPage";
 import Cart_cartList from "./cart/Cart_cartList";
 import { Login, Register, Update } from "./user";
 import { Pmanagement, Umanagement } from "./admin";
-import { AddProduct, ChkPid, UpdateProduct } from "./product";
+import { AddProduct, ChkPid, ProductDetail, UpdateProduct } from "./product";
 
 function RouterMain(props) {
   return (
@@ -22,8 +22,9 @@ function RouterMain(props) {
         <Route path="/product" element={<Product_productList />} />
         <Route path="/product/:category" element={<Product_productList />} />
         <Route path="/product/add" element={<AddProduct />} />
-        <Route path="/product/pIdchk" element={<ChkPid />} />
-        <Route path="/product/update" element={<UpdateProduct />} />
+        <Route path="/product/pIdchk/:pId" element={<ChkPid />} />
+        <Route path="/product/update/:pId" element={<UpdateProduct />} />
+        <Route path="/product/detail/:pId" element={<ProductDetail />} />
         <Route path="/user" element={<User_myPage />} />
         <Route path="/user/login" element={<Login />} />
         <Route path="/user/register" element={<Register />} />
