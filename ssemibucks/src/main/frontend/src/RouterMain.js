@@ -25,7 +25,7 @@ function RouterMain(props) {
         <Route path="/user/login" element={<Login />} />
         <Route path="/user/register" element={<Register />} />
         <Route path="/user/update" element={<Update />} />
-        <Route path="/cart" element={<Cart_cartList />} />
+        <Route path="/cart/:loginId" element={<Cart_cartList />} />
         <Route path="*" element={<h1>404 Error</h1>} />
       </Routes>
     </div>

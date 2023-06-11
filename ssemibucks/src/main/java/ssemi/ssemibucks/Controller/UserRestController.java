@@ -15,21 +15,26 @@ public class UserRestController {
     @Autowired
     UserService service;
     @GetMapping("/user/userdata")
-    public User mypage(HttpSession session) {
+    public User mypage(@RequestParam String uId) {
+        System.out.println(uId);
 
-        String loginId = (String) session.getAttribute("loginId");
+        //String loginId = (String) session.getAttribute("loginId");
 
-        return service.findByUser(loginId);
+        return service.findByUser(uId);
 
     }
 
     @PostMapping("/user/loginaction")
-    public String loginaction(@RequestParam String uId, HttpSession session) {
-        //System.out.println(uId);
-        session.setAttribute("loginId", uId);
-        session.getAttribute("loginId");
+    public String loginaction(@RequestParam String uId) {
 
-        return uId;
+        String msg="";
+        if(service.findByUser(uId)!=null){
+            msg= "ok";
+        } else{
+            msg= "no";
+        }
+
+        return msg;
     }
 
     @PostMapping("/user/registeraction")

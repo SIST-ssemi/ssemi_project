@@ -7,12 +7,12 @@ function User_login(props) {
 
   let loginUrl = "http://localhost:8080/user/loginaction";
 
-  const [uId, setUId] = useState("");
-  const [pw, setPw] = useState("");
+  const [inputId, setInputId] = useState("");
+  const [inputPw, setInputPw] = useState("");
 
   const loginInfo = new FormData();
-  loginInfo.append("uId", uId);
-  loginInfo.append("pw", pw);
+  loginInfo.append("uId", inputId);
+  loginInfo.append("pw", inputPw);
 
   const LoginAction = () => {
     axios({
@@ -21,9 +21,16 @@ function User_login(props) {
       data: loginInfo,
     })
       .then((res) => {
-        setUId(res.data.uId);
-        alert("로그인 성공");
-        navi("/");
+        if (res.data == "ok") {
+          sessionStorage.setItem("loginId", loginInfo.get("uId"));
+          alert(
+            sessionStorage.getItem("loginId") + "님, 로그인 성공하였습니다."
+          );
+          navi("/");
+        } else {
+          alert("다시 로그인해주세요.");
+          navi("/user/login");
+        }
       })
       .catch((err) => {
         alert(err + "로그인 오류");
@@ -44,12 +51,12 @@ function User_login(props) {
               <span className="glyphicon glyphicon-user"></span> UserID
             </label>
             <input
-              name="uId"
+              name="inputId"
               type="text"
               className="form-control"
               id="username"
               placeholder="Enter userID"
-              onChange={(e) => setUId(e.target.value)}
+              onChange={(e) => setInputId(e.target.value)}
             />
           </div>
           <div className="form-group">
@@ -58,12 +65,12 @@ function User_login(props) {
               &nbsp;Password
             </label>
             <input
-              name="pw"
+              name="inputPw"
               type="password"
               className="form-control"
               id="psw"
               placeholder="Enter password"
-              onChange={(e) => setPw(e.target.value)}
+              onChange={(e) => setInputPw(e.target.value)}
             />
           </div>
           <button

@@ -52,7 +52,7 @@ const categories = [
 ];
 
 function Navbar() {
-  const { loginId } = useParams();
+  const loginId = sessionStorage.getItem("loginId");
 
   const pages = [
     { name: "상품목록", url: "/product" },
@@ -60,7 +60,10 @@ function Navbar() {
       name: "마이페이지",
       url: loginId == null ? "/user/login" : "/user/" + loginId,
     },
-    { name: "장바구니", url: "/cart" },
+    {
+      name: "장바구니",
+      url: loginId == null ? "/user/login" : "/cart/" + loginId,
+    },
     { name: "어드민", url: "/admin" },
   ];
 
