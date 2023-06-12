@@ -1,9 +1,20 @@
+import axios from "axios";
 import React from "react";
+import { useParams } from "react-router-dom";
 
 function Product_pIdChk(props) {
+  const { pId } = useParams();
+
+  let ckeckUrl = "http://localhost:8080/product/pIdCheck";
+
+  const onCheck = () => {
+    axios.post(ckeckUrl, { pId }).then((res) => {
+      
+    });
+  };
   return (
     <div>
-      <form method="post">
+      <form action="/product/pIdCheck/" method="post">
         <table
           className="table"
           style={{ width: "100%", height: "100%", borderStyle: "none" }}
@@ -19,9 +30,14 @@ function Product_pIdChk(props) {
                 name="chkId"
                 id="chkId"
                 style={{ width: "100px" }}
-                readonly
+                value={pId}
+                readOnly
               />
-              <button type="submit" className="btn btn-sm mybtn">
+              <button
+                type="button"
+                className="btn btn-sm mybtn"
+                onClick={onCheck}
+              >
                 Check
               </button>
             </td>
