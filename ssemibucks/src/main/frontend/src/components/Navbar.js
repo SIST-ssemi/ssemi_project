@@ -65,7 +65,7 @@ function Navbar() {
       name: "장바구니",
       url: loginId == null ? "/user/login" : "/cart/" + loginId,
     },
-    { name: "관리자페이지", url: loginId == "admin" ? "/admin" : "/404" },
+    { name: "관리자페이지", url: loginId === "admin" ? "/admin" : "/404" },
   ];
 
   const [anchorElNav, setAnchorElNav] = React.useState("/");

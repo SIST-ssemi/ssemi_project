@@ -40,9 +40,15 @@ public class ProductRestController {
         productService.deleteOfProduct(pId);
     }
 
-    @PostMapping("/product/pIdCheck")
-    public Product pIdCheck(@RequestParam String pId) {
-        return productService.isDuplicationPId(pId);
+    @GetMapping("/product/pIdCheck")
+    public Boolean pIdCheck(@RequestParam String pId) {
+        Boolean check = false;
+
+        if(productService.isDuplicationPId(pId) == null)
+            check = true;
+
+        System.out.println(pId + ", " + check);
+        return check;
     }
 
 }

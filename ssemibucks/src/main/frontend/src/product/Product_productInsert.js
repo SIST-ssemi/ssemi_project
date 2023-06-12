@@ -21,12 +21,21 @@ function Product_productInsert(props) {
   const [pStock, setPStock] = useState("");
   const [pDetail, setPDetail] = useState("");
   const [pImage, setPImage] = useState("");
+  const [chk, setChk] = useState("");
 
   const onCheck = () => {
     if (pId !== "") {
       if (/^p\d{4}$/.test(pId)) {
-        window.open("/product/pIdchk/" + pId, "chk", "width=500, height=300");
-        setPId(pId);
+        const newWindow = window.open(
+          "/product/pIdchk/" + pId,
+          "chk",
+          "width=500, height=300"
+        );
+        newWindow.onbeforeunload = () => {
+          const data = localStorage.getItem("chk"); // 새로운 창에서 저장한 값
+          console.log(data);
+          setChk(data);
+        };
       } else {
         alert("올바른 아이디 형식이 아닙니다. 아이디를 다시 입력해주세요.");
       }
@@ -47,21 +56,23 @@ function Product_productInsert(props) {
   let insertUrl = "http://localhost:8080/product/insert";
 
   const onInsert = () => {
-    axios
-      .post(insertUrl, {
-        pId,
-        pName,
-        pOption,
-        category,
-        price,
-        pStock,
-        pDetail,
-        pImage,
-      })
-      .then((res) => {
-        alert("'" + pName + "' 추가 완료");
-        navi("/admin/pmanagement");
-      });
+    if (chk === "true") {
+      axios
+        .post(insertUrl, {
+          pId,
+          pName,
+          pOption,
+          category,
+          price,
+          pStock,
+          pDetail,
+          pImage,
+        })
+        .then((res) => {
+          alert("'" + pName + "' 추가 완료");
+          navi("/admin/pmanagement");
+        });
+    } else alert("상품 아이디를 다시 확인해주세요.");
   };
 
   return (
@@ -134,6 +145,19 @@ function Product_productInsert(props) {
                           placeholder="Product Id"
                           required
                         />
+                        <div className="mt-2">
+                          <span
+                            style={{
+                              color: chk === "true" ? "green" : "red",
+                            }}
+                          >
+                            {chk !== ""
+                              ? chk === "true"
+                                ? "사용 가능"
+                                : "사용 불가"
+                              : ""}
+                          </span>
+                        </div>
                         <label>start with p and 4 digits</label>
                       </div>
                     </div>

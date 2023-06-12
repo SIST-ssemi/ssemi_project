@@ -27,6 +27,7 @@ import ArrowCircleLeftIcon from "@mui/icons-material/ArrowCircleLeft";
 import AddCircleIcon from "@mui/icons-material/AddCircle";
 import EditIcon from "@mui/icons-material/Edit";
 import axios from "axios";
+import { useEffect } from "react";
 
 function createData(product, category, price, pStock) {
   return {
@@ -311,14 +312,16 @@ export default function Admin_pManagement() {
   const [cnt, setCnt] = useState("");
   const [products, setProducts] = useState([]);
 
-  // axios
-  //   .get(pListUrl)
-  //   .then((res) => {
-  //     if (res != null) {
-  //       setCnt("not null");
-  //       setProducts(res.data);
-  //     } else setCnt("null");
-  //   });
+  useEffect(() => {
+    axios
+      .get(pListUrl)
+      .then((res) => {
+        setProducts(res.data);
+      })
+      .catch((err) => {
+        alert(err);
+      });
+  }, []);
 
   return (
     <div>
